@@ -945,16 +945,16 @@ nav ul.logo li a {
 
 .skills-languages {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Updated to 2 columns */
-    grid-template-rows: repeat(1, 1fr); /* Updated to 2 rows */
+    grid-template-columns: repeat(3, 1fr); /* Updated to 3 columns */
+    grid-template-rows: repeat(1, 1fr); /* Ensure rows adjust automatically */
     background-color: var(--body-color);
     padding-left: 5rem;
     padding-right: 5rem;
     padding-top: 5rem;
     padding-bottom: 10rem;
     row-gap: 18rem;
+    column-gap: 2rem; /* Added to space out columns */
     justify-items: center;
-
     color: var(--primary-color);
     font-size: 1.5rem;
 }
@@ -963,7 +963,6 @@ nav ul.logo li a {
     color: var(--primary-color);
     font-size: 2rem;
     margin: 1rem;
-
 }
 
 .skills-languages-1 {
@@ -972,20 +971,17 @@ nav ul.logo li a {
 
 .skills-list i {
     font-size: 3rem;
-
     display: flex;
     align-items: center;
     justify-content: left;
-
     padding: 0.5rem;
-
 }
 
 .skills-list p {
     font-size: 1.5rem;
-
     margin: .5rem;
 }
+
 
 
 
@@ -1035,7 +1031,7 @@ nav ul.logo li a {
 
 .contact-icons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
 }
 
@@ -1057,7 +1053,7 @@ nav ul.logo li a {
 
 /* --------------- Ballistic Page --------------- */
 
-.ballistic-background-img {
+.gameHolder-background-img {
     background-image: url("assets/images/example.png");
     background-size: cover;
     background-position: center;
@@ -1071,7 +1067,7 @@ nav ul.logo li a {
     top: 0;
 }
 
-.ballistic-background-box {
+.gameHolder-background-box {
     display: grid;
     position: absolute;
     grid-template-columns: repeat(1, 1fr);
@@ -1094,7 +1090,7 @@ nav ul.logo li a {
     transform: translateX(-50%);
 }
 
-.ballistic-content {
+.gameHolder-content {
     background-image: url("assets/images/BallisticLogo.png");
     background-repeat: no-repeat;
     background-size: 65%;
@@ -1105,7 +1101,7 @@ nav ul.logo li a {
     margin-bottom: 2%;
 }
 
-.ballistic-type-description {
+.gameHolder-type-description {
     display: flex;
     grid-template-columns: repeat(2, 1fr);
     color: var(--primary-color);
@@ -1117,7 +1113,7 @@ nav ul.logo li a {
     top: 100%;
 }
 
-.ballistic-head {
+.gameHolder-head {
     display: grid;
     font-weight: bold;
     margin: 1rem;
@@ -1127,7 +1123,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.ballistic-tail {
+.gameHolder-tail {
     display: grid;
     font-style: bold;
     margin: 1rem;
@@ -1137,7 +1133,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.ballistic-description {
+.gameHolder-description {
     color: var(--primary-color);
     font-size: 1.5rem;
 
@@ -1150,7 +1146,7 @@ nav ul.logo li a {
     top: 100%;
 }
 
-.ballistic-description-2 {
+.gameHolder-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-top: 2rem;
@@ -1161,8 +1157,8 @@ nav ul.logo li a {
     top: 110%;
 }
 
-.ballistic-link-1,
-.ballistic-link-2 {
+.gameHolder-link-1,
+.gameHolder-link-2 {
     margin: 1rem auto; /* Center horizontally */
     
     background-color: rgb(54, 53, 53);
@@ -1179,16 +1175,16 @@ nav ul.logo li a {
     width: 62%;
 }
 
-.ballistic-link-2 {
+.gameHolder-link-2 {
     width: 37%;
 }
 
-.ballistic-link-1 a:hover,
-.ballistic-link-2 a:hover {
+.gameHolder-link-1 a:hover,
+.gameHolder-link-2 a:hover {
     color: var(--lightblue-color);
 }
 
-.ballistic-video {
+.gameHolder-video {
     width: 90%;
     height: 220%;
 
@@ -1201,38 +1197,38 @@ nav ul.logo li a {
 }
 
 @media screen and (max-width: 800px) {
-    .ballistic-background-box {
+    .gameHolder-background-box {
         height: 195vh;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .ballistic-background-box{
+    .gameHolder-background-box{
         height: 145vh;
     }
 
-    .ballistic-type-description {
+    .gameHolder-type-description {
         font-size: 1rem;
         top: 60%;
     }
 
-    .ballistic-description {
+    .gameHolder-description {
         font-size: 1rem;
         top: 57%;
     }
 
-    .ballistic-description-2 {
+    .gameHolder-description-2 {
         font-size: 1rem;
         top: 50%;
     }
 
-    .ballistic-video {
+    .gameHolder-video {
         top: 50%;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .ballistic-background-box {
+    .gameHolder-background-box {
         height: 170vh;
     }
 }
