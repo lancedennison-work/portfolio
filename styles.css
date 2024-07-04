@@ -12,12 +12,12 @@
     --bold-font: 700;
     --bolder-font: 900;
     --bg-color: #000000cc;
-    --black-color: #000;
+    --black-color: #1b1b1b;
     --primary-color: rgb(255, 255, 255);
     --blue-color: #0f285f;
     --lightblue-color: #5DA9E9;
-    --header-color: #1a1a1a;
-    --body-color: #1f1f1f;
+    --header-color: #2b2b2b;
+    --body-color: #464646;
     --bottom-margin: 3rem;
     --botom-margin-small: 1rem;
 }
@@ -253,7 +253,7 @@ nav ul.logo li a {
     justify-content: center;
     text-align: center;
     padding: 1.5rem;
-    background-color: #142e68;
+    background-color: #913d64;
 }
 
 .about-me h2 {
@@ -929,11 +929,14 @@ nav ul.logo li a {
 .skills {
     background-color: var(--header-color);
     width: 100%;
-    padding: 1.5rem;
+    padding-top: 1.5rem; /* Top padding */
+    padding-bottom: 1.5rem; /* Bottom padding */
+    padding-left: 0; /* No padding on the left */
+    padding-right: 0; /* No padding on the right */
     box-sizing: border-box;
-    text-align: center;
-    color: var(--primary-color);
+    text-align: left;
 }
+
 
 .skills h2 {
     font-size: 2.5rem;
@@ -945,16 +948,16 @@ nav ul.logo li a {
 
 .skills-languages {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Updated to 3 columns */
-    grid-template-rows: repeat(1, 1fr); /* Ensure rows adjust automatically */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     background-color: var(--body-color);
     padding-left: 5rem;
     padding-right: 5rem;
     padding-top: 5rem;
     padding-bottom: 10rem;
     row-gap: 18rem;
-    column-gap: 2rem; /* Added to space out columns */
-    justify-items: center;
+    column-gap: 2rem;
+    justify-items: left;
     color: var(--primary-color);
     font-size: 1.5rem;
 }
@@ -972,9 +975,10 @@ nav ul.logo li a {
 .skills-list i {
     font-size: 3rem;
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: left;
     padding: 0.5rem;
+    font-style: normal;
 }
 
 .skills-list p {
@@ -982,10 +986,21 @@ nav ul.logo li a {
     margin: .5rem;
 }
 
+.custom-icon svg {
+    width: 3rem;
+    height: 3rem;
+}
 
-
-
-/* --------------- Resume Section --------------- */
+.custom-icon img {
+    width: 3rem; /* Adjust according to your logo size */
+    height: auto;
+    margin-bottom: 5px; /* Optional: Adjust margin as needed */
+    font-size: 3rem; /* Match the font size */
+    display: flex; /* Match display style */
+    align-items: center; /* Match align-items */
+    justify-content: left; /* Match justify-content */
+    font-style: normal; /* Match font-style */
+  }
 
 /* --------------- Contact Section --------------- */
 
@@ -996,7 +1011,7 @@ nav ul.logo li a {
     justify-content: center;
     text-align: center;
     padding: 3rem;
-    background-color: #142e68;
+    background-color: #913d64;
     color: var(--primary-color)
 }
 
