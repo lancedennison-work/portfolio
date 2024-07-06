@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Calculation</title>
+</head>
+<body>
+    <!-- Define unique IDs for each image -->
+    <img id="image1" src="assets/devicons/bash-original.svg" style="display:none;">
+    <img id="image2" src="assets/devicons/c-original.svg" style="display:none;">
+    <img id="image3" src="assets/devicons/cplusplus-original.svg" style="display:none;">
+    <img id="image4" src="assets/devicons/csharp-original.svg" style="display:none;">
+    <img id="image5" src="assets/devicons/git-original.svg" style="display:none;">
+    <img id="image6" src="assets/devicons/html5-original.svg" style="display:none;">
+    <img id="image7" src="assets/devicons/javascript-original.svg" style="display:none;">
+    <img id="image8" src="assets/devicons/markdown-original.svg" style="display:none;">
+    <img id="image9" src="assets/devicons/vscode-original.svg" style="display:none;">
+    <img id="image10" src="assets/png/gamer.png" style="display:none;">
+    <img id="image11" src="assets/png/ink-icon.png" style="display:none;">
+    <img id="image12" src="assets/png/inky-icon.png" style="display:none;">
+    <img id="image13" src="assets/png/plan.png" style="display:none;">
+    <img id="image14" src="assets/png/qa.png" style="display:none;">
+    <img id="image15" src="assets/png/Trello-Emblem.png" style="display:none;">
+    <img id="image16" src="assets/png/Twine_vector_logo.png" style="display:none;">
+
+    <script>
+        window.onload = function() {
+            const elements = document.querySelectorAll('svg, img');
+
+            elements.forEach((element, index) => {
+                element.crossOrigin = "Anonymous"; // Handle CORS for images
+                element.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let width, height;
+
+                    if (element.tagName.toLowerCase() === 'svg') {
+                        // Handle SVG elements
+                        width = element.width.baseVal.value || element.width.animVal.value;
+                        height = element.height.baseVal.value || element.height.animVal.value;
+                    } else {
+                        // Handle regular image elements
+                        width = element.width;
+                        height = element.height;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(element, 0, 0, width, height);
+
+                    const imageData = ctx.getImageData(0, 0, width, height);
+                    const data = imageData.data;
+
+                    let r = 0, g = 0, b = 0;
+                    let count = 0;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const alpha = data[i + 3];
+                        if (alpha > 0) {
+                            r += data[i];
+                            g += data[i + 1];
+                            b += data[i + 2];
+                            count++;
+                        }
+                    }
+
+                    r = Math.floor(r / count);
+                    g = Math.floor(g / count);
+                    b = Math.floor(b / count);
+
+                    // Convert RGB to hexadecimal
+                    const avgColor = rgbToHex(r, g, b);
+                    console.log(`Average Color ${index + 1}:`, avgColor);
+
+                    // Get the file name from src attribute
+                    const fileName = element.src.split('/').pop();
+
+                    // Display the file name and color in the document
+                    document.body.innerHTML += `<p>${fileName}: ${avgColor}</p>`;
+                };
+            });
+        };
+
+        // Function to convert RGB to hexadecimal
+        function rgbToHex(r, g, b) {
+            return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+        }
+
+        function componentToHex(c) {
+            const hex = c.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        }
+    </script>
+</body>
+</html>

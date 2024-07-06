@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-/* import League Spartan font */
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet');
 
 
 /* Variables */
@@ -14,8 +15,7 @@
     --bg-color: #000000cc;
     --black-color: #1b1b1b;
     --primary-color: rgb(255, 255, 255);
-    --blue-color: #0f285f;
-    --lightblue-color: #5DA9E9;
+    --main-color: #913d64;
     --header-color: #2b2b2b;
     --body-color: #464646;
     --bottom-margin: 3rem;
@@ -84,7 +84,7 @@ nav {
 }
 
 .nav-tile a:hover {
-    color: var(--lightblue-color);
+    color: var(--main-color);
 }
 
 nav ul li {
@@ -253,7 +253,7 @@ nav ul.logo li a {
     justify-content: center;
     text-align: center;
     padding: 1.5rem;
-    background-color: #913d64;
+    background-color: var(--main-color);
 }
 
 .about-me h2 {
@@ -274,7 +274,7 @@ nav ul.logo li a {
 }
 
 .about-me-icon {
-    background-image: url("assets/images/Aaron_Icon.png");
+    background-image: url("assets/images/.png");
     background-size: cover;
     width: 450px;
     height: 450px;
@@ -383,28 +383,28 @@ nav ul.logo li a {
 }
 
 .prof-project-tile-1 {
-    background-image: url("assets/images/Ballistic_Icon.png");
+    background-image: url("assets/images/.png");
     background-size: 120%;
     background-position: 45%;
     transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
 }
 
 .prof-project-tile-2 {
-    background-image: url("assets/images/WitchCraft_Icon.png");
+    background-image: url("assets/images/.png");
     background-size: 120%;
     background-position: 45%;
     transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
 }
 
 .prof-project-tile-3 {
-    background-image: url("assets/images/SideHustle_Icon.jpg");
+    background-image: url("assets/images/.jpg");
     background-size: 125%;
     background-position: 18%;
     transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
 }
 
 .prof-project-tile-4 {
-    background-image: url("assets/images/ChronoCart_Icon.png");
+    background-image: url("assets/images/.png");
     background-size: 120%;
     background-position: 45%;
     transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
@@ -946,15 +946,15 @@ nav ul.logo li a {
     font-size: 1rem;
 }
 
-.skills-languages {
+.skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: var(--body-color);
-    padding-left: 5rem;
+    padding-left: 7rem;
     padding-right: 5rem;
     padding-top: 5rem;
-    padding-bottom: 10rem;
+    padding-bottom: 7rem;
     row-gap: 18rem;
     column-gap: 2rem;
     justify-items: left;
@@ -968,9 +968,6 @@ nav ul.logo li a {
     margin: 1rem;
 }
 
-.skills-languages-1 {
-    font-size: 2rem;
-}
 
 .skills-list i {
     font-size: 3rem;
@@ -1000,7 +997,42 @@ nav ul.logo li a {
     align-items: center; /* Match align-items */
     justify-content: left; /* Match justify-content */
     font-style: normal; /* Match font-style */
-  }
+}
+
+.c-color {color: #6398c7;}
+
+.cplusplus-color {color: #6796c3;}
+
+.csharp-color {color: #a36ea8;}
+
+.javascript-color {color: #d6c44a;}
+
+.html5-color {color: #eb7e5c;}
+
+.markdown-color {color: #000000;}
+
+.bash-color {color: #293138;}
+
+.ink-color {color: #323232;}
+
+.inky-color {color: #a4a4a4;}
+
+.twine-color {color: #07c495;}
+
+.trello-color {color: #0085d5;}
+
+.vscode-color {color: #0e8dd4;}
+
+.git-color {color: #f24f28;}
+
+.pencil-color {color: #e59c39;}
+
+.gamer-color {color: #dcab44;}
+
+.plan-color {color: #98afc7;}
+
+.qa-color {color: #b4ddc1;}
+
 
 /* --------------- Contact Section --------------- */
 
@@ -1011,7 +1043,7 @@ nav ul.logo li a {
     justify-content: center;
     text-align: center;
     padding: 3rem;
-    background-color: #913d64;
+    background-color: var(--main-color);
     color: var(--primary-color)
 }
 
