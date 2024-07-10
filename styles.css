@@ -1477,38 +1477,6 @@ nav ul.logo li a {
 
 }
 
-.classes-page-type-description {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    text-align: left; /* Format the text to the left */
-
-    position: relative;
-    justify-content: center; /* Center the content horizontally */
-    top: 50%;
-}
-
-.classes-page-head {
-    display: grid;
-    font-weight: bold;
-    margin: 1rem;
-    row-gap: 0.5rem;
-
-    position: relative;
-    left: 5%;
-}
-
-.classes-page-tail {
-    display: grid;
-    font-style: bold;
-    margin: 1rem;
-    row-gap: 0.5rem;
-
-    position: relative;
-    left: 5%;
-}
-
 .classes-page-description {
     color: var(--primary-color);
     font-size: 1.5rem;
