@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="../styles.css" />
+
+    <!-- Favicons (img/logo for browser tab)-->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Page Title -->
+    <title>Lance's Projects</title>
+  </head>
+
+  <body>
+    <!-- ---------- Sidebar Menu ---------- -->
+    <div class="off-screen-menu">
+      <ul class="off-screen-content">
+        <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+        <li>
+          <a href="../index.html#professional-projects" class="nav-link"
+            >Professional Projects</a
+          >
+        </li>
+        <li>
+          <a href="../index.html#personal-projects" class="nav-link"
+            >Personal Projects</a
+          >
+        </li>
+        <li>
+          <a href="../index.html#skills" class="nav-link">Skills</a>
+        </li>
+        <li>
+          <a
+            href="../assets/resume/LanceDennison-Resume.pdf"
+            class="nav-link"
+            target="_blank"
+            >Resume</a
+          >
+        </li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- ---------- Navbar Section ---------- -->
+    <nav>
+      <ul class="logo">
+        <div class="nav-tile">
+          <li>
+            <a href="../index.html#home" class="logo">Lance Dennison</a>
+          </li>
+        </div>
+      </ul>
+
+      <ul class="navigation">
+        <div class="nav-tile">
+          <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+        </div>
+        <div class="nav-tile">
+          <li>
+            <a href="../index.html#professional-projects" class="nav-link"
+              >Projects</a
+            >
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li>
+            <a href="../index.html#skills" class="nav-link">Skills</a>
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li>
+            <a
+              href="../assets/resume/LanceDennison-Resume.pdf"
+              class="nav-link"
+              target="_blank"
+              >Resume</a
+            >
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </div>
+      </ul>
+
+      <div class="ham-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <script>
+      const hamMenu = document.querySelector(".ham-menu");
+      const offScreenMenu = document.querySelector(".off-screen-menu");
+
+      hamMenu.addEventListener("click", () => {
+        hamMenu.classList.toggle("active");
+        offScreenMenu.classList.toggle("active");
+      });
+
+      offScreenMenu.addEventListener("click", () => {
+        hamMenu.classList.toggle("active");
+        offScreenMenu.classList.toggle("active");
+      });
+
+      /* if the screen is bigger than 1000px remove the off-screen menu */
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1000) {
+          offScreenMenu.classList.remove("active");
+          hamMenu.classList.remove("active");
+        }
+      });
+    </script>
+
+    <!-- Project Content -->
+    <section
+      class="TtF-background-img"
+      id="TtF-background-img"
+    ></section>
+    <section class="TtF-background-box">
+      <div class="TtF-content">
+        <div class="TtF-title"></div>
+        <div class="TtF-type-description">
+          <ul class="TtF-head">
+            <li>Primary Role:</li>
+            <li>Secondary Roles:</li>
+            <li>Project Status:</li>
+            <li>Platform:</li>
+            <li>Project Type:</li>
+            <li>Production Timeline:</li>
+            <li>Software Used:</li>
+            <li>Languages:</li>
+          </ul>
+          <ul class="TtF-tail">
+            <li>Narrative Lead</li>
+            <li>Co-Producer and Game Designer</li>
+            <li>Ongoing support</li>
+            <li>Steam</li>
+            <li>University / Team</li>
+            <li>January 2024 - June 2024</li>
+            <li>Unity</li>
+            <li>C#</li>
+          </ul>
+        </div>
+
+        <iframe
+          class="TtF-video"
+          src="../assets/mov/Through the Fog Trailer.mp4"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        
+        <div class="TtF-description">
+          <p>
+            <i>Through the Fog</i> is a third-person roguelite exploration role-playing-game where you explore
+             a mysterious abandoned city plagued by a disorienting fog and buildings that change
+              each night. Your goal is to get people back into the city and find out what exactly
+               went wrong. So, you go into the fog each night after the buildings have moved, to map
+                out the city, then sell the populous maps based on the new positions. Along the way,
+                 you find secrets and help NPCs with quests to uncover the past, and the nature of the
+                  curse that fell upon the once-thriving metropolis.
+            <br><br>
+            As the narrative lead, I created the story of the world and worked with the team to
+             ensure narrative consistency throughout gameplay and the world the player interacts with.
+              I wrote all dialogue, the quest descriptions, and wrote scripts and directed the voice
+               acting for the in-game audio logs. I also designed the tutorials and quest
+                steps for the game. As the co-producer, I worked with the other producer on our
+                 documentation requirements for the course, creating and supervising the progress of
+                  development milestones, and creating production plans.
+          </p>
+        </div>
+
+        <div class="TtF-description-2">
+            <p class="TtF-link-1">
+                <a
+                    href="mailto:'lancedennison.work@gmail.com" class="email-link"
+                    target="_blank" 
+                    >Email me at lancedennison.work@gmail.com for a steam key!</a>
+            </p>
+            <p class="TtF-link-2">
+                <a
+                href=""
+                target="_blank"
+                >Vist the Steam page!</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer">
+        <p class="footer-content">
+        </p>
+      </div>
+    </footer>
+
+    <!-- Website scripts -->
+    <script src="app.js"></script>
+
+    <!-- External scripts -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
