@@ -1417,9 +1417,9 @@ nav ul.logo li a {
     }
 }
 
-/*----------//  PROJ Page  //---------------------------------------------*/
-.game-holder3-background-img {
-    background-image: url("assets/images/game-holder3.jpg");
+/*----------//  custom classes Page  //---------------------------------------------*/
+.classes-page-background-img {
+    background-image: url("assets/images/classes-page.jpg");
     background-size: 100%;
     background-position: center;
     background-repeat: repeat;
@@ -1433,15 +1433,14 @@ nav ul.logo li a {
     justify-content: center;
 }
 
-.game-holder3-background-box {
+.classes-page-background-box {
     display: grid;
     position: absolute;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: rgba(0, 0, 0, 0.548);
     width: 90%;
-    min-width: 250px;
-    max-width: 800px;
+    width: 80%;
     height: 160vh;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
@@ -1456,7 +1455,7 @@ nav ul.logo li a {
     transform: translateX(-50%);
 }
 
-.game-holder3-content {
+.classes-page-content {
     background-repeat: no-repeat;
     background-size: 65%;
 
@@ -1466,7 +1465,7 @@ nav ul.logo li a {
     margin-bottom: 2%;
 }
 
-.game-holder3-title {
+.classes-page-title {
     display: flex;
     color: var(--primary-color);
     font-size: 8rem;
@@ -1478,7 +1477,7 @@ nav ul.logo li a {
 
 }
 
-.game-holder3-type-description {
+.classes-page-type-description {
     display: flex;
     grid-template-columns: repeat(2, 1fr);
     color: var(--primary-color);
@@ -1490,7 +1489,7 @@ nav ul.logo li a {
     top: 50%;
 }
 
-.game-holder3-head {
+.classes-page-head {
     display: grid;
     font-weight: bold;
     margin: 1rem;
@@ -1500,7 +1499,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder3-tail {
+.classes-page-tail {
     display: grid;
     font-style: bold;
     margin: 1rem;
@@ -1510,7 +1509,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder3-description {
+.classes-page-description {
     color: var(--primary-color);
     font-size: 1.5rem;
 
@@ -1523,7 +1522,7 @@ nav ul.logo li a {
     top: 50%;
 }
 
-.game-holder3-description-2 {
+.classes-page-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-top: 2rem;
@@ -1534,8 +1533,8 @@ nav ul.logo li a {
     top: 60%;
 }
 
-.game-holder3-link-1,
-.game-holder3-link-2 {
+.classes-page-link-1,
+.classes-page-link-2 {
     margin: 1rem auto; /* Center horizontally */
     
     background-color: rgb(54, 53, 53);
@@ -1552,18 +1551,18 @@ nav ul.logo li a {
     width: 62%;
 }
 
-.game-holder3-link-2 {
+.classes-page-link-2 {
     width: 37%;
 }
 
-.game-holder3-link-1 a:hover,
-.game-holder3-link-2 a:hover {
+.classes-page-link-1 a:hover,
+.classes-page-link-2 a:hover {
     color: var(--main-color);
 }
 
-.game-holder3-video {
+.classes-page-video {
     width: 80%;
-    height: 220%;
+    height: 800%;
 
     position: relative;
     top: 70%;
@@ -1574,50 +1573,50 @@ nav ul.logo li a {
 }
 
 @media screen and (max-width: 800px) {
-    .game-holder3-title {
+    .classes-page-title {
         font-size: 5rem;
     }
 
-    .game-holder3-background-box {
+    .classes-page-background-box {
         height: 180vh;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .game-holder3-title {
+    .classes-page-title {
         font-size: 4rem;
     }
 
-    .game-holder3-background-box{
+    .classes-page-background-box{
         height: 145vh;
     }
 
-    .game-holder3-type-description {
+    .classes-page-type-description {
         font-size: 1rem;
         top: 60%;
     }
 
-    .game-holder3-description {
+    .classes-page-description {
         font-size: 1rem;
         top: 57%;
     }
 
-    .game-holder3-description-2 {
+    .classes-page-description-2 {
         font-size: 1rem;
         top: 50%;
     }
 
-    .game-holder3-video {
+    .classes-page-video {
         top: 50%;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .game-holder3-title {
+    .classes-page-title {
         font-size: 3rem;
     }
 
-    .game-holder3-background-box {
+    .classes-page-background-box {
         height: 160vh;
     }
 }

@@ -1,19 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GM Binder Document</title>
-    <style>
-        #content {
-            width: 100%;
-            height: 800px;
-            border: none;
-        }
-    </style>
+    <title>Lance's Projects</title>
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <!-- Animate CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
+
 <body>
-    <h1>My GM Binder Document</h1>
-    <iframe id="content" src="https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ"></iframe>
+    <!-- ---------- Sidebar Menu ---------- -->
+    <div class="off-screen-menu">
+        <ul class="off-screen-content">
+            <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+            <li><a href="../index.html#professional-projects" class="nav-link">Professional Projects</a></li>
+            <li><a href="../index.html#personal-projects" class="nav-link">Personal Projects</a></li>
+            <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+            <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </div>
+    <!-- Navbar Section -->
+    <nav>
+        <ul class="logo">
+            <li><a href="../index.html#home" class="logo">Lance Dennison</a></li>
+        </ul>
+        <ul class="navigation">
+            <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+            <li><a href="../index.html#professional-projects" class="nav-link">Projects</a></li>
+            <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+            <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+            <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="ham-menu"><span></span><span></span><span></span></div>
+        <!-- Buttons to Change iframe Src -->
+    </nav>
+    <!-- JavaScript Variables and Functions -->
+    <script>
+        var brawler = "https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep";
+        var sanguine_knight = "https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt";
+        var rune_mage = "https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB";
+        var defender = "https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU";
+        var spear_dancer = "https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ";
+
+        function changeIFrameSrc(url) {
+            document.getElementById("content").src = url;
+            console.log("Button clicked with URL:", url);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamMenu = document.querySelector(".ham-menu");
+            const offScreenMenu = document.querySelector(".off-screen-menu");
+
+            hamMenu.addEventListener("click", () => {
+                hamMenu.classList.toggle("active");
+                offScreenMenu.classList.toggle("active");
+            });
+
+            offScreenMenu.addEventListener("click", () => {
+                hamMenu.classList.toggle("active");
+                offScreenMenu.classList.toggle("active");
+            });
+
+            /* if the screen is bigger than 1000px remove the off-screen menu */
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1000) {
+                    offScreenMenu.classList.remove("active");
+                    hamMenu.classList.remove("active");
+                }
+            });
+        });
+    </script>
+
+    <!-- Project Content -->
+    <section class="classes-page-background-img" id="classes-page-background-img"></section>
+    <section class="classes-page-background-box">
+        <div class="classes-page-content">
+            <div class="doc-buttons">
+                <button onclick="changeIFrameSrc(brawler)">Brawler</button>
+                <button onclick="changeIFrameSrc(sanguine_knight)">Sanguine Knight</button>
+                <button onclick="changeIFrameSrc(rune_mage)">Rune Mage</button>
+                <button onclick="changeIFrameSrc(defender)">Defender</button>
+                <button onclick="changeIFrameSrc(spear_dancer)">Spear Dancer</button>
+            </div>
+            <!-- Game Project Details -->
+            <div class="classes-page-title"></div>
+            <div class="classes-page-type-description">
+                <ul class="classes-page-head">
+                    <li>Project Status:</li>
+                    <li>Project Type:</li>
+                    <li>Project Duration:</li>
+                    <li>Software Used:</li>
+                    <li>Languages:</li>
+                    <li>Primary Roles:</li>
+                    <li>Secondary Roles:</li>
+                </ul>
+                <ul class="classes-page-tail">
+                    <li>Ongoing production</li>
+                    <li>University / group</li>
+                    <li>01/2024 - present</li>
+                    <li>Unity</li>
+                    <li>C#</li>
+                    <li>Primary Roles</li>
+                    <li>Secondary Roles</li>
+                </ul>
+            </div>
+            <div class="classes-page-description">
+                <p>Game descriptions</p>
+            </div>
+
+            <!-- iframe to Display Game Content -->
+            <iframe class="classes-page-video" id="content" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep"></iframe>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer">
+            <p class="footer-content"></p>
+        </div>
+    </footer>
+
+    <!-- External scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>
