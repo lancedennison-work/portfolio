@@ -1,116 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lance's Projects</title>
+        <!----------//  CSS Styles  //---------------------------------------------------------------------------------------------------------->
+        <link rel="stylesheet" href="../styles.css">
+        <!----------//  Favicons (img/logo for browser tab)  //--------------------------------------------------------------------------------->
+    <link rel="icon" type="image/png" sizes="x" href="../assets/png/sigbacked.png" />
+        <!----------//  Animate CSS CDN  //----------------------------------------------------------------------------------------------------->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    </head>
+    <!--//  END head  //-->
+    <body>
+        <!----------// Sidebar Menu  //--------------------------------------------------------------------------------------------------------->
+        <div class="off-screen-menu">
+            <ul class="off-screen-content">
+                <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+                <li><a href="../index.html#proj-section" class="nav-link">Projects</a></li>
+                <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+        <!----------//  Navbar Section  //------------------------------------------------------------------------------------------------------>
+        <nav>
+            <ul class="logo">
+                <div class="nav-tile"><li><a href="../index.html#home" class="logo">Lance Dennison</a></li></div>
+            </ul>
+            <ul class="navigation">
+                <div class="nav-tile">
+                    <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+                </div>
+                <div class="nav-tile">
+                    <li><a href="../index.html#proj-section" class="nav-link">Projects</a></li>
+                </div>
+                <div class="nav-tile">
+                    <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+                </div>
+                <div class="nav-tile">
+                    <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+                </div>
+                <div class="nav-tile">
+                    <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+                </div>
+                <div class="nav-tile">
+            </ul>
+            <div class="ham-menu"><span></span><span></span><span></span></div>
+        </nav>
+        <!--//  END Navbar  //-->
+        <!----------//  JavaScript Variables and Functions  //---------------------------------------------------------------------------------->
+        <script>
+            var brawler = "https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep";
+            var sanguine_knight = "https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt";
+            var rune_mage = "https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB";
+            var defender = "https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU";
+            var spear_dancer = "https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lance's Projects</title>
-    <!-- CSS Styles -->
-    <link rel="stylesheet" href="../styles.css">
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-    <!-- Animate CSS CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-</head>
-
-<body>
-    <!-- ---------- Sidebar Menu ---------- -->
-    <div class="off-screen-menu">
-        <ul class="off-screen-content">
-            <li><a href="../index.html#about-me" class="nav-link">About</a></li>
-            <li><a href="../index.html#professional-projects" class="nav-link">Professional Projects</a></li>
-            <li><a href="../index.html#personal-projects" class="nav-link">Personal Projects</a></li>
-            <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
-            <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
-            <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </div>
-    <!-- Navbar Section -->
-    <nav>
-        <ul class="logo">
-            <li><a href="../index.html#home" class="logo">Lance Dennison</a></li>
-        </ul>
-        <ul class="navigation">
-            <li><a href="../index.html#about-me" class="nav-link">About</a></li>
-            <li><a href="../index.html#professional-projects" class="nav-link">Projects</a></li>
-            <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
-            <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
-            <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="ham-menu"><span></span><span></span><span></span></div>
-        <!-- Buttons to Change iframe Src -->
-    </nav>
-    <!-- JavaScript Variables and Functions -->
-    <script>
-        var brawler = "https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep";
-        var sanguine_knight = "https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt";
-        var rune_mage = "https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB";
-        var defender = "https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU";
-        var spear_dancer = "https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ";
-
-        function changeIFrameSrc(url) {
-            document.getElementById("content").src = url;
-            console.log("Button clicked with URL:", url);
-        }
-        const hamMenu = document.querySelector(".ham-menu");
-        const offScreenMenu = document.querySelector(".off-screen-menu");
-
-        hamMenu.addEventListener("click", () => {
-            hamMenu.classList.toggle("active");
-            offScreenMenu.classList.toggle("active");
-        });
-
-        offScreenMenu.addEventListener("click", () => {
-            hamMenu.classList.toggle("active");
-            offScreenMenu.classList.toggle("active");
-        });
-
-        /* if the screen is bigger than 1000px remove the off-screen menu */
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 1000) {
-            offScreenMenu.classList.remove("active");
-            hamMenu.classList.remove("active");
+            function changeIFrameSrc(url) {
+                document.getElementById("content").src = url;
+                console.log("Button clicked with URL:", url);
             }
-        });
-    </script>
+            const hamMenu = document.querySelector(".ham-menu");
+            const offScreenMenu = document.querySelector(".off-screen-menu");
 
-    <!-- Project Content -->
-    <section class="classes-page-background-img" id="classes-page-background-img"></section>
-    <section class="classes-page-background-box">
-        <div class="classes-page-content">
-            <nav>
-                <ul class="navigation">
-                    <div class="doc-buttons">
-                        <li><a href="#" onclick="changeIFrameSrc(brawler)" class="nav-link">Brawler</a></li>
-                        <li><a href="#" onclick="changeIFrameSrc(sanguine_knight)" class="nav-link">Sanguine Knight</a></li>
-                        <li><a href="#" onclick="changeIFrameSrc(rune_mage)" class="nav-link">Rune Mage</a></li>
-                        <li><a href="#" onclick="changeIFrameSrc(defender)" class="nav-link">Defender</a></li>
-                        <li><a href="#" onclick="changeIFrameSrc(spear_dancer)" class="nav-link">Spear Dancer</a></li>
-                    </div>
-                </ul>
-                <div class="ham-menu"><span></span><span></span><span></span></div>
-            </nav>
-            <section class="classes-page-background-img" id="classes-page-background-img"></section>
-            <div class="classes-page-description">
-                <p>Game descriptions</p>
+            hamMenu.addEventListener("click", () => {
+                hamMenu.classList.toggle("active");
+                offScreenMenu.classList.toggle("active");
+            });
+
+            offScreenMenu.addEventListener("click", () => {
+                hamMenu.classList.toggle("active");
+                offScreenMenu.classList.toggle("active");
+            });
+
+            /* if the screen is bigger than 1000px remove the off-screen menu */
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1000) {
+                offScreenMenu.classList.remove("active");
+                hamMenu.classList.remove("active");
+                }
+            });
+        </script>
+        <!--//  END script  //-->
+        <!----------//  Project Content  //----------------------------------------------------------------------------------------------------->
+        <section class="classes-page-background-img" id="classes-page-background-img"></section>
+        <section class="classes-page-background-box">
+            <div class="classes-page-content">
+                <nav>
+                    <ul class="logo">
+                        <li><a href="#" class="logo">Content Navigation</a></li>
+                    </ul>
+                    <ul class="navigation">
+                        <div class="nav-tile">
+                            <li><a href="#" onclick="changeIFrameSrc(brawler)" class="nav-link">Brawler</a></li>
+                        </div>
+                        <div class="nav-tile">
+                            <li><a href="#" onclick="changeIFrameSrc(sanguine_knight)" class="nav-link">Sanguine Knight</a></li>
+                        </div>
+                        <div class="nav-tile">
+                            <li><a href="#" onclick="changeIFrameSrc(rune_mage)" class="nav-link">Rune Mage</a></li>
+                        </div>
+                        <div class="nav-tile">
+                            <li><a href="#" onclick="changeIFrameSrc(defender)" class="nav-link">Defender</a></li>
+                        </div>
+                        <div class="nav-tile">
+                            <li><a href="#" onclick="changeIFrameSrc(spear_dancer)" class="nav-link">Spear Dancer</a></li>
+                        </div>
+                    </ul>
+                    <div class="ham-menu"><span></span><span></span><span></span></div>
+                </nav>
+                <section class="classes-page-background-img" id="classes-page-background-img"></section>
+                <div class="classes-page-description">
+                    <p>This page displays my custom class content one 
+                        document at a time, with a direct share link from 
+                        the website I used to create them, so that this 
+                        page always contains the most up-to-date material. 
+                        The Brawler custom class and its subclasses have 
+                        been playtested to a level I am happy with. The 
+                        others could use more playtesting and some 
+                        revisions and balancing based on feedback. 
+                        Sanguine Knight class is a tank class that uses 
+                        health from themselves, and drained from others 
+                        through attacks, to perform various feats such 
+                        as: summoning an elemental formed from blood. The 
+                        Rune Mage class was created as an exercise in 
+                        rule design, and not necessarily intended for 
+                        actual play. I wanted to make a class that had a 
+                        fully modular spell system, but what makes it 
+                        overly complicated is keeping those spells 
+                        balanced. Normally spellcasters have spell slots, 
+                        which limits how many spells they can cast. Thus, 
+                        to balance a mage that can create their own magic, 
+                        they are limited by the volatility of their spell 
+                        components, and can only hold so much at once 
+                        safely. All of this leaves the player keeping 
+                        track of many things at once, too many to be 
+                        reasonable. The Defender Fighter subclass is 
+                        designed to be a purely support martial subclass. 
+                        Normally Fighters aim to achieve the 
+                        highest damage possible each round of combat, but 
+                        offer little defensive capabilities. The Spear 
+                        Dancer Fighter subclass is inspired by the Spear 
+                        Maidens from Robert Jordan’s Wheel of Time series. 
+                        They focus on rapid, accurate strikes with a 
+                        focus on gaining more attacks per round through 
+                        multiple methods.</p>
+                </div>
+                <!----------//  iframe to Display Game Content  //------------------------------------------------------------------------------>
+                <iframe class="classes-page-video" id="content" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep"></iframe>
             </div>
-
-            <!-- iframe to Display Game Content -->
-            <iframe class="classes-page-video" id="content" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep"></iframe>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer">
-            <p class="footer-content"></p>
-        </div>
-    </footer>
-
-    <!-- External scripts -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
+        </section>
+        <!--//  END project content  //-->
+        <!----------//  Footer Section  //------------------------------------------------------------------------------------------------------>
+        <footer>
+            <div class="footer">
+                <p class="footer-content"></p>
+            </div>
+        </footer>
+        <!----------//  External scripts  //---------------------------------------------------------------------------------------------------->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
 </html>

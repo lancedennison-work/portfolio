@@ -314,7 +314,7 @@ nav ul.logo li a {
 .bio-text-2
  {
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: var(--bottom-margin);
 }
 
@@ -1439,7 +1439,6 @@ nav ul.logo li a {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: rgba(0, 0, 0, 0.548);
-    width: 90%;
     width: 80%;
     height: 160vh;
     border-radius: 15px;
@@ -1480,13 +1479,11 @@ nav ul.logo li a {
 .classes-page-description {
     color: var(--primary-color);
     font-size: 1.5rem;
-
-    margin: 1rem;
-
-    font-size: 1.5rem;
-    text-align: left;
+    width: 75%;
+    margin-left: 12.5%;
+    font-size: 2rem;
     position: relative;
-    justify-content: center;
+    text-align: left; /* Format the text to the left */
     top: 50%;
 }
 
@@ -1529,14 +1526,13 @@ nav ul.logo li a {
 }
 
 .classes-page-video {
+    position: relative;
     width: 80%;
     height: 800%;
 
-    position: relative;
     top: 70%;
     margin: 1rem;
     left: 7.5%;
-
     margin-top: 5rem;
 }
 
