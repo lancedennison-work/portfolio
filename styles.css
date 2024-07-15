@@ -1217,8 +1217,8 @@ nav ul.logo li a {
 }
 
 /*----------//  PROJ Page  //---------------------------------------------*/
-.game-holder2-background-img {
-    background-image: url("assets/images/game-holder2-screenshot.jpg");
+.tftb-background-img {
+    background-image: url("assets/images/tftb-screenshot.jpg");
     background-size: 100%;
     background-position: center;
     background-repeat: repeat;
@@ -1232,7 +1232,7 @@ nav ul.logo li a {
     justify-content: center;
 }
 
-.game-holder2-background-box {
+.tftb-background-box {
     display: grid;
     position: absolute;
     grid-template-columns: repeat(1, 1fr);
@@ -1255,7 +1255,7 @@ nav ul.logo li a {
     transform: translateX(-50%);
 }
 
-.game-holder2-content {
+.tftb-content {
     background-repeat: no-repeat;
     background-size: 65%;
 
@@ -1265,7 +1265,7 @@ nav ul.logo li a {
     margin-bottom: 2%;
 }
 
-.game-holder2-title {
+.tftb-title {
     display: flex;
     color: var(--primary-color);
     font-size: 8rem;
@@ -1277,7 +1277,7 @@ nav ul.logo li a {
 
 }
 
-.game-holder2-type-description {
+.tftb-type-description {
     display: flex;
     grid-template-columns: repeat(2, 1fr);
     color: var(--primary-color);
@@ -1289,7 +1289,7 @@ nav ul.logo li a {
     top: 50%;
 }
 
-.game-holder2-head {
+.tftb-head {
     display: grid;
     font-weight: bold;
     margin: 1rem;
@@ -1299,7 +1299,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder2-tail {
+.tftb-tail {
     display: grid;
     font-style: bold;
     margin: 1rem;
@@ -1309,7 +1309,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder2-description {
+.tftb-description {
     color: var(--primary-color);
     font-size: 1.5rem;
 
@@ -1322,7 +1322,7 @@ nav ul.logo li a {
     top: 50%;
 }
 
-.game-holder2-description-2 {
+.tftb-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-top: 2rem;
@@ -1333,8 +1333,8 @@ nav ul.logo li a {
     top: 60%;
 }
 
-.game-holder2-link-1,
-.game-holder2-link-2 {
+.tftb-link-1,
+.tftb-link-2 {
     margin: 1rem auto; /* Center horizontally */
     
     background-color: rgb(54, 53, 53);
@@ -1351,16 +1351,16 @@ nav ul.logo li a {
     width: 62%;
 }
 
-.game-holder2-link-2 {
+.tftb-link-2 {
     width: 37%;
 }
 
-.game-holder2-link-1 a:hover,
-.game-holder2-link-2 a:hover {
+.tftb-link-1 a:hover,
+.tftb-link-2 a:hover {
     color: var(--main-color);
 }
 
-.game-holder2-video {
+.tftb-video {
     width: 80%;
     height: 220%;
 
@@ -1373,50 +1373,50 @@ nav ul.logo li a {
 }
 
 @media screen and (max-width: 800px) {
-    .game-holder2-title {
+    .tftb-title {
         font-size: 5rem;
     }
 
-    .game-holder2-background-box {
+    .tftb-background-box {
         height: 185vh;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .game-holder2-title {
+    .tftb-title {
         font-size: 4rem;
     }
 
-    .game-holder2-background-box{
+    .tftb-background-box{
         height: 145vh;
     }
 
-    .game-holder2-type-description {
+    .tftb-type-description {
         font-size: 1rem;
         top: 60%;
     }
 
-    .game-holder2-description {
+    .tftb-description {
         font-size: 1rem;
         top: 57%;
     }
 
-    .game-holder2-description-2 {
+    .tftb-description-2 {
         font-size: 1rem;
         top: 50%;
     }
 
-    .game-holder2-video {
+    .tftb-video {
         top: 50%;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .game-holder2-title {
+    .tftb-title {
         font-size: 3rem;
     }
 
-    .game-holder2-background-box {
+    .tftb-background-box {
         height: 160vh;
     }
 }
