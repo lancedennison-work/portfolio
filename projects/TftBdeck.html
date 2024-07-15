@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!----------//  CSS Styles  //------------------------------------------------------------------------------------------------------------>
+    <link rel="stylesheet" href="../styles.css" />
+    <!----------//  Favicons (img/logo for browser tab)  //----------------------------------------------------------------------------------->
+    <link rel="icon" type="image/png" sizes="x" href="../assets/png/sigbacked.png" />
+
+    <!----------//  Animate CSS CDN  //------------------------------------------------------------------------------------------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!----------//  Page Title  //------------------------------------------------------------------------------------------------------------>
+    <title>Lance's Projects</title>
+  </head>
+  <!--//  END head  //-->
+  <body>
+    <!----------//  Sidebar Menu  //---------------------------------------------------------------------------------------------------------->
+    <div class="off-screen-menu">
+      <ul class="off-screen-content">
+        <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+        <li><a href="../index.html#proj-section" class="nav-link">Projects</a></li>
+        <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+    <!----------//  Navbar Section  //-------------------------------------------------------------------------------------------------------->
+    <nav>
+      <ul class="logo">
+        <div class="nav-tile">
+          <li><a href="../index.html#home" class="logo">Lance Dennison</a>
+          </li>
+        </div>
+      </ul>
+    
+      <ul class="navigation">
+        <div class="nav-tile">
+          <li><a href="../index.html#about-me" class="nav-link">About</a></li>
+        </div>
+        <div class="nav-tile">
+          <li><a href="../index.html#proj-section" class="nav-link">Projects</a>
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li><a href="../index.html#skills" class="nav-link">Skills</a>
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li><a href="../assets/resume/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a>
+          </li>
+        </div>
+        <div class="nav-tile">
+          <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </div>
+      </ul>
+
+      <div class="ham-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+    <!--//  END Navbar  //-->
+    <script>
+      const hamMenu = document.querySelector(".ham-menu");
+      const offScreenMenu = document.querySelector(".off-screen-menu");
+
+      hamMenu.addEventListener("click", () => {
+        hamMenu.classList.toggle("active");
+        offScreenMenu.classList.toggle("active");
+      });
+
+      offScreenMenu.addEventListener("click", () => {
+        hamMenu.classList.toggle("active");
+        offScreenMenu.classList.toggle("active");
+      });
+
+      /* if the screen is bigger than 1000px remove the off-screen menu */
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1000) {
+          offScreenMenu.classList.remove("active");
+          hamMenu.classList.remove("active");
+        }
+      });
+    </script>
+    <!--//  END script  //-->
+    <!----------//  Project Content  //------------------------------------------------------------------------------------------------------->
+    <section class="gameHolder-background-img" id="gameHolder-background-img"></section>
+    <section class="gameHolder-background-box">
+      <div class="gameHolder-content">
+        <div class="gameHolder-title"></div>
+        <div class="gameHolder-type-description">
+          <ul class="gameHolder-head">
+            <li>Project Status:</li>
+            <li>Project Type:</li>
+            <li>Project Duration:</li>
+            <li>Software Used:</li>
+            <li>Languages:</li>
+            <li>Primary Roles:</li>
+            <li>Secondary Roles:</li>
+          </ul>
+          <ul class="gameHolder-tail">
+            <li>Ongoing production</li>
+            <li>University / group</li>
+            <li>01/2024 - present</li>
+            <li>Unity</li>
+            <li>C#</li>
+            <li>Primary Roles</li>
+            <li>Secondary Roles</li>
+          </ul>
+        </div>
+        <div class="gameHolder-description">
+          <p>
+            Game descriptions
+          </p>
+        </div>
+        <iframe class="gameHolder-video" src="https://www.youtube.com/embed/" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        <div class="gameHolder-description-2">
+          <p class="gameHolder-link-1">
+            <a href="" target="_blank">Click to download the latest version of game!</a>
+          </p>
+          <p class="gameHolder-link-2">
+            <a href="" target="_blank">View the Website!</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <!--//  END project section  //-->
+    <!----------//  Footer Section  //-------------------------------------------------------------------------------------------------------->
+    <footer>
+      <div class="footer">
+        <p class="footer-content">
+        </p>
+      </div>
+    </footer>
+    <!--//  END footer  //-->
+    <!----------//  Website scripts  //------------------------------------------------------------------------------------------------------->
+    <script src="app.js"></script>
+
+    <!----------//  External scripts  //------------------------------------------------------------------------------------------------------>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>
