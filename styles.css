@@ -1218,18 +1218,15 @@ nav ul.logo li a {
 
 /*----------//  PROJ Page  //---------------------------------------------*/
 .tftb-background-img {
-    background-image: url("assets/images/tftb-screenshot.jpg");
-    background-size: 100%;
-    background-position: center;
-    background-repeat: repeat;
-
+    background-image: url("assets/png/grid_wide.png");
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
-
+    height: 90%;
+    top: 5%;
     position: fixed;
-    top: 0;
-    justify-content: center;
 }
 
 .tftb-background-box {
@@ -1241,7 +1238,7 @@ nav ul.logo li a {
     width: 90%;
     min-width: 250px;
     max-width: 800px;
-    height: 175vh;
+    height: 88vh;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
 
@@ -1258,23 +1255,21 @@ nav ul.logo li a {
 .tftb-content {
     background-repeat: no-repeat;
     background-size: 65%;
-
     max-height: 165px;
-    background-position: center top;
     margin-top: 2%;
     margin-bottom: 2%;
+    position: absolute;
+    top: 3%;
 }
 
 .tftb-title {
     display: flex;
     color: var(--primary-color);
-    font-size: 8rem;
+    font-size: 2.5rem;
     text-align: center; /* Format the text to the left */
-
-    position: relative;
     justify-content: center; /* Center the content horizontally */
-    top: 30%;
-
+    position: relative;
+    top: 5%;
 }
 
 .tftb-type-description {
@@ -1286,7 +1281,6 @@ nav ul.logo li a {
 
     position: relative;
     justify-content: center; /* Center the content horizontally */
-    top: 50%;
 }
 
 .tftb-head {
@@ -1312,14 +1306,12 @@ nav ul.logo li a {
 .tftb-description {
     color: var(--primary-color);
     font-size: 1.5rem;
-
+    width: 80%;
+    left: 10%;
     margin: 1rem;
-
     font-size: 1.5rem;
     text-align: left;
     position: relative;
-    justify-content: center;
-    top: 50%;
 }
 
 .tftb-description-2 {
@@ -1362,14 +1354,12 @@ nav ul.logo li a {
 
 .tftb-video {
     width: 80%;
-    height: 220%;
-
+    aspect-ratio: 16/9;
     position: relative;
-    top: 70%;
     margin: 1rem;
     left: 7.5%;
-
     margin-top: 5rem;
+    margin-bottom: 2%;
 }
 
 @media screen and (max-width: 800px) {
