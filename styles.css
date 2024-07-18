@@ -1011,7 +1011,7 @@ nav ul.logo li a {
     }
 }
 
-/*----------//  PROJ Page  //---------------------------------------------*/
+/*----------//  RGBY Page  //---------------------------------------------*/
 .game-holder-background-img {
     background-image: url("assets/images/game-holder-Menu.jpg");
     background-size: 190%;
@@ -1216,7 +1216,7 @@ nav ul.logo li a {
     }
 }
 
-/*----------//  PROJ Page  //---------------------------------------------*/
+/*----------//  TftB Page  //---------------------------------------------*/
 .tftb-background-img {
     background-image: url("assets/png/grid_wide.png");
     background-size: contain;
@@ -1329,7 +1329,7 @@ nav ul.logo li a {
 .tftb-link-2 {
     margin: 1rem auto; /* Center horizontally */
     
-    background-color: rgb(54, 53, 53);
+    background-color: rgb(41, 41, 41);
     position: relative;
     border-radius: 5px;
     justify-content: space-between;
@@ -1340,11 +1340,11 @@ nav ul.logo li a {
     padding-right: 0.2rem;
     padding-left: 0.2rem;
 
-    width: 62%;
+    width: 45%;
 }
 
 .tftb-link-2 {
-    width: 37%;
+    width: 30%;
 }
 
 .tftb-link-1 a:hover,
@@ -1352,14 +1352,14 @@ nav ul.logo li a {
     color: var(--main-color);
 }
 
-.tftb-media {
+.tftb-video {
     width: 80%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 1920/1080;
     position: relative;
-    margin: 1rem;
-    left: 7.5%;
+    margin: 1rem auto;
     margin-top: 5rem;
     margin-bottom: 2%;
+    display:flex;
 }
 
 @media screen and (max-width: 800px) {
