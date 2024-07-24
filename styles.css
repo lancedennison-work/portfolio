@@ -416,7 +416,7 @@ nav ul.logo li a {
 .project-tile-3 {
     background-image: url("assets/png/skinny.png");
     /* background-image: url("assets/png/back1.png"); */
-    background-size: contain;
+    background-size: 63%;
     background-position: center;
     background-repeat: no-repeat;
     transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
@@ -427,7 +427,7 @@ nav ul.logo li a {
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    transition: background-size 0.3s ease-in-out; /* Add transition for smooth animation */
+    transition: 0.3s ease-in-out; /* Add transition for smooth animation */
 }
 
 .project-tile-3 .project-title {
@@ -448,11 +448,24 @@ nav ul.logo li a {
 .project-tile-4:hover
 {
     border: 5px solid var(--main-color);
-    background-size: 125%; /* Zoom in the background image */
 }
 
 .project-tile-1:hover {
     background-size: 250%; /* Zoom in the background image */
+}
+
+.project-tile-2:hover {
+    background-size: 110%; /* Zoom in the background image */
+}
+
+.project-tile-3:hover {
+    background-size: 185%; /* Zoom in the background image */
+}
+
+.project-tile-4:hover {
+    background-size: 220%; /* Zoom in the background image */
+    background-position-x: -15%;
+    background-position-y: 200%;
 }
 
 .project-title {
@@ -1033,7 +1046,7 @@ nav ul.logo li a {
     width: 90%;
     min-width: 250px;
     max-width: 800px;
-    height: 88vh;
+    height: 89vh;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
 
@@ -1048,13 +1061,16 @@ nav ul.logo li a {
 }
 
 .RGBY-content {
+    background-image: url("assets/png/RGBYlogo.png");
     background-repeat: no-repeat;
-    background-size: 65%;
+    background-size: 40%;
+    background-position-x: 50%;
+    background-position-y: 0%;
     max-height: 165px;
     margin-top: 2%;
     margin-bottom: 2%;
     position: absolute;
-    top: 3%;
+    top: 2%;
 }
 
 .RGBY-title {
@@ -1085,7 +1101,7 @@ nav ul.logo li a {
     row-gap: 0.5rem;
 
     position: relative;
-    left: 5%;
+    left: 1%;
 }
 
 .RGBY-tail {
@@ -1095,7 +1111,7 @@ nav ul.logo li a {
     row-gap: 0.5rem;
 
     position: relative;
-    left: 5%;
+    left: 0%;
 }
 
 .RGBY-description {
@@ -1152,7 +1168,7 @@ nav ul.logo li a {
     aspect-ratio: 1920/1080;
     position: relative;
     margin: 1rem auto;
-    margin-top: 5rem;
+    margin-top: 6rem;
     margin-bottom: 2%;
     display:flex;
 }
