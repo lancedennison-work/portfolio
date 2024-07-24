@@ -406,7 +406,7 @@ nav ul.logo li a {
 }
 
 .project-tile-2 {
-    background-image: url("assets/images/.png");
+    background-image: url("assets/png/RGBYlogo.png");
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -1012,31 +1012,28 @@ nav ul.logo li a {
 }
 
 /*----------//  RGBY Page  //---------------------------------------------*/
-.game-holder-background-img {
-    background-image: url("assets/images/game-holder-Menu.jpg");
-    background-size: 190%;
-    background-position: center;
-    background-repeat: repeat;
-
+.RGBY-background-img {
+    background-image: url("");
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
-
+    height: 90%;
+    top: 5%;
     position: fixed;
-    top: 0;
-    justify-content: center;
 }
 
-.game-holder-background-box {
+.RGBY-background-box {
     display: grid;
     position: absolute;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    background-color: rgba(72, 72, 72, 0.624);
+    background-color: rgba(0, 0, 0, 0.808);
     width: 90%;
     min-width: 250px;
     max-width: 800px;
-    height: 180vh;
+    height: 88vh;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
 
@@ -1050,29 +1047,27 @@ nav ul.logo li a {
     transform: translateX(-50%);
 }
 
-.game-holder-content {
+.RGBY-content {
     background-repeat: no-repeat;
     background-size: 65%;
-
     max-height: 165px;
-    background-position: center top;
     margin-top: 2%;
     margin-bottom: 2%;
+    position: absolute;
+    top: 3%;
 }
 
-.game-holder-title {
+.RGBY-title {
     display: flex;
     color: var(--primary-color);
-    font-size: 8rem;
+    font-size: 2.5rem;
     text-align: center; /* Format the text to the left */
-
-    position: relative;
     justify-content: center; /* Center the content horizontally */
-    top: 30%;
-
+    position: relative;
+    top: 5%;
 }
 
-.game-holder-type-description {
+.RGBY-type-description {
     display: flex;
     grid-template-columns: repeat(2, 1fr);
     color: var(--primary-color);
@@ -1081,10 +1076,9 @@ nav ul.logo li a {
 
     position: relative;
     justify-content: center; /* Center the content horizontally */
-    top: 50%;
 }
 
-.game-holder-head {
+.RGBY-head {
     display: grid;
     font-weight: bold;
     margin: 1rem;
@@ -1094,7 +1088,7 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder-tail {
+.RGBY-tail {
     display: grid;
     font-style: bold;
     margin: 1rem;
@@ -1104,20 +1098,18 @@ nav ul.logo li a {
     left: 5%;
 }
 
-.game-holder-description {
+.RGBY-description {
     color: var(--primary-color);
     font-size: 1.5rem;
-
+    width: 80%;
+    left: 10%;
     margin: 1rem;
-
     font-size: 1.5rem;
     text-align: left;
     position: relative;
-    justify-content: center;
-    top: 50%;
 }
 
-.game-holder-description-2 {
+.RGBY-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-top: 2rem;
@@ -1128,11 +1120,11 @@ nav ul.logo li a {
     top: 60%;
 }
 
-.game-holder-link-1,
-.game-holder-link-2 {
+.RGBY-link-1,
+.RGBY-link-2 {
     margin: 1rem auto; /* Center horizontally */
     
-    background-color: rgb(54, 53, 53);
+    background-color: rgb(41, 41, 41);
     position: relative;
     border-radius: 5px;
     justify-content: space-between;
@@ -1143,76 +1135,74 @@ nav ul.logo li a {
     padding-right: 0.2rem;
     padding-left: 0.2rem;
 
-    width: 62%;
+    width: 45%;
 }
 
-.game-holder-link-2 {
-    width: 37%;
+.RGBY-link-2 {
+    width: 30%;
 }
 
-.game-holder-link-1 a:hover,
-.game-holder-link-2 a:hover {
+.RGBY-link-1 a:hover,
+.RGBY-link-2 a:hover {
     color: var(--main-color);
 }
 
-.game-holder-video {
-    width: 75%;
-    height: 300%;
-
+.RGBY-video {
+    width: 80%;
+    aspect-ratio: 1920/1080;
     position: relative;
-    top: 70%;
-    margin: 1rem;
-    left: 10%;
-
+    margin: 1rem auto;
     margin-top: 5rem;
+    margin-bottom: 2%;
+    display:flex;
 }
 
 @media screen and (max-width: 800px) {
-    .game-holder-title {
+    .RGBY-title {
         font-size: 5rem;
     }
 
-    .game-holder-background-box {
-        height: 200vh;
+    .RGBY-background-box {
+        height: 185vh;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .game-holder-title {
+    .RGBY-title {
         font-size: 4rem;
     }
 
-    .game-holder-background-box{
-        height: 160vh;
+    .RGBY-background-box{
+        height: 145vh;
     }
 
-    .game-holder-type-description {
+    .RGBY-type-description {
         font-size: 1rem;
         top: 60%;
     }
 
-    .game-holder-description {
+    .RGBY-description {
         font-size: 1rem;
         top: 57%;
     }
 
-    .game-holder-description-2 {
+    .RGBY-description-2 {
         font-size: 1rem;
         top: 50%;
     }
 
-    .game-holder-video {
+    .RGBY-video {
         top: 50%;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .game-holder-title {
+    .RGBY-title {
         font-size: 3rem;
     }
 
-    .game-holder-background-box {
-        height: 170vh;
+    .RGBY-background-box {
+        height: 160vh;
     }
 }
 
