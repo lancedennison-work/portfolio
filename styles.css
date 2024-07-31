@@ -222,7 +222,7 @@ nav ul.logo li a {
 /*----------//   HOME SECTION  //---------------------------------------------*/
 
 .home {
-    margin-top: -10%; /* Add this line to position it at the top */
+    margin-top: 0; /* Add this line to position it at the top */
 }
 
 .home-video {
@@ -238,8 +238,8 @@ nav ul.logo li a {
 .home-image {
     width: 100vw;
     object-fit:contain;
-    margin-top: 10%;
     display: block; /* Ensures the image takes up the full width/height */
+    overflow: hidden;
 }
 
 /*----------//   About Me Section  //---------------------------------------------*/
@@ -328,7 +328,6 @@ nav ul.logo li a {
     padding-right: 5rem;
     padding-top: 5rem;
     padding-bottom: 18rem;
-    row-gap: 18rem;
     justify-items: center;
 }
 
@@ -434,22 +433,33 @@ nav ul.logo li a {
 }
 
 .project-description {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fill, auto); /* Ensure items wrap when needed */
+    display: inline-flex;
+    width: 70%;
     color: var(--primary-color);
-    padding: 1rem;
     font-size: 1.1rem;
-    position: absolute;
-    top: 95%;
+    position: relative;
     box-sizing: border-box;
     column-gap: 0.5rem;
-    row-gap: 1rem; /* Controls the spacing between rows */
-    margin-top: 1rem; /* Adjust spacing above project descriptions */
-    overflow: visible;
+    flex-flow: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
+.project-description-1 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    position: relative;
+    padding: 1rem;
+    box-sizing: border-box;
+}
 
+.project-description-2 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    position: relative;
+    padding: 1rem;
+    box-sizing: border-box;
+}
 
 .tile-1,
 .tile-2,
@@ -478,27 +488,6 @@ nav ul.logo li a {
 
 .tile-4 {
     background-color: #b30491;
-}
-
-.project-description-1 {
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    position: absolute;
-    top: 107%;
-    padding-left: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem; /* Adjust spacing as needed */
-    box-sizing: border-box;
-}
-
-.project-description-2 {
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    position: absolute;
-    top: 115%;
-    padding-left: 1rem;
-    box-sizing: border-box;
 }
 
 /*----------//  Skills Section  //---------------------------------------------*/
@@ -690,8 +679,8 @@ nav ul.logo li a {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: rgba(0, 0, 0, 0.843);
-    max-width: 1080px;
-    width: 70%;
+    max-width: 920px;
+    width: 60%;
     height: auto;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
@@ -820,23 +809,18 @@ nav ul.logo li a {
 
 .RGBY-background-box {
     display: grid;
-    position: absolute;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: rgba(0, 0, 0, 0.808);
-    width: 90%;
-    min-width: 250px;
-    max-width: 800px;
-    height: 89vh;
+    max-width: 920px;
+    width: 60%;
+    height: auto;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
-
     row-gap: 10px;
-
     position: relative;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
-
     left: 50%;
     transform: translateX(-50%);
 }
@@ -844,14 +828,12 @@ nav ul.logo li a {
 .RGBY-content {
     background-image: url("assets/png/RGBYlogo.png");
     background-repeat: no-repeat;
-    background-size: 40%;
-    background-position-x: 50%;
-    background-position-y: 0%;
-    max-height: 165px;
-    margin-top: 2%;
+    background-size: contain;
+    background-position-x: center;
+    height: 10vh;
+    margin-top: 5%;
     margin-bottom: 2%;
-    position: absolute;
-    top: 2%;
+    position: relative;
 }
 
 .RGBY-title {
@@ -901,6 +883,7 @@ nav ul.logo li a {
     width: 80%;
     left: 10%;
     margin: 1rem;
+    margin-bottom: 2rem;
     font-size: 1.5rem;
     text-align: left;
     position: relative;
@@ -909,12 +892,9 @@ nav ul.logo li a {
 .RGBY-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin-top: 2rem;
-    font-size: 1.5rem;
     text-align: center;
     position: relative;
     justify-content: center;
-    top: 60%;
 }
 
 .RGBY-link-1,
@@ -949,7 +929,6 @@ nav ul.logo li a {
     aspect-ratio: 1920/1080;
     position: relative;
     margin: 1rem auto;
-    margin-top: 6rem;
     margin-bottom: 2%;
     display:flex;
 }
@@ -969,23 +948,18 @@ nav ul.logo li a {
 
 .tftb-background-box {
     display: grid;
-    position: absolute;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     background-color: rgba(0, 0, 0, 0.808);
-    width: 90%;
-    min-width: 250px;
-    max-width: 800px;
-    height: 88vh;
+    max-width: 920px;
+    width: 60%;
+    height: auto;
     border-radius: 15px;
     border: 2.5px solid var(--black-color);
-
     row-gap: 10px;
-
     position: relative;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
-
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1007,7 +981,7 @@ nav ul.logo li a {
     text-align: center; /* Format the text to the left */
     justify-content: center; /* Center the content horizontally */
     position: relative;
-    top: 5%;
+    top: 120%;
 }
 
 .tftb-type-description {
@@ -1047,6 +1021,7 @@ nav ul.logo li a {
     width: 80%;
     left: 10%;
     margin: 1rem;
+    margin-bottom: 2rem;
     font-size: 1.5rem;
     text-align: left;
     position: relative;
@@ -1055,12 +1030,9 @@ nav ul.logo li a {
 .tftb-description-2 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin-top: 2rem;
-    font-size: 1.5rem;
     text-align: center;
     position: relative;
     justify-content: center;
-    top: 60%;
 }
 
 .tftb-link-1,
