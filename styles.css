@@ -250,7 +250,6 @@ nav ul.logo li a {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 1.5rem;
     background-color: var(--main-color);
 }
 
@@ -266,30 +265,22 @@ nav ul.logo li a {
     align-items: center;
     justify-content: center;
     justify-items: center;
-
-    flex-direction: center;
-    column-gap: 2rem;
 }
 
 .about-me-icon {
-    background-image: url("assets/images/lancezoom.JPG");
-    /*background-image: url("https://drive.google.com/thumbnail?sz=w1000&id=1gEUpjYRQi1ubAvnOQQjgmiaJQeM_TcBQ");*/
-    background-size: 300%;
-    background-position: 50%;
-    width: 450px;
-    height: 450px;
-    border-radius: 10%;
-    margin-left: 10%;
-    margin-bottom: 10%;
+    /* background-image: url("assets/images/lancezoom.JPG");
+    background-image: url("assets/images/lancenocrop.JPG");
+    background-size: 110%;
+    background-position: 50%; */
+    width: 50vw;
+    object-fit: cover;
 }
 
 .bio-description {
     color: var(--primary-color);
     font-size: 1.5rem;
-    min-width: 300px;
-    max-width: 2000px;
-
-    margin-right: 10%;
+    /* min-width: 300px; */
+    max-width: 800px;
 }
 
 .bio-text,
@@ -298,7 +289,30 @@ nav ul.logo li a {
  {
     color: var(--primary-color);
     font-size: 1.8rem;
-    margin-bottom: var(--bottom-margin);
+    margin: 1rem;
+}
+
+.bio-text {
+    font-size: 3rem;
+}
+
+@media screen and (max-width: 1200px) {
+    .about-me-content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Updated to 2 columns */
+    }
+    .about-me-icon {
+        margin-top: 5%;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .bio-text,
+    .bio-text-1,
+    .bio-text-2
+    {
+        line-height: 1.2;
+    }
 }
 
 /*----------//  Projects Section  //---------------------------------------------*/
@@ -322,13 +336,21 @@ nav ul.logo li a {
 .projects {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Updated to 2 columns */
-    grid-template-rows: repeat(2, 1fr); /* Updated to 2 rows */
     background-color: var(--body-color);
-    padding-left: 5rem;
-    padding-right: 5rem;
-    padding-top: 5rem;
-    padding-bottom: 18rem;
+    padding: 5rem;
     justify-items: center;
+}
+@media screen and (max-width: 1100px) {
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Updated to 2 columns */
+    }
+}
+
+.project-box {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-tile-1,
@@ -337,14 +359,10 @@ nav ul.logo li a {
 .project-tile-4
 {
     background-color: #000000;
-    width: 70%;
     aspect-ratio: 9 / 6;
     position: relative;
     border-radius: 10px;
     border: 5px solid var(--black-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .project-tile-1 {
@@ -599,13 +617,13 @@ nav ul.logo li a {
 
 .contact {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     padding: 3rem;
     background-color: var(--main-color);
-    color: var(--primary-color)
+    color: var(--primary-color);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
 }
 
 .contact h2 {
