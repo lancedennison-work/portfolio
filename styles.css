@@ -99,11 +99,11 @@ nav ul li {
 
 nav a {
     color: var(--primary-color);
-    font-size: 1.25rem;
+    font-size: 2rem;
 }   
 
 nav ul.logo li a {
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: var(--normal-font);
 }
 
