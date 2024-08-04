@@ -529,6 +529,7 @@ nav ul.logo li a {
 
 .skills h2 {
     font-size: 2.5rem;
+    text-align: center;
 }
 
 .skills h3 {
@@ -547,20 +548,27 @@ nav ul.logo li a {
     font-size: 1.5rem;
 }
 
+@media screen and (max-width: 850px) {
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Updated to 2 columns */
+        row-gap: 2rem;
+    }
+}
+
 .skills-title {
     color: var(--primary-color);
     font-size: 2rem;
-    margin: 1rem;
 }
 
 
 .skills-list i {
     font-size: 3rem;
     display: flex;
-    align-items: left;
-    justify-content: left;
     padding: 0.5rem;
     font-style: normal;
+    align-items: center;
+    justify-content: center;
 }
 
 .skills-list p {
