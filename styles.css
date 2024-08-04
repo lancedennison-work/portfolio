@@ -183,6 +183,7 @@ nav ul.logo li a {
     top: 0;
     margin: 5%;
     margin-top: 15%;
+    align-items: flex-start;
 }
 
 .off-screen-content li a {
