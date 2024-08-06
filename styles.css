@@ -65,7 +65,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 2.5rem;
-    background-color: var(--bg-color);
+    background-color: #000000;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
 }
 
@@ -331,7 +331,7 @@ nav ul.logo li a {
 }
 
 .proj-section h3 {
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 .projects {
@@ -637,7 +637,7 @@ nav ul.logo li a {
     color: var(--primary-color);
     align-items: center;
     justify-content: center;
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
 }
 
 .contact h2 {
@@ -646,21 +646,25 @@ nav ul.logo li a {
     font-size: 2.5rem;
 }
 
-.resume-download {
-    background-color: var(--body-color);
-    padding: 1rem;
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-    border-radius: 10px;
-    
-    border: 5px solid var(--body-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.resume-box {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
 
-    color: var(--primary-color);
-    font-size: 1.25rem;
-    font-weight: bold;
+.resume-box iframe {
+    width: 201.5px; /* width of the rectangle */
+    aspect-ratio: 1/1.2941;
+}
+
+.resume-download {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 201.5px; /* width of the rectangle */
+    aspect-ratio: 1/1.2941;
 }
 
 .contact-text {
@@ -671,7 +675,7 @@ nav ul.logo li a {
 
 .contact-icons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     column-gap: 2rem;
 }
 
