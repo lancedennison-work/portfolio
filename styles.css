@@ -273,7 +273,7 @@ nav ul.logo li a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     font-size: 3rem;
     transition: .3s ease;
     overflow-y: auto;
