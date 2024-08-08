@@ -264,25 +264,24 @@ nav ul.logo li a {
 .sub-off-screen-menu {
     background-color: #464646; /* Light blue color with opacity */
     height: 100vh;
-    width: 100%;
+    width: 0%;
     max-width: 300px;
     position: fixed;
     top: 3.1rem;
-    right: -100%;
+    right: 0;
     z-index: 1;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     font-size: 3rem;
-    transition: .3s ease;
-
+    transition: .5s ease;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .sub-off-screen-menu.active {
-    right: 0;
+    width: 100%;
 }
 
 .sub-off-screen-content {
