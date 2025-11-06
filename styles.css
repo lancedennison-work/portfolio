@@ -721,6 +721,9 @@ nav ul.logo li a {
 .only-icon img{
     width: 7rem;
 }
+.ink-icon img{
+    width: 4.5rem;
+}
 .p5-icon img{
     width: 5rem;
     margin-top: -7%;
