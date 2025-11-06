@@ -707,18 +707,25 @@ nav ul.logo li a {
 }
 
 .custom-icon img,
-.only-icon img{
+.only-icon img,
+.p5-icon img{
     width: 3rem; /* Adjust according to your logo size */
     height: auto;
     margin-bottom: 5px; /* Optional: Adjust margin as needed */
-    font-size: 3rem; /* Match the font size */
+    font-size: 3.5rem; /* Match the font size */
     display: flex; /* Match display style */
     align-items: center; /* Match align-items */
     justify-content: left; /* Match justify-content */
     font-style: normal; /* Match font-style */
 }
 .only-icon img{
+    width: 7rem;
+}
+.p5-icon img{
     width: 5rem;
+    margin-top: -7%;
+    margin-bottom: -2%;
+    padding: 0%;
 }
 
 .c-color {color: #6398c7;}
@@ -754,6 +761,14 @@ nav ul.logo li a {
 .plan-color {color: #98afc7;}
 
 .qa-color {color: #b4ddc1;}
+
+.jira-color {color: #1868db;}
+
+.confluence-color {color: #1a74effc;}
+
+.unity-color {color: #444444fe;}
+
+.unreal-color {color: #000000f6;}
 
 
 /*----------//  Contact Section  //---------------------------------------------*/
