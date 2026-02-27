@@ -1416,3 +1416,20 @@ nav ul.logo li a {
         margin-top: 0;
     }
 }
+
+.disclaimer {
+    background-color: var(--header-color);
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.disclaimer h2 {
+    font-size: 1rem;
+}
+
+.disclaimer h3 {
+    font-size: 1rem;
+}
