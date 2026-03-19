@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#141414;--surface:#1f1f1f;--cream:#ece8df;--cream-dim:rgba(236,232,223,.6);
+      --cream-faint:rgba(236,232,223,.12);--white:#f6f4f0;
+      --font-display:'Funnel Sans',sans-serif;--font-mono:'DM Mono',monospace;
+      --nav-h:64px;--max-w:1200px;--pad:clamp(1rem,4vw,2.5rem);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--cream);font-family:var(--font-display);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}
+    img{display:block;width:100%;height:100%;object-fit:cover;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:var(--bg);display:flex;align-items:center;padding:0 var(--pad);border-bottom:1px solid var(--cream-faint);}
+    .nav-inner{width:100%;max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--cream-dim);transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--cream);}
+    .nav-cta{background:var(--cream);color:var(--bg)!important;padding:.5rem 1.25rem;border-radius:4px;font-size:.875rem!important;font-weight:500!important;transition:opacity .2s!important;}
+    .nav-cta:hover{opacity:.85;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-hamburger span{display:block;width:28px;height:2px;background:var(--cream);border-radius:2px;transition:transform .3s,opacity .3s;}
+    .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-hamburger.open span:nth-child(2){opacity:0;}
+    .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);padding:2rem var(--pad);border-bottom:1px solid var(--cream-faint);z-index:99;flex-direction:column;gap:1.5rem;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-size:1.5rem;font-weight:500;letter-spacing:-0.04em;text-transform:lowercase;}
+
+    .page{padding-top:calc(var(--nav-h) + 5rem);max-width:var(--max-w);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);}
+
+    /* Hero */
+    .about-hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;padding-bottom:6rem;border-bottom:1px solid var(--cream-faint);}
+    .about-hero-left{display:flex;flex-direction:column;gap:2rem;}
+    .about-title{font-size:clamp(3.5rem,10vw,8rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);}
+    .about-intro{font-size:clamp(1rem,1.8vw,1.2rem);font-weight:400;letter-spacing:-0.02em;line-height:1.55;color:var(--cream-dim);}
+    .about-intro p+p{margin-top:1.25rem;}
+    .about-intro em{font-style:italic;color:var(--cream);}
+    .btn{display:inline-block;background:var(--cream);color:var(--bg);padding:.625rem 1.5rem;border-radius:4px;font-size:.875rem;font-weight:500;letter-spacing:-0.02em;text-transform:lowercase;transition:opacity .2s;width:fit-content;}
+    .btn:hover{opacity:.85;}
+    .about-hero-photo{border-radius:8px;overflow:hidden;aspect-ratio:2/3;background:var(--surface);}
+
+    /* Skills */
+    .skills{padding:6rem 0;border-bottom:1px solid var(--cream-faint);}
+    .section-label{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.02em;margin-bottom:3rem;}
+    .skills-heading{font-size:clamp(2rem,6vw,5rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:4rem;}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;}
+    .skills-col h3{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.02em;margin-bottom:1.5rem;}
+    .skills-list{display:flex;flex-direction:column;gap:.6rem;}
+    .skill-item{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--white);}
+
+    /* Experience */
+    .experience{padding:6rem 0;border-bottom:1px solid var(--cream-faint);}
+    .experience-heading{font-size:clamp(2rem,6vw,5rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:4rem;}
+    .experience-item{display:grid;grid-template-columns:1fr 2fr auto;gap:2rem;align-items:start;padding:2rem 0;border-top:1px solid var(--cream-faint);}
+    .exp-company{font-size:.85rem;font-weight:500;letter-spacing:-0.02em;text-transform:lowercase;color:var(--cream-dim);}
+    .exp-role{font-size:clamp(1rem,2vw,1.5rem);font-weight:500;letter-spacing:-0.04em;text-transform:lowercase;color:var(--white);margin-bottom:.5rem;}
+    .exp-desc{font-size:.9rem;color:var(--cream-dim);letter-spacing:-0.02em;line-height:1.55;max-width:520px;}
+    .exp-desc em{font-style:italic;}
+    .exp-years{font-size:.8rem;font-family:var(--font-mono);color:var(--cream-dim);white-space:nowrap;padding-top:.2rem;}
+
+    /* CTA */
+    .cta{padding:clamp(5rem,12vw,10rem) 0;}
+    .cta-heading{font-size:clamp(3rem,12vw,10rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;transition:opacity .2s;}
+    .cta-heading:hover{opacity:.75;}
+    .cta-arrow{font-size:clamp(2rem,6vw,5rem);font-weight:300;color:var(--cream-dim);flex-shrink:0;margin-bottom:.05em;}
+
+    /* Footer */
+    footer{border-top:1px solid var(--cream-faint);padding:4rem var(--pad) 2.5rem;}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:1fr auto auto;gap:3rem;margin-bottom:4rem;}
+    .footer-info p{font-size:.9rem;color:var(--cream-dim);letter-spacing:-0.02em;line-height:2;text-transform:lowercase;}
+    .footer-info a{transition:color .2s;}
+    .footer-info a:hover{color:var(--cream);}
+    .footer-col h4{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.02em;margin-bottom:1rem;}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+    .footer-col a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;transition:color .2s;color:var(--cream);}
+    .footer-col a:hover{color:var(--cream-dim);}
+    .footer-wordmark{font-size:clamp(3rem,10vw,9rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:2rem;}
+    .footer-bottom{border-top:1px solid var(--cream-faint);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;}
+    .footer-bottom p{font-size:.75rem;color:var(--cream-dim);font-family:var(--font-mono);}
+
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-delay-1{transition-delay:.1s;}
+    .reveal-delay-2{transition-delay:.2s;}
+    .reveal-delay-3{transition-delay:.3s;}
+
+    @media(max-width:900px){
+      .about-hero{grid-template-columns:1fr;}
+      .about-hero-photo{max-width:380px;}
+      .skills-grid{grid-template-columns:1fr 1fr;}
+      .experience-item{grid-template-columns:1fr 2fr;}
+      .exp-years{grid-column:1;grid-row:1;}
+      .footer-top{grid-template-columns:1fr 1fr;}
+      .footer-info{grid-column:span 2;}
+    }
+    @media(max-width:600px){
+      .nav-links{display:none;}
+      .nav-hamburger{display:flex;}
+      .skills-grid{grid-template-columns:1fr;}
+      .experience-item{grid-template-columns:1fr;gap:.5rem;}
+      .footer-top{grid-template-columns:1fr;}
+      .footer-info{grid-column:auto;}
+      .footer-bottom{flex-direction:column;gap:.5rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo">Lance Dennison</a>
+      <ul class="nav-links">
+        <li><a href="./projects.html">projects</a></li>
+        <li><a href="./about.html" class="active">about</a></li>
+        <li><a href="mailto:lancedennison.work@gmail.com" class="nav-cta">contact</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./projects.html" onclick="closeMobile()">projects</a>
+    <a href="./about.html" onclick="closeMobile()">about</a>
+    <a href="mailto:lancedennison.work@gmail.com" onclick="closeMobile()">contact</a>
+  </div>
+
+  <div class="page">
+
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="about-hero-left">
+        <h1 class="about-title">about<br>me</h1>
+        <div class="about-intro">
+          <p>
+            I'm a game producer and writer from Los Angeles California. I graduated from the
+             University of California, Santa Cruz in 2024 with a Bachelors of Science in
+              Computer Science, Game Design. I worked as the Narrative Lead and Producer on
+               <i>Through the Fog</i>, a third-person rogue-lite exploration game that was
+                published to Steam in June of 2024.
+          </p>
+          <p>
+            My skills encompass writing, game design, team coordnation, administrative skills,
+             interpersonal skills, quality
+             assurance, and production planning. My core strength is collaborating with
+              creative teams to bridge different disciplines in game development, and bring
+              ideas to reality with a holistic approach. I have a passion for the internal
+               structure of game development, working with talented people, and genuinely love
+                each piece that makes a game whole. I have experience working with and
+                 alongside other disciplines to manage workflow, schedule deadlines, conduct
+                  meetings, playtests, and integrate assets between teams.
+          </p>
+          <p>
+            My enthusiasm for game development stems from my love for storytelling and
+             appreciation for meaningful gameplay integration. Outside of my own skills, I
+              have a deep love for art, animation, and great UI and UX design. I love playing
+               most genres of video games but have sunk most of my time in MMOs, RPGs, and
+                rogue-lite/like titles. I also have a passion for TTRPGs and have created
+                 several classes and subclasses as personal projects as well as multiple
+                  campaigns for me and my friends to play together.
+        </div>
+        <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume</a>
+      </div>
+      <div class="about-hero-photo reveal">
+        <img src="assets/images/lancenocrop.JPG" alt="Lance Dennison" loading="eager">
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills">
+      <p class="section-label reveal">what I bring</p>
+      <h2 class="skills-heading reveal">skills &amp;<br>tools</h2>
+      <div class="skills-grid">
+        <div class="skills-col reveal">
+          <h3>languages</h3>
+          <div class="skills-list">
+            <span class="skill-item">C</span>
+            <span class="skill-item">C++</span>
+            <span class="skill-item">C#</span>
+            <span class="skill-item">JavaScript</span>
+            <span class="skill-item">HTML</span>
+            <span class="skill-item">Markdown</span>
+            <span class="skill-item">Bash</span>
+            <span class="skill-item">Ink</span>
+          </div>
+        </div>
+        <div class="skills-col reveal reveal-delay-1">
+          <h3>software</h3>
+          <div class="skills-list">
+            <span class="skill-item">Unity</span>
+            <span class="skill-item">Unreal Engine</span>
+            <span class="skill-item">Phaser 3</span>
+            <span class="skill-item">Jira</span>
+            <span class="skill-item">Confluence</span>
+            <span class="skill-item">Trello</span>
+            <span class="skill-item">Git / VS Code</span>
+            <span class="skill-item">p5.js</span>
+          </div>
+        </div>
+        <div class="skills-col reveal reveal-delay-2">
+          <h3>core skills</h3>
+          <div class="skills-list">
+            <span class="skill-item">Writing</span>
+            <span class="skill-item">Narrative Design</span>
+            <span class="skill-item">Game Design</span>
+            <span class="skill-item">Rule Design</span>
+            <span class="skill-item">Production Planning</span>
+            <span class="skill-item">Team Coordination</span>
+            <span class="skill-item">Quality Assurance</span>
+            <span class="skill-item">Administration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="experience">
+      <p class="section-label reveal">my experience</p>
+      <h2 class="experience-heading reveal">where i've<br>worked</h2>
+
+      <div class="experience-item reveal">
+        <p class="exp-company">UC Santa Cruz — Senior Capstone</p>
+        <div>
+          <p class="exp-role">Narrative Lead &amp; Producer — <em>Through the Fog</em></p>
+          <p class="exp-desc">Led all written material, voice acting direction, quest design, tutorial design, and production planning for <em>Through the Fog</em>, a third-person rogue-lite RPG published to Steam.</p>
+        </div>
+        <p class="exp-years">2023 — 2024</p>
+      </div>
+
+      <div class="experience-item reveal reveal-delay-1">
+        <p class="exp-company">Personal</p>
+        <div>
+          <p class="exp-role">Solo Developer — RGBY Runner</p>
+          <p class="exp-desc">Designed and developed an endless runner in JavaScript and Phaser 3 where players change the color of the world to make obstacles disappear into the background.</p>
+        </div>
+        <p class="exp-years">ongoing</p>
+      </div>
+
+      <div class="experience-item reveal reveal-delay-2">
+        <p class="exp-company">Personal</p>
+        <div>
+          <p class="exp-role">Solo Developer — Tales from the Beyond Deck</p>
+          <p class="exp-desc">Built an interactive digital deck in Unity and C# as a supplementary tool for D&amp;D's College of Spirits subclass, providing an immersive way to roll for a Tale from the Beyond.</p>
+        </div>
+        <p class="exp-years">ongoing</p>
+      </div>
+
+      <div class="experience-item reveal reveal-delay-3">
+        <p class="exp-company">Personal</p>
+        <div>
+          <p class="exp-role">Designer — Custom D&amp;D Classes &amp; Campaigns</p>
+          <p class="exp-desc">Created a collection of custom classes and subclasses for D&amp;D 5th Edition, as well as multiple campaigns for personal play groups.</p>
+        </div>
+        <p class="exp-years">ongoing</p>
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <a class="cta-heading" href="mailto:lancedennison.work@gmail.com">
+        <span>get in touch</span>
+        <span class="cta-arrow">↗</span>
+      </a>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top reveal">
+        <div class="footer-info">
+          <p><a href="mailto:lancedennison.work@gmail.com">email: lancedennison.work@gmail.com</a></p>
+          <p>based in: Los Angeles, California</p>
+          <p>BS Computer Science, Game Design — UC Santa Cruz, 2024</p>
+        </div>
+        <div class="footer-col">
+          <h4>pages</h4>
+          <ul>
+            <li><a href="./index.html">home</a></li>
+            <li><a href="./about.html">about</a></li>
+            <li><a href="./projects.html">projects</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>links</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/lancedennison/" target="_blank">linkedin</a></li>
+            <li><a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank">resume</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-wordmark reveal">lance dennison</p>
+      <div class="footer-bottom">
+        <p>© 2024 Lance Dennison. All rights reserved.</p>
+        <p>game producer &amp; writer, Los Angeles CA</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    function closeMobile() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

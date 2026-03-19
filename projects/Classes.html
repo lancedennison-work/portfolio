@@ -1,197 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lance's Projects</title>
-        <!----------//  CSS Styles  //---------------------------------------------------------------------------------------------------------->
-        <link rel="stylesheet" href="../styles.css">
-        <!----------//  Favicons (img/logo for browser tab)  //--------------------------------------------------------------------------------->
-    <link rel="icon" type="image/png" sizes="x" href="../assets/png/sigbacked.png" />
-        <!----------//  Animate CSS CDN  //----------------------------------------------------------------------------------------------------->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    </head>
-    <!--//  END head  //-->
-    <body>
-        <!----------//  Navbar Section  //-------------------------------------------------------------------------------------------------------->
-        <nav>
-            <ul class="logo">
-                <div class="nav-tile">
-                <li><a href="../index.html" class="logo">Lance Dennison</a>
-                </li>
-                </div>
-            </ul>
-            
-            <ul class="navigation">
-                <div class="nav-tile">
-                <li><a href="../index.html#proj-section" class="nav-link">Projects</a>
-                </li>
-                </div>
-                <div class="nav-tile">
-                <li><a href="../index.html#about-me" class="nav-link">About</a></li>
-                </div>
-                <div class="nav-tile">
-                <li><a href="../index.html#skills" class="nav-link">Skills</a>
-                </li>
-                </div>
-                <div class="nav-tile">
-                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-                </div>
-                <div class="nav-tile">
-                <li><a href="https://lancedennison-work.github.io/portfolio/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a>
-                </li>
-                </div>
-            </ul>
-            <div class="ham-menu"><span></span><span></span><span></span></div>
-        </nav>
-        <!----------// Sidebar Menu  //--------------------------------------------------------------------------------------------------------->
-        <div class="off-screen-menu">
-            <ul class="off-screen-content">
-              <li><a href="../index.html#proj-section" class="nav-link">Projects</a></li>
-              <li><a href="../index.html#about-me" class="nav-link">About</a></li>
-              <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
-              <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-              <li><a href="https://lancedennison-work.github.io/portfolio/LanceDennison-Resume.pdf" class="nav-link" target="_blank">Resume</a></li>
-            </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom D&D Classes — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#141414;--surface:#1f1f1f;--cream:#ece8df;--cream-dim:rgba(236,232,223,.6);--cream-faint:rgba(236,232,223,.12);--white:#f6f4f0;--font-display:'Funnel Sans',sans-serif;--font-mono:'DM Mono',monospace;--nav-h:64px;--max-w:1200px;--pad:clamp(1rem,4vw,2.5rem);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--cream);font-family:var(--font-display);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}
+
+    /* Nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:var(--bg);display:flex;align-items:center;padding:0 var(--pad);border-bottom:1px solid var(--cream-faint);}
+    .nav-inner{width:100%;max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--cream-dim);transition:color .2s;}
+    .nav-links a:hover{color:var(--cream);}
+    .nav-cta{background:var(--cream);color:var(--bg)!important;padding:.5rem 1.25rem;border-radius:4px;font-size:.875rem!important;font-weight:500!important;transition:opacity .2s!important;}
+    .nav-cta:hover{opacity:.85;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-hamburger span{display:block;width:28px;height:2px;background:var(--cream);border-radius:2px;transition:transform .3s,opacity .3s;}
+    .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-hamburger.open span:nth-child(2){opacity:0;}
+    .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);padding:2rem var(--pad);border-bottom:1px solid var(--cream-faint);z-index:99;flex-direction:column;gap:1.5rem;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-size:1.5rem;font-weight:500;letter-spacing:-0.04em;text-transform:lowercase;}
+
+    /* Page */
+    .page{padding-top:calc(var(--nav-h) + 5rem);max-width:var(--max-w);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);padding-bottom:6rem;}
+    .project-title{font-size:clamp(3rem,10vw,7.5rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:1rem;}
+    .project-subtitle{font-size:clamp(.9rem,1.5vw,1rem);color:var(--cream-dim);letter-spacing:-0.02em;margin-bottom:3rem;font-family:var(--font-mono);}
+
+    /* Class switcher tabs */
+    .class-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+    .class-tab{background:none;border:1px solid var(--cream-faint);color:var(--cream-dim);font-family:var(--font-display);font-size:.85rem;font-weight:500;letter-spacing:-0.02em;text-transform:lowercase;padding:.45rem 1.1rem;border-radius:100px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+    .class-tab:hover{color:var(--cream);border-color:var(--cream-dim);}
+    .class-tab.active{background:var(--cream);color:var(--bg);border-color:var(--cream);}
+
+    /* Disclaimer */
+    .disclaimer{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);margin-bottom:1.25rem;line-height:1.6;}
+
+    /* iframe viewer */
+    .iframe-wrap{border-radius:8px;overflow:hidden;background:var(--surface);margin-bottom:4rem;height:85vh;min-height:600px;}
+    .iframe-wrap iframe{width:100%;height:100%;border:0;display:block;}
+
+    /* Meta row */
+    .project-meta{display:flex;flex-wrap:wrap;gap:2rem 4rem;padding:2rem 0;border-top:1px solid var(--cream-faint);border-bottom:1px solid var(--cream-faint);margin-bottom:4rem;}
+    .meta-label{font-size:.7rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.04em;margin-bottom:.4rem;}
+    .meta-value{font-size:.95rem;font-weight:500;letter-spacing:-0.03em;color:var(--white);text-transform:lowercase;}
+
+    /* Other projects */
+    .other-projects{padding-top:2rem;}
+    .other-heading{font-size:clamp(2rem,6vw,5rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--cream);margin-bottom:2rem;}
+    .other-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .other-card{display:block;}
+    .other-card-img{border-radius:8px;overflow:hidden;aspect-ratio:2/3;background:var(--surface);display:flex;align-items:center;justify-content:center;transition:opacity .2s;}
+    .other-card:hover .other-card-img{opacity:.75;}
+    .other-placeholder{font-size:clamp(1rem,2.5vw,1.5rem);font-weight:700;letter-spacing:-0.04em;color:rgba(236,232,223,.15);text-transform:lowercase;text-align:center;padding:1rem;user-select:none;}
+    .other-card-name{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--white);margin-top:.75rem;}
+    .other-card-type{font-size:.8rem;color:var(--cream-dim);letter-spacing:-0.02em;margin-top:.2rem;text-transform:lowercase;}
+
+    /* Footer */
+    footer{border-top:1px solid var(--cream-faint);padding:4rem var(--pad) 2.5rem;}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:1fr auto auto;gap:3rem;margin-bottom:4rem;}
+    .footer-info p{font-size:.9rem;color:var(--cream-dim);letter-spacing:-0.02em;line-height:2;text-transform:lowercase;}
+    .footer-info a{transition:color .2s;}.footer-info a:hover{color:var(--cream);}
+    .footer-col h4{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.02em;margin-bottom:1rem;}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+    .footer-col a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;transition:color .2s;color:var(--cream);}
+    .footer-col a:hover{color:var(--cream-dim);}
+    .footer-wordmark{font-size:clamp(3rem,10vw,9rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:2rem;}
+    .footer-bottom{border-top:1px solid var(--cream-faint);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;}
+    .footer-bottom p{font-size:.75rem;color:var(--cream-dim);font-family:var(--font-mono);}
+
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-delay-1{transition-delay:.1s;}
+
+    @media(max-width:900px){.other-grid{grid-template-columns:repeat(2,1fr);}.footer-top{grid-template-columns:1fr 1fr;}.footer-info{grid-column:span 2;}}
+    @media(max-width:600px){.nav-links{display:none;}.nav-hamburger{display:flex;}.other-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr;}.footer-info{grid-column:auto;}.footer-bottom{flex-direction:column;gap:.5rem;}.iframe-wrap{height:70vh;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Lance Dennison</a>
+      <ul class="nav-links">
+        <li><a href="../projects.html">projects</a></li>
+        <li><a href="../about.html">about</a></li>
+        <li><a href="mailto:lancedennison.work@gmail.com" class="nav-cta">contact</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../projects.html" onclick="closeMobile()">projects</a>
+    <a href="../about.html" onclick="closeMobile()">about</a>
+    <a href="mailto:lancedennison.work@gmail.com" onclick="closeMobile()">contact</a>
+  </div>
+
+  <div class="page">
+    <h1 class="project-title">Custom D&amp;D Classes</h1>
+    <p class="project-subtitle">Markdown · Rule Design · D&amp;D 5e · Personal</p>
+
+    <!-- Class switcher -->
+    <div class="class-tabs" role="group" aria-label="Select class to view">
+      <button class="class-tab active" data-url="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep">Brawler</button>
+      <button class="class-tab" data-url="https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt">Sanguine Knight</button>
+      <button class="class-tab" data-url="https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB">Rune Mage</button>
+      <button class="class-tab" data-url="https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU">Defender</button>
+      <button class="class-tab" data-url="https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ">Spear Dancer</button>
+    </div>
+
+    <p class="disclaimer">Content is fetched live from GMBinder — may take a moment to load depending on your connection.</p>
+
+    <div class="iframe-wrap reveal">
+      <iframe id="classViewer" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep" title="D&D Class Document"></iframe>
+    </div>
+
+    <!-- Meta -->
+    <div class="project-meta reveal">
+      <div><p class="meta-label">project type</p><p class="meta-value">Personal</p></div>
+      <div><p class="meta-label">language</p><p class="meta-value">Markdown · Ink</p></div>
+      <div><p class="meta-label">classes</p><p class="meta-value">5 custom classes &amp; subclasses</p></div>
+      <div><p class="meta-label">system</p><p class="meta-value">D&amp;D 5th Edition</p></div>
+    </div>
+
+    <!-- Other projects -->
+    <div class="other-projects reveal">
+      <h2 class="other-heading">other projects</h2>
+      <div class="other-grid">
+        <a class="other-card" href="./ThroughtheFog.html">
+          <div class="other-card-img"><div class="other-placeholder">through the fog</div></div>
+          <p class="other-card-name">Through the Fog</p><p class="other-card-type">Unity · Narrative Lead · Steam</p>
+        </a>
+        <a class="other-card" href="./RGBYrunner.html">
+          <div class="other-card-img"><div class="other-placeholder">rgby runner</div></div>
+          <p class="other-card-name">RGBY Runner</p><p class="other-card-type">JavaScript · Phaser 3 · Solo Dev</p>
+        </a>
+        <a class="other-card" href="./TftBdeck.html">
+          <div class="other-card-img"><div class="other-placeholder">tales from<br>the beyond</div></div>
+          <p class="other-card-name">Tales from the Beyond Deck</p><p class="other-card-type">C# · Unity · D&amp;D Supplement</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top reveal">
+        <div class="footer-info">
+          <p><a href="mailto:lancedennison.work@gmail.com">email: lancedennison.work@gmail.com</a></p>
+          <p>based in: Los Angeles, California</p>
+          <p>BS Computer Science, Game Design — UC Santa Cruz, 2024</p>
         </div>
-        <!--//  END Navbar  //-->
-        <section class="disclaimer" id="disclaimer">
-            <h2>Depending on internet speed this page might need a moment to fetch content from the host website.</h2>
-            <h2>This is an intentional choice to keep the content on this page up-to-date without direct changes.</h2>
-        </section>
-        <!----------//  Project Content  //----------------------------------------------------------------------------------------------------->
-        <!-- <section class="classes-page-background-img" id="classes-page-background-img"></section> -->
-        <section class="classes-page-background-box">
-            <div class="sub-off-screen-menu">
-                <ul class="sub-off-screen-content">
-                    <li><a href="#" onclick="changeIFrameSrc(brawler)" class="sub-nav-link">Brawler</a></li>
-                    <li><a href="#" onclick="changeIFrameSrc(sanguine_knight)" class="sub-nav-link">Sanguine Knight</a></li>
-                    <li><a href="#" onclick="changeIFrameSrc(rune_mage)" class="sub-nav-link">Rune Mage</a></li>
-                    <li><a href="#" onclick="changeIFrameSrc(defender)" class="sub-nav-link">Defender</a></li>
-                    <li><a href="#" onclick="changeIFrameSrc(spear_dancer)" class="sub-nav-link">Spear Dancer</a></li>
-                </ul>
-            </div>
-            <nav id="sub">
-                <ul class="sub-logo">
-                    <li><a href="#" class="sub-logo">Content Navigation</a></li>
-                </ul>
-                <ul class="sub-navigation">
-                    <div class="sub-nav-tile">
-                        <li><a href="#" onclick="changeIFrameSrc(brawler)" class="sub-nav-link">Brawler</a></li>
-                    </div>
-                    <div class="sub-nav-tile">
-                        <li><a href="#" onclick="changeIFrameSrc(sanguine_knight)" class="sub-nav-link">Sanguine Knight</a></li>
-                    </div>
-                    <div class="sub-nav-tile">
-                        <li><a href="#" onclick="changeIFrameSrc(rune_mage)" class="sub-nav-link">Rune Mage</a></li>
-                    </div>
-                    <div class="sub-nav-tile">
-                        <li><a href="#" onclick="changeIFrameSrc(defender)" class="sub-nav-link">Defender</a></li>
-                    </div>
-                    <div class="sub-nav-tile">
-                        <li><a href="#" onclick="changeIFrameSrc(spear_dancer)" class="sub-nav-link">Spear Dancer</a></li>
-                    </div>
-                </ul>
-                <div class="sub-ham-menu"><span></span><span></span><span></span></div>
-            </nav>
-            <!-- <div class="classes-page-description">
-                <p>This page displays my custom class content one 
-                    document at a time, with a direct share link from 
-                    the website I used to create them, so that this 
-                    page always contains the most up-to-date material. 
-                    The Brawler custom class and its subclasses have 
-                    been playtested to a level I am happy with. The 
-                    others could use more playtesting and some 
-                    revisions and balancing based on feedback. 
-                    Sanguine Knight class is a tank class that uses 
-                    health from themselves, and drained from others 
-                    through attacks, to perform various feats such 
-                    as: summoning an elemental formed from blood. The 
-                    Rune Mage class was created as an exercise in 
-                    rule design, and not necessarily intended for 
-                    actual play. I wanted to make a class that had a 
-                    fully modular spell system, but what makes it 
-                    overly complicated is keeping those spells 
-                    balanced. Normally spellcasters have spell slots, 
-                    which limits how many spells they can cast. Thus, 
-                    to balance a mage that can create their own magic, 
-                    they are limited by the volatility of their spell 
-                    components, and can only hold so much at once 
-                    safely. All of this leaves the player keeping 
-                    track of many things at once, too many to be 
-                    reasonable. The Defender Fighter subclass is 
-                    designed to be a purely support martial subclass. 
-                    Normally Fighters aim to achieve the 
-                    highest damage possible each round of combat, but 
-                    offer little defensive capabilities. The Spear 
-                    Dancer Fighter subclass is inspired by the Spear 
-                    Maidens from Robert Jordan’s Wheel of Time series. 
-                    They focus on rapid, accurate strikes with a 
-                    focus on gaining more attacks per round through 
-                    multiple methods.</p>
-            </div> -->
-            <!----------//  iframe to Display Game Content  //------------------------------------------------------------------------------>
-            <iframe class="classes-page-video" id="content" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep"></iframe>
-        </div>
-        <!--//  END project content  //-->
-        <!----------//  External scripts  //---------------------------------------------------------------------------------------------------->
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <!----------//  JavaScript Variables and Functions  //---------------------------------------------------------------------------------->
-        <script>
-            var brawler = "https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep";
-            var sanguine_knight = "https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt";
-            var rune_mage = "https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB";
-            var defender = "https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU";
-            var spear_dancer = "https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ";
+        <div class="footer-col"><h4>pages</h4><ul><li><a href="../index.html">home</a></li><li><a href="../about.html">about</a></li><li><a href="../projects.html">projects</a></li></ul></div>
+        <div class="footer-col"><h4>links</h4><ul><li><a href="https://www.linkedin.com/in/lancedennison/" target="_blank">linkedin</a></li><li><a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank">resume</a></li></ul></div>
+      </div>
+      <p class="footer-wordmark reveal">lance dennison</p>
+      <div class="footer-bottom"><p>© 2024 Lance Dennison. All rights reserved.</p><p>game producer &amp; writer, Los Angeles CA</p></div>
+    </div>
+  </footer>
 
-            function changeIFrameSrc(url) {
-                document.getElementById("content").src = url;
-                console.log("Button clicked with URL:", url);
-            }
-            
-            const hamMenu = document.querySelector(".ham-menu");
-            const offScreenMenu = document.querySelector(".off-screen-menu");
+  <script>
+    // Nav
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    function closeMobile() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }
 
-            hamMenu.addEventListener("click", () => {
-                hamMenu.classList.toggle("active");
-                offScreenMenu.classList.toggle("active");
-            });
+    // Class switcher
+    const tabs = document.querySelectorAll('.class-tab');
+    const viewer = document.getElementById('classViewer');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        viewer.src = tab.dataset.url;
+      });
+    });
 
-            offScreenMenu.addEventListener("click", () => {
-                hamMenu.classList.toggle("active");
-                offScreenMenu.classList.toggle("active");
-            });
-
-            const subhamMenu = document.querySelector(".sub-ham-menu");
-            if(subhamMenu)
-                console.log(subhamMenu);
-            else
-                console.log("hello");
-            const suboffScreenMenu = document.querySelector(".sub-off-screen-menu");
-
-            subhamMenu.addEventListener("click", () => {
-                subhamMenu.classList.toggle("active");
-                suboffScreenMenu.classList.toggle("active");
-            });
-
-            suboffScreenMenu.addEventListener("click", () => {
-                subhamMenu.classList.toggle("active");
-                suboffScreenMenu.classList.toggle("active");
-            });
-
-            /* if the screen is bigger  remove the off-screen menu */
-            window.addEventListener("resize", () => {
-                if (window.innerWidth > 1000) {
-                offScreenMenu.classList.remove("active");
-                hamMenu.classList.remove("active");
-                }
-                if (window.innerWidth > 1460) {
-                suboffScreenMenu.classList.remove("active");
-                subhamMenu.classList.remove("active");
-                }
-            });
-        </script>
-        <!--//  END script  //-->
-    </body>
+    // Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
 </html>
