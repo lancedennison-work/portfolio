@@ -29,7 +29,7 @@
     /* Nav */
     nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:var(--bg);display:flex;align-items:center;padding:0 var(--pad);border-bottom:1px solid var(--cream-faint);}
     .nav-inner{width:100%;max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color: var(--main-color);}
+    .nav-logo{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;}
     .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
     .nav-links a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--cream-dim);transition:color .2s;}
     .nav-links a:hover{color:var(--cream);}
@@ -139,9 +139,10 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="./index.html" class="nav-logo">Lance Dennison</a>
+      <a href="./portfolio.html" class="nav-logo">Lance Dennison</a>
       <ul class="nav-links">
         <li><a href="./projects.html">projects</a></li>
+        <li><a href="./current-project.html">current project</a></li>
         <li><a href="./about.html">about</a></li>
         <li><a href="#contact" class="nav-cta">contact</a></li>
       </ul>
@@ -153,6 +154,7 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="./projects.html" onclick="closeMobile()">projects</a>
+    <a href="./current-project.html" onclick="closeMobile()">current project</a>
     <a href="./about.html" onclick="closeMobile()">about</a>
     <a href="#contact" onclick="closeMobile()">contact</a>
   </div>
@@ -160,7 +162,7 @@
   <!-- Hero -->
   <section class="hero">
     <h1 class="hero-heading">lance dennison</h1>
-    <p class="hero-sub"></p>
+    <p class="hero-sub">Game producer and writer from Los Angeles, California. I bridge creative teams and bring ideas to reality with a holistic approach to development.</p>
   </section>
 
   <!-- Projects -->
@@ -174,16 +176,6 @@
         <div class="project-info">
           <p class="project-name">Through the Fog</p>
           <p class="project-type">Steam Game · Unity · Quest Design · Writing · Production</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="./projects/Classes.html">
-        <div class="project-img-wrap">
-          <div class="project-placeholder">d&amp;d classes</div>
-        </div>
-        <div class="project-info">
-          <p class="project-name">Custom D&amp;D Classes</p>
-          <p class="project-type">Markdown · Rule Design · Class Design</p>
         </div>
       </a>
 
@@ -207,6 +199,16 @@
         </div>
       </a>
 
+      <a class="project-card" href="./projects/Classes.html">
+        <div class="project-img-wrap">
+          <div class="project-placeholder">d&amp;d classes</div>
+        </div>
+        <div class="project-info">
+          <p class="project-name">Custom D&amp;D Classes</p>
+          <p class="project-type">Markdown · Rule Design · Class Design</p>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -214,7 +216,7 @@
   <section class="about" id="about">
     <div class="about-inner">
       <p class="about-statement reveal">
-        I'm Lance Dennison, a producer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
+        I'm Lance Dennison, a game producer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
       </p>
       <div class="about-cols">
         <div class="about-photo reveal">
@@ -223,7 +225,7 @@
         <div class="about-text-group">
           <div class="reveal reveal-delay-1">
             <p class="about-label">background</p>
-            <p class="about-body">I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on <a href="https://store.steampowered.com/app/1698600/Through_the_Fog/" target="_blank"><em>Through the Fog</em></a>, a third-person rogue-lite published to Steam in June 2024.</p>
+            <p class="about-body">I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on <em>Through the Fog</em>, a third-person rogue-lite published to Steam in June 2024.</p>
             <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume</a>
           </div>
           <div class="reveal reveal-delay-2">
@@ -238,7 +240,7 @@
   <!-- CTA -->
   <section class="cta" id="contact">
     <div class="cta-heading-wrap">
-      <a class="cta-heading" href="mailto:lancedennison.work@gmail.com">
+      <a class="cta-heading" href="/cdn-cgi/l/email-protection#610d000f020405040f0f08120e0f4f160e130a21060c00080d4f020e0c">
         <span>get in touch</span>
         <span class="cta-arrow">↗</span>
       </a>
@@ -250,14 +252,14 @@
     <div class="footer-inner">
       <div class="footer-top reveal">
         <div class="footer-info">
-          <p><a href="mailto:lancedennison.work@gmail.com">email: lancedennison.work@gmail.com</a></p>
+          <p><a href="/cdn-cgi/l/email-protection#fd919c939e9899989393948e9293d38a928f96bd9a909c9491d39e9290">email: <span class="__cf_email__" data-cfemail="c3afa2ada0a6a7a6adadaab0acadedb4acb1a883a4aea2aaafeda0acae">[email&#160;protected]</span></a></p>
           <p>based in: Los Angeles, California</p>
           <p>BS Computer Science, Game Design — UC Santa Cruz, 2024</p>
         </div>
         <div class="footer-col">
           <h4>pages</h4>
           <ul>
-            <li><a href="./index.html">home</a></li>
+            <li><a href="./portfolio.html">home</a></li>
             <li><a href="./about.html">about</a></li>
             <li><a href="./projects.html">projects</a></li>
           </ul>
@@ -278,7 +280,7 @@
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => {
@@ -290,15 +292,5 @@
       mobileMenu.classList.remove('open');
     }
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
     }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
-
-</body>
-</html>
