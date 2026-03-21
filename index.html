@@ -1,296 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lance Dennison — Game Producer &amp; Writer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:          #141414;
-      --surface:     #1f1f1f;
-      --cream:       #ece8df;
-      --cream-dim:   rgba(236,232,223,0.6);
-      --cream-faint: rgba(236,232,223,0.12);
-      --white:       #f6f4f0;
-      --font-display:'Funnel Sans',sans-serif;
-      --font-mono:   'DM Mono',monospace;
-      --nav-h:64px; --max-w:1200px; --pad:clamp(1rem,4vw,2.5rem);
-      --emphasis-color: #913d64;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{background:var(--bg);color:var(--cream);font-family:var(--font-display);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-    a{color:inherit;text-decoration:none;}
-    img{display:block;width:100%;height:100%;object-fit:cover;}
-
-    /* Nav */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:var(--bg);display:flex;align-items:center;padding:0 var(--pad);border-bottom:1px solid var(--cream-faint);}
-    .nav-inner{width:100%;max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;}
-    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
-    .nav-links a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--cream-dim);transition:color .2s;}
-    .nav-links a:hover{color:var(--cream);}
-    .nav-cta{background:var(--cream);color:var(--bg)!important;padding:.5rem 1.25rem;border-radius:4px;font-size:.875rem!important;font-weight:500!important;transition:opacity .2s!important;}
-    .nav-cta:hover{opacity:.85;}
-    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-    .nav-hamburger span{display:block;width:28px;height:2px;background:var(--cream);border-radius:2px;transition:transform .3s,opacity .3s;}
-    .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-    .nav-hamburger.open span:nth-child(2){opacity:0;}
-    .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);padding:2rem var(--pad);border-bottom:1px solid var(--cream-faint);z-index:99;flex-direction:column;gap:1.5rem;}
-    .mobile-menu.open{display:flex;}
-    .mobile-menu a{font-size:1.5rem;font-weight:500;letter-spacing:-0.04em;text-transform:lowercase;}
-
-    /* Hero */
-    .hero{padding-top:calc(var(--nav-h) + 4rem);padding-left:var(--pad);padding-right:var(--pad);padding-bottom:5rem;max-width:var(--max-w);margin:0 auto;}
-    .hero-heading{font-size:clamp(3.5rem,13vw,12rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:2rem;opacity:0;transform:translateY(60px);animation:slideUp .9s cubic-bezier(.16,1,.3,1) .1s forwards;}
-    .hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-weight:400;color:var(--cream-dim);max-width:520px;line-height:1.5;letter-spacing:-0.02em;opacity:0;transform:translateY(30px);animation:slideUp .9s cubic-bezier(.16,1,.3,1) .45s forwards;}
-
-    /* Projects grid */
-    .projects{padding:0 var(--pad) 5rem;max-width:var(--max-w);margin:0 auto;}
-    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
-    .project-card{display:block;cursor:pointer;opacity:0;transform:translateY(40px);animation:slideUp .8s cubic-bezier(.16,1,.3,1) forwards;}
-    .project-card:nth-child(1){animation-delay:.3s;}
-    .project-card:nth-child(2){animation-delay:.4s;}
-    .project-card:nth-child(3){animation-delay:.5s;}
-    .project-card:nth-child(4){animation-delay:.6s;}
-    .project-img-wrap{border-radius:8px;overflow:hidden;aspect-ratio:2/3;background:var(--surface);position:relative;display:flex;align-items:center;justify-content:center;}
-    .project-img-wrap img{transition:transform .6s cubic-bezier(.16,1,.3,1);}
-    .project-card:hover .project-img-wrap img{transform:scale(1.04);}
-    .project-img-wrap::after{content:'';position:absolute;inset:0;background:rgba(20,20,20,.3);opacity:0;transition:opacity .3s;border-radius:8px;}
-    .project-card:hover .project-img-wrap::after{opacity:1;}
-    .project-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--surface);font-size:clamp(1.5rem,4vw,3rem);font-weight:700;letter-spacing:-0.04em;color:rgba(236,232,223,.15);text-transform:lowercase;user-select:none;padding:1rem;text-align:center;}
-    .project-info{margin-top:.75rem;}
-    .project-name{font-size:1rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;color:var(--white);}
-    .project-type{font-size:.8rem;color:var(--cream-dim);letter-spacing:-0.02em;margin-top:.2rem;text-transform:lowercase;}
-    .project-card.wide{grid-column:span 2;}
-    .project-card.wide .project-img-wrap{aspect-ratio:16/9;}
-
-    /* About */
-    .about{background:var(--bg);padding:6rem var(--pad);overflow:hidden;}
-    .about-inner{max-width:var(--max-w);margin:0 auto;}
-    .about-statement{font-size:clamp(1.5rem,4vw,4rem);font-weight:500;letter-spacing:-0.05em;line-height:1.1;color:rgba(236,232,223,.4);margin-bottom:5rem;}
-    .about-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5rem;align-items:start;}
-    .about-photo{border-radius:6px;overflow:hidden;aspect-ratio:2/3;background:var(--surface);}
-    .about-text-group{display:flex;flex-direction:column;gap:3rem;}
-    .about-label{font-size:.8rem;letter-spacing:-0.02em;color:var(--cream-dim);text-transform:lowercase;margin-bottom:.75rem;font-family:var(--font-mono);}
-    .about-body{font-size:clamp(1rem,1.5vw,1.25rem);font-weight:500;letter-spacing:-0.02em;line-height:1.4;color:var(--white);}
-    .about-body em{font-style:italic;}
-    .btn{display:inline-block;margin-top:1.5rem;background:var(--cream);color:var(--bg);padding:.625rem 1.5rem;border-radius:4px;font-size:.875rem;font-weight:500;letter-spacing:-0.02em;text-transform:lowercase;transition:opacity .2s;}
-    .btn:hover{opacity:.85;}
-
-    /* CTA */
-    .cta{padding:clamp(5rem,15vw,10rem) var(--pad);overflow:hidden;}
-    .cta-heading-wrap{max-width:var(--max-w);margin:0 auto;}
-    .cta-heading{font-size:clamp(3rem,12vw,10rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;transition:opacity .2s;}
-    .cta-heading:hover{opacity:.75;}
-    .cta-arrow{font-size:clamp(2rem,6vw,5rem);font-weight:300;color:var(--cream-dim);flex-shrink:0;margin-bottom:.05em;}
-
-    /* Footer */
-    footer{border-top:1px solid var(--cream-faint);padding:4rem var(--pad) 2.5rem;}
-    .footer-inner{max-width:var(--max-w);margin:0 auto;}
-    .footer-top{display:grid;grid-template-columns:1fr auto auto;gap:3rem;margin-bottom:4rem;}
-    .footer-info p{font-size:.9rem;color:var(--cream-dim);letter-spacing:-0.02em;line-height:2;text-transform:lowercase;}
-    .footer-info a{transition:color .2s;}
-    .footer-info a:hover{color:var(--cream);}
-    .footer-col h4{font-size:.75rem;font-family:var(--font-mono);color:var(--cream-dim);text-transform:lowercase;letter-spacing:.02em;margin-bottom:1rem;}
-    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
-    .footer-col a{font-size:.9rem;font-weight:500;letter-spacing:-0.03em;text-transform:lowercase;transition:color .2s;color:var(--cream);}
-    .footer-col a:hover{color:var(--cream-dim);}
-    .footer-wordmark{font-size:clamp(3rem,10vw,9rem);font-weight:700;letter-spacing:-0.06em;line-height:.9;text-transform:lowercase;color:var(--white);margin-bottom:2rem;}
-    .footer-bottom{border-top:1px solid var(--cream-faint);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;}
-    .footer-bottom p{font-size:.75rem;color:var(--cream-dim);letter-spacing:-0.01em;font-family:var(--font-mono);}
-
-    /* Animations */
-    @keyframes slideUp{to{opacity:1;transform:translateY(0);}}
-    .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-    .reveal.visible{opacity:1;transform:translateY(0);}
-    .reveal-delay-1{transition-delay:.1s;}
-    .reveal-delay-2{transition-delay:.2s;}
-
-    /* Responsive */
-    @media(max-width:900px){
-      .projects-grid{grid-template-columns:repeat(2,1fr);}
-      .project-card.wide{grid-column:span 2;}
-      .about-cols{grid-template-columns:1fr 1fr;}
-      .about-photo{display:none;}
-      .about-text-group{grid-column:span 2;flex-direction:row;}
-      .footer-top{grid-template-columns:1fr 1fr;}
-      .footer-info{grid-column:span 2;}
-    }
-    @media(max-width:600px){
-      .nav-links{display:none;}
-      .nav-hamburger{display:flex;}
-      .projects-grid{grid-template-columns:1fr;}
-      .project-card.wide{grid-column:span 1;}
-      .project-card.wide .project-img-wrap{aspect-ratio:2/3;}
-      .about-cols{grid-template-columns:1fr;}
-      .about-text-group{flex-direction:column;}
-      .footer-top{grid-template-columns:1fr;}
-      .footer-info{grid-column:auto;}
-      .footer-bottom{flex-direction:column;gap:.5rem;text-align:center;}
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <div class="nav-inner">
-      <a href="./portfolio.html" class="nav-logo">Lance Dennison</a>
-      <ul class="nav-links">
-        <li><a href="./projects.html">projects</a></li>
-        <li><a href="./current-project.html">current project</a></li>
-        <li><a href="./about.html">about</a></li>
-        <li><a href="#contact" class="nav-cta">contact</a></li>
-      </ul>
-      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="./projects.html" onclick="closeMobile()">projects</a>
-    <a href="./current-project.html" onclick="closeMobile()">current project</a>
-    <a href="./about.html" onclick="closeMobile()">about</a>
-    <a href="#contact" onclick="closeMobile()">contact</a>
-  </div>
-
-  <!-- Hero -->
-  <section class="hero">
-    <h1 class="hero-heading">lance dennison</h1>
-    <p class="hero-sub">Game producer and writer from Los Angeles, California. I bridge creative teams and bring ideas to reality with a holistic approach to development.</p>
-  </section>
-
-  <!-- Projects -->
-  <section class="projects" id="projects">
-    <div class="projects-grid">
-
-      <a class="project-card wide" href="./projects/ThroughtheFog.html">
-        <div class="project-img-wrap">
-          <div class="project-placeholder">through the fog</div>
-        </div>
-        <div class="project-info">
-          <p class="project-name">Through the Fog</p>
-          <p class="project-type">Steam Game · Unity · Quest Design · Writing · Production</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="./projects/RGBYrunner.html">
-        <div class="project-img-wrap">
-          <div class="project-placeholder">rgby runner</div>
-        </div>
-        <div class="project-info">
-          <p class="project-name">RGBY Runner</p>
-          <p class="project-type">JavaScript · Phaser 3 · Solo Dev</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="./projects/TftBdeck.html">
-        <div class="project-img-wrap">
-          <div class="project-placeholder">tales from the beyond</div>
-        </div>
-        <div class="project-info">
-          <p class="project-name">Tales from the Beyond Deck</p>
-          <p class="project-type">C# · Unity · D&amp;D · Graphic Design</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="./projects/Classes.html">
-        <div class="project-img-wrap">
-          <div class="project-placeholder">d&amp;d classes</div>
-        </div>
-        <div class="project-info">
-          <p class="project-name">Custom D&amp;D Classes</p>
-          <p class="project-type">Markdown · Rule Design · Class Design</p>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <p class="about-statement reveal">
-        I'm Lance Dennison, a game producer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
-      </p>
-      <div class="about-cols">
-        <div class="about-photo reveal">
-          <img src="assets/images/lancenocrop.JPG" alt="Lance Dennison" loading="lazy">
-        </div>
-        <div class="about-text-group">
-          <div class="reveal reveal-delay-1">
-            <p class="about-label">background</p>
-            <p class="about-body">I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on <em>Through the Fog</em>, a third-person rogue-lite published to Steam in June 2024.</p>
-            <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume</a>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lance Dennison — Game designer &amp; Writer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-heading">lance dennison</h1>
+      <p class="hero-sub">Game designer and writer from Los Angeles, California. I bridge creative teams and bring ideas to reality with a holistic approach to development.</p>
+    </section>
+    <!-- Projects -->
+    </section>
+    <!-- Projects -->
+    <section class="projects" id="projects">
+      <div class="projects-grid">
+        <a class="project-card wide" href="./projects/ThroughtheFog.html">
+          <div class="project-img-wrap" style="background-image: url('assets/images/TtFbanner.gif'); background-size: cover; background-position: center;"></div>
+          <div class="project-info">
+            <p class="project-name">Through the Fog</p>
+            <p class="project-type">Steam Game · Unity · Quest Design · Writing · Production</p>
           </div>
-          <div class="reveal reveal-delay-2">
-            <p class="about-label">what drives me</p>
-            <p class="about-body">My passion for game development comes from my love for storytelling and meaningful gameplay integration. Outside of work I enjoy art, animation, UI/UX, MMOs, RPGs, rogue-lites, and TTRPGs.</p>
+        </a>
+        <a class="project-card" href="./projects/RGBYrunner.html">
+          <div class="project-img-wrap" style="background-image: url('assets/png/RGBYlogo.png'); background-size: cover; background-position: center;"></div>
+          <div class="project-info">
+            <p class="project-name">RGBY Runner</p>
+            <p class="project-type">JavaScript · Phaser 3 · Solo Dev</p>
+          </div>
+        </a>
+        <a class="project-card" href="./projects/TftBdeck.html">
+          <div class="project-img-wrap" style="background-image: url('assets/png/skinny.png'); background-size: cover; background-position: center;"></div>
+          <div class="project-info">
+            <p class="project-name">Tales from the Beyond Deck</p>
+            <p class="project-type">C# · Unity · D&amp;D · Graphic Design</p>
+          </div>
+        </a>
+        <a class="project-card" href="./projects/Classes.html">
+          <div class="project-img-wrap" style="background-image: url('assets/png/DnD_Stacked_1c_Red_V1_XL_RGB.png'); background-size: cover; background-position: center;"></div>
+          <div class="project-info">
+            <p class="project-name">Custom D&amp;D Classes</p>
+            <p class="project-type">Markdown · Rule Design · Class Design</p>
+          </div>
+        </a>
+      </div>
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <p class="about-statement reveal">
+          I'm Lance Dennison, a game designer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
+        </p>
+        <div class="about-cols">
+          <div class="about-photo reveal">
+            <img src="assets/images/lancenocrop.JPG" alt="Lance Dennison" loading="lazy">
+          </div>
+          <div class="about-text-group">
+            <div class="reveal reveal-delay-1">
+              <p class="about-label">background</p>
+              <p class="about-body">I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on <a class href="https://store.steampowered.com/app/1698600/Through_the_Fog/" target="_blank"><em>Through the Fog</em></a>, a third-person rogue-lite published to Steam in June 2024.</p>
+              <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume</a>
+            </div>
+            <div class="reveal reveal-delay-2">
+              <p class="about-label">what drives me</p>
+              <p class="about-body">My passion for game development comes from my love for storytelling and meaningful gameplay integration. Outside of work I enjoy art, animation, UI/UX, MMOs, RPGs, rogue-lites, and TTRPGs.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta" id="contact">
-    <div class="cta-heading-wrap">
-      <a class="cta-heading" href="/cdn-cgi/l/email-protection#610d000f020405040f0f08120e0f4f160e130a21060c00080d4f020e0c">
-        <span>get in touch</span>
-        <span class="cta-arrow">↗</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top reveal">
-        <div class="footer-info">
-          <p><a href="/cdn-cgi/l/email-protection#fd919c939e9899989393948e9293d38a928f96bd9a909c9491d39e9290">email: <span class="__cf_email__" data-cfemail="c3afa2ada0a6a7a6adadaab0acadedb4acb1a883a4aea2aaafeda0acae">[email&#160;protected]</span></a></p>
-          <p>based in: Los Angeles, California</p>
-          <p>BS Computer Science, Game Design — UC Santa Cruz, 2024</p>
-        </div>
-        <div class="footer-col">
-          <h4>pages</h4>
-          <ul>
-            <li><a href="./portfolio.html">home</a></li>
-            <li><a href="./about.html">about</a></li>
-            <li><a href="./projects.html">projects</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>links</h4>
-          <ul>
-            <li><a href="https://www.linkedin.com/in/lancedennison/" target="_blank">linkedin</a></li>
-            <li><a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank">resume</a></li>
-          </ul>
-        </div>
+    </section>
+    <!-- CTA -->
+    <section class="cta" id="contact">
+      <div class="cta-heading-wrap">
+        <a class="cta-heading" href="mailto:lancedennison.work@gmail.com">
+          <span>get in touch</span>
+          <span class="cta-arrow">↗</span>
+        </a>
       </div>
-      <p class="footer-wordmark reveal">lance dennison</p>
-      <div class="footer-bottom">
-        <p>© 2024 Lance Dennison. All rights reserved.</p>
-        <p>game producer &amp; writer, Los Angeles CA</p>
-      </div>
-    </div>
-  </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-    });
-    function closeMobile() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
-    }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+    </section>
+    <div id="footer-placeholder"></div>
+      <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    <script src="./components/components.js" data-prefix="./"></script>
+  </body>
+</html>
