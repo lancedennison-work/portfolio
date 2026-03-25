@@ -221,9 +221,6 @@
       function setHeaderTop() {
         const nav = document.querySelector('nav.site-nav');
         const wrap = document.querySelector('.blog-header-wrap');
-        if (nav && wrap) {
-          wrap.style.paddingTop = (nav.offsetHeight + 80) + 'px';
-        }
       }
       window.addEventListener('componentsLoaded', setHeaderTop);
       setTimeout(setHeaderTop, 400); // fallback in case event already fired
