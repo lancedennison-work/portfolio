@@ -19,9 +19,9 @@
     <!-- Projects -->
     <section class="projects" id="projects">
     <!-- ── Current Project ── -->
-      <section class="current-project-section">
+      <section class="current-project-section reveal reveal-delay-s-5">
         <h1>current project:</h1>
-        <a class="current-project-card reveal" href="./current-project.html">
+        <a class="current-project-card" href="./current-project.html">
           <div class="current-project-info">
             <h3 class="current-project-title">Loop Factory<span class="asterisk">*</span></h3>
             <p class="current-project-desc">A text-based incremental factory game built in Godot. Players manage a factory through a terminal-style control panel, write custom machine configs, and discover new map sectors over time.</p>
@@ -34,13 +34,13 @@
             </div>
           </div>
           <div class="current-project-cta">
-            read dev blog ↗
+            read dev blog
           </div>
         </a>
       </section>
-      <div class="section-divider"></div>
-      <div class="projects-grid">
-        <a class="project-card" href="./projects/ThroughtheFog.html">
+      <div class="section-divider reveal reveal-delay-s1"></div>
+      <section class="projects-grid reveal reveal-delay-s1-5">
+        <a class="project-card wide" href="./projects/ThroughtheFog.html">
           <div class="project-img-wrap" style="background-image: url('assets/images/TtFbanner.gif');"></div>
           <div class="project-info">
             <p class="project-name">Through the Fog</p>
@@ -68,42 +68,39 @@
             <p class="project-type">Markdown · Rule Design · Class Design</p>
           </div>
         </a>
-      </div>
+      </section>
     <!-- About -->
     <section class="about" id="about">
       <div class="about-inner">
         <p class="about-statement reveal">
-          I'm Lance Dennison, a game designer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
+          <a style="color: white;">I'm Lance Dennison,</a> a game designer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
         </p>
         <div class="about-cols">
-          <div class="about-photo reveal">
+          <div class="about-photo reveal reveal-delay-1">
             <img src="assets/images/lancenocrop.JPG" alt="Lance Dennison" loading="lazy">
           </div>
           <div class="about-text-group">
-            <div class="reveal reveal-delay-1">
-              <p class="about-label">background</p>
-              <p class="about-body">I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on <a class href="https://store.steampowered.com/app/1698600/Through_the_Fog/" target="_blank"><em>Through the Fog</em></a>, a third-person rogue-lite published to Steam in June 2024.</p>
-              <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume</a>
-            </div>
             <div class="reveal reveal-delay-2">
-              <p class="about-label">what drives me</p>
-              <p class="about-body">My passion for game development comes from my love for storytelling and meaningful gameplay integration. Outside of work I enjoy art, animation, UI/UX, MMOs, RPGs, rogue-lites, and TTRPGs.</p>
+              <p class="about-label">background</p>
+              <p class="about-body" style="padding-bottom: 0.5rem;">
+                I graduated from UC Santa Cruz in 2024 with a BS in Computer Science, Game Design. I served as Narrative Lead and Producer on 
+                <a class href="https://store.steampowered.com/app/1698600/Through_the_Fog/" target="_blank"><em>Through the Fog ↗</em></a>, a third-person 
+                rogue-lite published to Steam in June 2024.
+                <!-- <br><a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn"><em>view resume ↗</em></a> -->
+              </p>
+              <a href="https://lancedennison-work.github.io/portfolio/Lance Dennison - Resume.pdf" target="_blank" class="btn">view resume ↗</a>
+              <div class="reveal reveal-delay-half">
+                <p class="about-label" style="padding-top: 1rem;">what drives me</p>
+                <p class="about-body">My passion for game development comes from my love for storytelling and meaningful gameplay integration. Outside of work 
+                  I enjoy art, animation, UI/UX, and playing MMOs, RPGs, rogue-lites, and TTRPGs.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- CTA -->
-    <section class="cta" id="contact">
-      <div class="cta-heading-wrap">
-        <a class="cta-heading" href="mailto:lancedennison.work@gmail.com">
-          <span>get in touch</span>
-          <span class="cta-arrow">↗</span>
-        </a>
-      </div>
-    </section>
     <div id="footer-placeholder"></div>
-      <script>
+    <script>
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -113,6 +110,14 @@
         });
       }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      document.querySelectorAll('.reveal').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('visible');
+        } else {
+          observer.observe(el);
+        }
+      });
     </script>
     <script src="./components/components.js" data-prefix="./"></script>
   </body>
