@@ -13,13 +13,13 @@
     <div id="nav-placeholder"></div>
     <!-- Hero -->
     <section class="hero">
-      <h1 class="hero-heading">lance dennison</h1>
+      <h1 class="hero-heading">Lance Dennison</h1>
       <p class="hero-sub">Game designer and writer from Los Angeles, California.</p>
     </section>
     <!-- Projects -->
     <section class="projects" id="projects">
-    <!-- ── Current Project ── -->
-      <section class="current-project-section reveal reveal-delay-s-5">
+      <!-- ── Current Project ── -->
+      <section class="current-project-section reveal reveal-delay-1">
         <h1>current project:</h1>
         <a class="current-project-card" href="./current-project.html">
           <div class="current-project-info">
@@ -37,43 +37,46 @@
             read dev blog
           </div>
         </a>
-      </section>
-      <div class="section-divider reveal reveal-delay-s1"></div>
-      <section class="projects-grid reveal reveal-delay-s1-5">
+      </section><!-- /current-project-section -->
+      <!-- <div class="section-divider reveal reveal-delay-s1"></div> -->
+      <div class="section-divider reveal reveal-delay-1"></div>
+      <!-- <section class="projects-grid reveal reveal-delay-s1-5"> -->
+      <section class="projects-grid">
         <a class="project-card wide" href="./projects/ThroughtheFog.html">
           <div class="project-img-wrap" style="background-image: url('assets/images/TtFbanner.gif');"></div>
           <div class="project-info">
             <p class="project-name">Through the Fog</p>
             <p class="project-type">Steam Game · Unity · Quest Design · Writing · Production</p>
           </div>
-        </a>
+        </a><!-- /ttf -->
         <a class="project-card" href="./projects/RGBYrunner.html">
           <div class="project-img-wrap" style="background-image: url('assets/png/RGBYlogo.png');"></div>
           <div class="project-info">
             <p class="project-name">RGBY Runner</p>
             <p class="project-type">JavaScript · Phaser 3 · Solo Dev</p>
           </div>
-        </a>
+        </a><!-- /rgbyrunner -->
         <a class="project-card" href="./projects/TftBdeck.html">
           <div class="project-img-wrap" style="background-image: url('assets/png/skinny.png');"></div>
           <div class="project-info">
             <p class="project-name">Tales from the Beyond Deck</p>
             <p class="project-type">C# · Unity · D&amp;D · Graphic Design</p>
           </div>
-        </a>
+        </a><!-- /tftbdeck -->
         <a class="project-card" href="./projects/Classes.html">
           <div class="project-img-wrap" style="background-image: url('assets/png/DnD_Stacked_1c_Red_V1_XL_RGB.png');"></div>
           <div class="project-info">
             <p class="project-name">Custom D&amp;D Classes</p>
             <p class="project-type">Markdown · Rule Design · Class Design</p>
           </div>
-        </a>
-      </section>
+        </a><!-- /classes -->
+      </section><!-- /projects-grid -->
+    </section><!-- /projects -->
     <!-- About -->
     <section class="about" id="about">
       <div class="about-inner">
         <p class="about-statement reveal">
-          <a style="color: white;">I'm Lance Dennison,</a> a game designer and writer from Los Angeles, California. I work with creative teams to bridge different disciplines in game development and bring ideas to reality.
+          <a style="color: white;">I'm Lance Dennison</a>, a game designer and writer from Los Angeles, California. I work across teams to bridge development disciplines and bring ideas to reality.
         </p>
         <div class="about-cols">
           <div class="about-photo reveal reveal-delay-1">
@@ -92,13 +95,14 @@
               <div class="reveal reveal-delay-half">
                 <p class="about-label" style="padding-top: 1rem;">what drives me</p>
                 <p class="about-body">My passion for game development comes from my love for storytelling and meaningful gameplay integration. Outside of work 
-                  I enjoy art, animation, UI/UX, and playing MMOs, RPGs, rogue-lites, and TTRPGs.</p>
+                  I enjoy hiking, playing TTRPGs with friends — and of course — playing video games; usually MOBAs, shooters, and rogue-lites, but occasionally I get sucked into a good RPG or MMO.
+                </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            </div><!-- /reveal -->
+          </div><!-- /about-text-group -->
+        </div><!-- /about-cols -->
+      </div><!-- /about-inner -->
+    </section><!-- /about -->
     <div id="footer-placeholder"></div>
     <script>
       const observer = new IntersectionObserver((entries) => {
