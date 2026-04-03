@@ -1107,12 +1107,15 @@ footer { padding: var(--pad); }
 .other-card-img {
   border-radius: 8px;
   overflow: hidden;
-  aspect-ratio: 2/3;
+  aspect-ratio: 1;
   background: var(--surface);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity .2s;
+  background-position: center;
+  background-size:contain;
+  background-repeat: no-repeat;
 }
 
 .other-card:hover .other-card-img { opacity: .75; }
