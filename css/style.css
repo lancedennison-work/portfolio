@@ -978,6 +978,7 @@ footer { padding: var(--pad); }
   gap: 4rem;
   margin-bottom: var(--pad);
   border-bottom: 1px solid var(--cream-faint);
+  padding-bottom: var(--pad);
 }
 
 .meta-block {
