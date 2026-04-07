@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
+    <!-- https://www.gmbinder.com/share/-MvLdsyy4_l5T1Ae9RBt Sanguine Knight -->
+    <!-- https://www.gmbinder.com/share/-MvX4aD5WJTBoOa2Q7sB Rune Mage -->
+    <!-- https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ Spear Dancer -->
+    <!-- https://www.gmbinder.com/share/-N0EPSmVblj5kpouEIpU Rune Mage -->
+    <!-- https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep Brawler -->
     <div id="nav-placeholder"></div>
     <div class="page">
       <h1 class="project-title">Custom D&amp;D Classes</h1>
@@ -23,6 +28,9 @@
         <button class="class-tab" data-url="https://www.gmbinder.com/share/-N0EYpJ3fYijwy49CmqJ">Spear Dancer</button>
       </div>
       <p class="disclaimer">Content is fetched live from GMBinder — may take a moment to load depending on your connection.</p>
+      <a class="link-placeholder" id="gmBinderLink" href="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep" target="_blank">
+        <p class="disclaimer" style="color: var(--cream);">View on GMBinder ↗</p>
+      </a>
       <div class="iframe-wrap reveal">
         <iframe id="classViewer" src="https://www.gmbinder.com/share/-Mv7Ggq7UNkE1lKl4vep" title="D&D Class Document"></iframe>
       </div>
@@ -56,11 +64,13 @@
       // Class switcher
       const tabs = document.querySelectorAll('.class-tab');
       const viewer = document.getElementById('classViewer');
+      const gmLink = document.getElementById('gmBinderLink');
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
           tabs.forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
           viewer.src = tab.dataset.url;
+          gmLink.href = tab.dataset.url;
         });
       });
 
