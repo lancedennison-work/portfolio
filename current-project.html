@@ -18,7 +18,8 @@
         <li><a href="#phase-1">phase 1</a></li>
         <li><a href="#phase-2">phase 2</a></li>
       </ul>
-      <p class="toc-phase-label" id="phase-title">foundation</p>
+      <p class="toc-phase-label" id="phase-title-1">foundation</p>
+      <p class="toc-phase-label" id="phase-title-2" style="display:none;">functional content</p>
       <ul class="toc-list" id="toc-steps-1">
         <li><a href="#step-1-1"><span class="toc-num">01</span>Getting Started</a></li>
         <li><a href="#step-1-2"><span class="toc-num">02</span>UI Foundation</a></li>
@@ -255,7 +256,12 @@
         <h2 class="step-title">comparative analysis</h2>
         <div class="subsection">
           <p>Going back to my core design pillar: flexibility — I am going to take a look at some comparable games to find frustrations I will try to avoid.</p>
-          <p>Recently I have been playing <i>StarRupture</i>, and frequently run into a particularly offputting interaction. When you set up a machine, set an output, then connect it to an empty supply depot — after, you still have to set the resource type for the supply depot despite there being an obvious, single, resource type. This might seem like a small issue — until you build a row of 10 machines with their own supply depot. This makes the interaction count from a complexity of 10 double into 20 different actions.</p>
+          <p>Recently I have been playing <i>StarRupture</i>, and frequently run into a particularly offputting interaction. When you set up a machine, set an output, then connect it to an empty supply depot — after, you still have to set the resource type for the supply depot despite there being an obvious, single, resource type. This might seem like a small issue — until you build a row of 10 machines with their own supply depot. This makes the interaction count from a complexity of 10 double into 20 different actions — and that's if you don't count navigation and movement as distinct actions.</p>
+          <div class="update">
+            <p class="update-label">update</p>
+            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i> — it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings — and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — in alignment with John Sweller's Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
+            <p>Personally, I would rate the increase in complexity 2-4x higher after accounting for physical movement.</p>
+          </div>
           <p>How can I avoid this?</p>
           <p>I do not currently intend to have intermediary storage structures, but this idea can be used to iteratively/recursively set material types for machines based on build order. For example, if I make machine [1] that takes <code>iron_bars</code> as the input — the machine [2] <code>smeltingFurnace</code> that is made afterwards, then connected, should automatically set the recipe target to <code>iron_bar</code>.</p>
         </div>
@@ -311,11 +317,13 @@
     };
     const steps = document.querySelectorAll('.step[id]');
     const tocLinks = document.querySelectorAll('.toc-list a');
-    const phaseTitle = document.getElementById('phase-title');
+    const phaseTitle = document.querySelectorAll('phase-title[id]');
     const tocObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const activeId = entry.target.id;
+        // Extract phase and step from step-id
+        // step-id = "step-[phase]-[step #]"
         const match = activeId.match(/^step-(\d+)-(\d+)$/);
         if (!match) return;
         const activePhase = match[1];
@@ -334,6 +342,10 @@
         // Show only the step list for the active phase
         document.querySelectorAll('[id^="toc-steps-"]').forEach(list => {
           list.style.display = list.id === `toc-steps-${activePhase}` ? '' : 'none';
+        });
+        // Show only the phaset title for the active phase
+        document.querySelectorAll('[id^="phase-title-"]').forEach(title => {
+          title.style.display = title.id === `phase-title-${activePhase}` ? '' : 'none';
         });
       });
     }, {
