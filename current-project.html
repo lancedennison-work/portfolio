@@ -2,7 +2,7 @@
 <html lang="en" style="scroll-padding-top: var(--toc-height, 0px)">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1-0">
   <title>Loop Factory — Dev Blog — Lance Dennison</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,25 +14,27 @@
   <!-- ── TOC: horizontal grid, sticky under header ── -->
   <nav class="toc" aria-label="Table of contents">
     <div class="toc-phase-group">
-      <p class="toc-phase-label">phase 1: foundation</p>
       <ul class="toc-list">
-        <li><a href="#step-1"><span class="toc-num">01</span>Getting Started</a></li>
-        <li><a href="#step-2"><span class="toc-num">02</span>UI Foundation</a></li>
-        <li><a href="#step-3"><span class="toc-num">03</span>The Map Matrix</a></li>
-        <li><a href="#step-4"><span class="toc-num">04</span>Terminal &amp; File System</a></li>
-        <li><a href="#step-5"><span class="toc-num">05</span>Items &amp; Inventories</a></li>
-        <li><a href="#step-6"><span class="toc-num">06</span>Constructing Machines</a></li>
-        <li><a href="#step-7"><span class="toc-num">07</span>Custom Machines</a></li>
-      </ul><!-- /toc-list -->
-    </div>
-    <!-- <div class="toc-phase-group">
-      <p class="toc-phase-label">phase 2: functional content</p>
-      <ul class="toc-list">
-        <li><a href="#step-1"><span class="toc-num">01</span>temp</a></li>
+        <li><a href="#phase-1">phase 1</a></li>
+        <li><a href="#phase-2">phase 2</a></li>
       </ul>
-    </div> -->
+      <p class="toc-phase-label" id="phase-title">foundation</p>
+      <ul class="toc-list" id="toc-steps-1">
+        <li><a href="#step-1-1"><span class="toc-num">01</span>Getting Started</a></li>
+        <li><a href="#step-1-2"><span class="toc-num">02</span>UI Foundation</a></li>
+        <li><a href="#step-1-3"><span class="toc-num">03</span>The Map Matrix</a></li>
+        <li><a href="#step-1-4"><span class="toc-num">04</span>Terminal &amp; File System</a></li>
+        <li><a href="#step-1-5"><span class="toc-num">05</span>Items &amp; Inventories</a></li>
+        <li><a href="#step-1-6"><span class="toc-num">06</span>Constructing Machines</a></li>
+        <li><a href="#step-1-7"><span class="toc-num">07</span>Custom Machines</a></li>
+      </ul>
+      <ul class="toc-list" id="toc-steps-2" style="display:none;">
+        <li><a href="#step-2-1"><span class="toc-num">01</span>how to fill in the foundation</a></li>
+        <li><a href="#step-2-2"><span class="toc-num">02</span>comparative analysis</a></li>
+      </ul>
+    </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
-  </nav><!-- /toc -->
+  </nav>
   <div class="blog-header-wrap" style="padding-top: 0px;">
     <p class="blog-eyebrow">dev blog · in progress</p>
     <h1 class="blog-title">Loop Factory<span style="color:var(--cream-dim);font-weight:400;">*</span></h1>
@@ -41,10 +43,10 @@
     <div class="blog-divider"></div>
   </div><!-- /blog-header-wrap -->
   <div class="page">
-    <h1 class="blog-header">Phase 1: <span style="color:var(--cream-dim);font-weight:400;">Foundation</span></h1>
+    <h1 class="blog-header" id="phase-1">Phase 1: <span style="color:var(--cream-dim);font-weight:400;">Foundation</span></h1>
     <div class="blog-article">
       <!-- STEP 1 -->
-      <section class="step reveal" id="step-1">
+      <section class="step reveal" id="step-1-1">
         <p class="step-label">step 1</p>
         <h2 class="step-title">Getting Started</h2>
         <div class="subsection">
@@ -54,18 +56,18 @@
         <div class="subsection">
           <h3 class="subsection-title">Preliminary Assessments</h3>
           <p>The main hurdle with this idea will be game feel. Without a visual component to the game, there is less satisfaction in the organization process of a factory manager game. The terminal interface and manual machine configuration are higher-friction than visual builders; this is a design risk if the learning curve out-paces progression before the player accomplishes enough to feel the payoff. Onboarding matters more here than in visual factory games due to the less intuitive gameplay, so I will have to pay significant attention to the tutorial.</p>
-          <p>However, I don't anticipate the lack of visuals to diminish appeal. Games like Shapez prove that stripping down visuals doesn't come at a cost; you don't need ultra-realistic graphics to engross a player in their factory sim (I mean look at Factorio). The goal with my game is to lean into the fantasy of retro-futurism computing; borrowing aesthetics from media and applying effects like a CRT filter will be doing a lot of heavy lifting.</p>
+          <p>However, I don't anticipate the lack of visuals to diminish appeal. Games like <i>Shapez</i> prove that stripping down visuals doesn't come at a cost; you don't need ultra-realistic graphics to engross a player in their factory sim (I mean look at <i>Factorio</i>). The goal with my game is to lean into the fantasy of retro-futurism computing; borrowing aesthetics from media and applying effects like a CRT filter will be doing a lot of heavy lifting.</p>
           <p>To keep factory sims engaging, you need to constantly give the player something to work towards. "Numbers go up" holds a lot of appeal, but won't keep them playing. I need to ensure there is always a quest or unlock that the player is chasing, and pace them close enough together to maintain satisfaction without overwhelming the player with new features and notifications.</p>
         </div>
         <div class="subsection">
           <h3 class="subsection-title">Finding the Right Engine</h3>
-          <p>The satisfaction of watching a system you designed for brutal efficiency run on its own is something I wanted to capture, but stripped all the way down to text — literally just "numbers go up." Games like Satisfactory, Minedistry, and Autonauts are my biggest inspirations for this project, but they are all mostly visual based games. That immediately raised a question: what engine best fits a game that's entirely UI?</p>
+          <p>The satisfaction of watching a system you designed for brutal efficiency run on its own is something I wanted to capture, but stripped all the way down to text — literally just "numbers go up." Games like <i>Satisfactory</i>, <i>Minedistry</i>, and <i>Autonauts</i> are my biggest inspirations for this project, but they are all mostly visual based games. That immediately raised a question: what engine best fits a game that's entirely UI?</p>
           <p>Unity and Unreal are the obvious portfolio choices. Unity's UI Toolkit has come a long way, and Unreal's UMG can handle complex interfaces. But realistically, both engines are built around rendering pipelines, physics, and 3D scenes. Stripping all of that out to build what is essentially a stylized text application would mean fighting the engine more than using it.</p>
           <p>Godot, on the other hand, offers a clean-slate approach to projects. I won't need to disable or exclude any features I don't need — they simply won't be in the project to start with. Its Control node system, native <code>TextEdit</code> and <code>CodeEdit</code> nodes, and lightweight runtime made it a natural fit.</p>
         </div>
       </section><!-- /step-1 -->
       <!-- STEP 2 -->
-      <section class="step reveal" id="step-2">
+      <section class="step reveal" id="step-1-2">
         <p class="step-label">step 2</p>
         <h2 class="step-title">Building the UI Foundation</h2>
         <div class="subsection">
@@ -83,7 +85,7 @@
         </div>
       </section><!-- /step-2 -->
       <!-- STEP 3 -->
-      <section class="step reveal" id="step-3">
+      <section class="step reveal" id="step-1-3">
         <p class="step-label">step 3</p>
         <h2 class="step-title">The Map Matrix</h2>
         <div class="media-placeholder">
@@ -110,7 +112,7 @@
         </div>
       </section><!-- /step-3 -->
       <!-- STEP 4 -->
-      <section class="step reveal" id="step-4">
+      <section class="step reveal" id="step-1-4">
         <p class="step-label">step 4</p>
         <h2 class="step-title">The Terminal and File System</h2>
         <div class="subsection">
@@ -141,7 +143,7 @@
         </div>
       </section><!-- /step-4 -->
       <!-- STEP 5 -->
-      <section class="step reveal" id="step-5">
+      <section class="step reveal" id="step-1-5">
         <p class="step-label">step 5</p>
         <h2 class="step-title">Items, Inventories, and Materials</h2>
         <div class="subsection">
@@ -164,7 +166,7 @@
         </div>
       </section><!-- /step-5 -->
       <!-- STEP 6 -->
-      <section class="step reveal" id="step-6">
+      <section class="step reveal" id="step-1-6">
         <p class="step-label">step 6</p>
         <h2 class="step-title">Constructing Machines</h2>
         <div class="subsection">
@@ -200,7 +202,7 @@
         </div>
       </section><!-- /step-6 -->
       <!-- STEP 7 -->
-      <section class="step reveal" id="step-7">
+      <section class="step reveal" id="step-1-7">
         <p class="step-label">step 7</p>
         <h2 class="step-title">Making Custom Machines Custom</h2>
         <div class="subsection">
@@ -227,9 +229,9 @@
     </div><!-- /blog-article -->
   </div><!-- /page -->
   <div class="page">
-    <h1 class="blog-header">Phase 2: <span style="color:var(--cream-dim);font-weight:400;">Functional Content</span></h1>
+    <h1 class="blog-header" id="phase-2">Phase 2: <span style="color:var(--cream-dim);font-weight:400;">Functional Content</span></h1>
     <div class="blog-article">
-      <section class="step reveal" id="step-1">
+      <section class="step reveal" id="step-2-1">
         <p class="step-label">step 1</p>
         <h2 class="step-title">how to fill in the foundation</h2>
         <div class="subsection">
@@ -248,7 +250,17 @@
           </ul>
         </div>
       </section>
-      <!-- <section class="step reveal" id="step-1">
+      <section class="step reveal" id="step-2-2">
+        <p class="step-label">step 2</p>
+        <h2 class="step-title">comparative analysis</h2>
+        <div class="subsection">
+          <p>Going back to my core design pillar: flexibility — I am going to take a look at some comparable games to find frustrations I will try to avoid.</p>
+          <p>Recently I have been playing <i>StarRupture</i>, and frequently run into a particularly offputting interaction. When you set up a machine, set an output, then connect it to an empty supply depot — after, you still have to set the resource type for the supply depot despite there being an obvious, single, resource type. This might seem like a small issue — until you build a row of 10 machines with their own supply depot. This makes the interaction count from a complexity of 10 double into 20 different actions.</p>
+          <p>How can I avoid this?</p>
+          <p>I do not currently intend to have intermediary storage structures, but this idea can be used to iteratively/recursively set material types for machines based on build order. For example, if I make machine [1] that takes <code>iron_bars</code> as the input — the machine [2] <code>smeltingFurnace</code> that is made afterwards, then connected, should automatically set the recipe target to <code>iron_bar</code>.</p>
+        </div>
+      </section>
+      <!-- <section class="step reveal" id="step-2-">
         <p class="step-label">step 1</p>
         <h2 class="step-title"></h2>
         <div class="subsection">
@@ -293,17 +305,36 @@
     }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     // TOC active highlight on scroll
-    // TOC active highlight on scroll
+    const phaseLabels = {
+      1: "foundation",
+      2: "functional content",
+    };
     const steps = document.querySelectorAll('.step[id]');
     const tocLinks = document.querySelectorAll('.toc-list a');
+    const phaseTitle = document.getElementById('phase-title');
     const tocObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
+        const activeId = entry.target.id;
+        const match = activeId.match(/^step-(\d+)-(\d+)$/);
+        if (!match) return;
+        const activePhase = match[1];
+        // Remove all active highlights
         tocLinks.forEach(l => l.classList.remove('toc-active'));
-        const active = document.querySelector(
-          `.toc-list a[href="#${entry.target.id}"]`
-        );
-        if (active) active.classList.add('toc-active');
+        // Highlight the matching step link
+        const activeStepLink = document.querySelector(`.toc-list a[href="#${activeId}"]`);
+        if (activeStepLink) activeStepLink.classList.add('toc-active');
+        // Highlight the matching phase link
+        const activePhaseLink = document.querySelector(`.toc-list a[href="#phase-${activePhase}"]`);
+        if (activePhaseLink) activePhaseLink.classList.add('toc-active');
+        // Update phase title
+        if (phaseLabels[activePhase]) {
+          phaseTitle.textContent = phaseLabels[activePhase];
+        }
+        // Show only the step list for the active phase
+        document.querySelectorAll('[id^="toc-steps-"]').forEach(list => {
+          list.style.display = list.id === `toc-steps-${activePhase}` ? '' : 'none';
+        });
       });
     }, {
       rootMargin: `-${64 + 40}px 0px -55% 0px`,
@@ -312,9 +343,9 @@
     steps.forEach(step => tocObserver.observe(step));
     // Make href anchor link scroll padding based off header height
     function updateScrollPadding() {
-      const element = document.querySelector(".toc");
-      const tocHeight = element.getBoundingClientRect().height;
+      const tocHeight = document.querySelector(".toc").getBoundingClientRect().height;
       document.documentElement.style.setProperty('--toc-height', tocHeight + 'px');
+      return tocHeight;
     }
     window.addEventListener('load', () => {
       updateScrollPadding();
@@ -325,9 +356,11 @@
       const link = e.target.closest('a');
       if (!link) return;
       e.preventDefault();
-      updateScrollPadding();
+      const tocHeight = updateScrollPadding();
       const target = document.querySelector(link.getAttribute('href'));
-      target?.scrollIntoView({ behavior: 'smooth' });
+      if (!target) return;
+      const y = target.getBoundingClientRect().top + window.scrollY - tocHeight;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     });
   </script>
   <script src="./components/components.js" data-prefix="./"></script>
