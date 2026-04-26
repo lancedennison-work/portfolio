@@ -31,7 +31,8 @@
       </ul>
       <ul class="toc-list" id="toc-steps-2" style="display:none;">
         <li><a href="#step-2-1"><span class="toc-num">01</span>how to fill in the foundation</a></li>
-        <li><a href="#step-2-2"><span class="toc-num">02</span>comparative analysis</a></li>
+        <li><a href="#step-2-2"><span class="toc-num">02</span>more machines</a></li>
+        <li><a href="#step-2-3"><span class="toc-num">03</span>comparative analysis</a></li>
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -253,6 +254,26 @@
       </section>
       <section class="step reveal" id="step-2-2">
         <p class="step-label">step 2</p>
+        <h2 class="step-title">more machines</h2>
+        <div class="subsection">
+          <p>For this step, I needed to fill out the remaining blueprints. I followed the same approach used for <code>smeltingFurnace</code> and its parent <code>refiningMachine</code>.</p>
+          <p>After creating the second <code>refiningMachine</code> variant, <code>industrialOven</code>, I implemented the <code>separatingMachine</code> parent class. This machine handles any <code>[method]_separation()</code> process by taking a raw input and using the corresponding method in the Materials lookup to convert it into separated components. It then routes outputs either through designated output slots or automatically assigns them to unspecified material outputs.</p>
+          <p>Once the parent class was complete, setting up its children was straightforward: <code>electricalSeparator</code>, <code>chemicalSeparator</code>, <code>mechanicalSeparator</code>, and <code>thermalSeparator</code>.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title"></h3>emerging issues</h3>
+          <p>With the first machines capable of producing multiple output materials, a design issue became evident. If several materials are output and none of the output slots have specified types, the machine still needs an efficient method of distributing them.</p>
+          <p>To address this, I altered the Machine output system. Instead of selecting a single output directly, the machine now fetches a max-list of valid outputs and iterates through that list until all unassigned materials have been routed or no available outputs remain.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">another template</h3>
+          <p>For the final — as of now — template class, I needed a machine type capable of handling multi-input processes that combine materials into a single processed output. I named this class <code>recipeMachine</code>.</p>
+          <p>This machine operates by setting a recipe target, then attempting to populate its <code>queue_inventory</code> using the required amounts from the recipe field in Materials. Once the required materials have been queued, it consumes the inventory and adds the refined product to <code>output_inventory</code> for distribution.</p>
+          <p>Currently, this parent class is used by <code>metallurgicFurnace</code> for alloy production and <code>chemicalReactor</code> for synthesized materials.</p>
+        </div>
+      </section>
+      <section class="step reveal" id="step-2-3">
+        <p class="step-label">step 3</p>
         <h2 class="step-title">comparative analysis</h2>
         <div class="subsection">
           <p>Going back to my core design pillar: flexibility — I am going to take a look at some comparable games to find frustrations I will try to avoid.</p>
