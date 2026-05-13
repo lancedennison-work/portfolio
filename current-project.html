@@ -54,6 +54,10 @@
         <div class="subsection">
           <h3 class="subsection-title">The Pitch</h3>
           <p>Loop Factory is a text-based incremental factory game where the player manages a factory through a terminal-style "Control Panel." Starting with basic machines, players can write configurations for custom machines in the Edit Panel, collect resources, discover new map sectors, and unlock new blueprints and specialized function panels over time.</p>
+          <div class="media-placeholder">
+            <img src="blog media/UI_sketch.png" alt="Panel UI showing focus behavior" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">image — sketch of the UI</p>
+          </div>
         </div>
         <div class="subsection">
           <h3 class="subsection-title">Preliminary Assessments</h3>
@@ -262,25 +266,102 @@
         </div>
         <div class="subsection">
           <h3 class="subsection-title"></h3>emerging issues</h3>
-          <p>With the first machines capable of producing multiple output materials, a design issue became evident. If several materials are output and none of the output slots have specified types, the machine still needs an efficient method of distributing them.</p>
-          <p>To address this, I altered the Machine output system. Instead of selecting a single output directly, the machine now fetches a max-list of valid outputs and iterates through that list until all unassigned materials have been routed or no available outputs remain.</p>
+          <p>With the first machines that have multiple output types, an issue became evident — if there are multiple output materials, and none of the outputs have a specified type, there needs to be an efficient method for output. To address this, I altered the way the <code>Machine</code> class outputs — now it fetches a max-list, and iterates through that list until there are no unassigned outputs available.</p>
         </div>
         <div class="subsection">
           <h3 class="subsection-title">another template</h3>
-          <p>For the final — as of now — template class, I needed a machine type capable of handling multi-input processes that combine materials into a single processed output. I named this class <code>recipeMachine</code>.</p>
-          <p>This machine operates by setting a recipe target, then attempting to populate its <code>queue_inventory</code> using the required amounts from the recipe field in Materials. Once the required materials have been queued, it consumes the inventory and adds the refined product to <code>output_inventory</code> for distribution.</p>
-          <p>Currently, this parent class is used by <code>metallurgicFurnace</code> for alloy production and <code>chemicalReactor</code> for synthesized materials.</p>
+          <p>For the final — as of now — template class, I needed a machine type capable of handling multi-input processes that combine materials into a single processed output. I named this class <code>recipeMachine</code>. This machine operates by setting a recipe target, then attempting to populate its <code>queue_inventory</code> using the required amounts from the recipe field in Materials. Once the required materials have been queued, it consumes the inventory and adds the refined product to <code>output_inventory</code> for distribution. Currently, this parent class is used by <code>metallurgicFurnace</code> for alloy production and <code>chemicalReactor</code> for synthesized materials.</p>
         </div>
       </section>
       <section class="step reveal" id="step-2-3">
         <p class="step-label">step 3</p>
         <h2 class="step-title">comparative analysis</h2>
         <div class="subsection">
-          <p>Going back to my core design pillar: flexibility — I am going to take a look at some comparable games to find frustrations I will try to avoid.</p>
-          <p>Recently I have been playing <i>StarRupture</i>, and frequently run into a particularly offputting interaction. When you set up a machine, set an output, then connect it to an empty supply depot — after, you still have to set the resource type for the supply depot despite there being an obvious, single, resource type. This might seem like a small issue — until you build a row of 10 machines with their own supply depot. This makes the interaction count from a complexity of 10 double into 20 different actions — and that's if you don't count navigation and movement as distinct actions.</p>
+          <p>Going back to my core design pillar — flexibility — I am going to take a look at comparable games to idenitify frustrations that I can avoid.</p>
+          <p>Recently I have been playing <i>StarRupture</i>, and frequently run into a particularly offputting interaction. When you set up a machine, set an output, then connect it to an empty supply depot; after, you still have to set the resource type for the supply depot despite there being an obvious — and singularly possible — resource type. This might seem like a small issue — until you build a row of 10 machines, each with their own supply depot. This makes the interaction count from a complexity of 10, double into 20 different actions.</p>
+          <p>Let's break down those actions into the constituent actions that the player might not even realize they are performing:</p>
+          <ul style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+            <li><code>1: Build machine - 4 +3 actions</code>
+              <ul>
+                <li>Equip building tool</li>
+                <li>Open build menu</li>
+                <li>Select machine blueprint
+                  <ul>
+                    <li>+/- Select category tab</li>
+                    <li>+/- Scroll to desired machine</li>
+                    <li>Select desired machine blueprint</li>
+                  </ul>
+                </li>
+                <li>Build action at (aimed) location</li>
+                <li>+/- Unequip building tool</li>
+              </ul>
+            </li>
+            <li><code>2: Set machine material - 4 +3 actions</code>
+              <ul>
+                <li>Open machine menu</li>
+                <li>Open material menu</li>
+                <li>+/- Scroll to material</li>
+                <li>Select desired material</li>
+                <li>Close machine menu</li>
+                <li>+/- Unequip building tool</li>
+              </ul>
+            </li>
+            <li><code>3: Build transport rail - 3 +(4 + (1 +2)xT) actions</code>
+              <ul>
+                <li>+/- Equip building tool</li>
+                <li>Open build menu</li>
+                <li>Select rail blueprint
+                  <ul>
+                    <li>+/- Select category tab</li>
+                    <li>+/- Scroll to rail blueprint</li>
+                    <li>Select rail blueprint</li>
+                  </ul>
+                </li>
+                <li>Build action at (aimed) location</li>
+                <li>+/- Continue building until at desired site for storage depot
+                  <ul>
+                    <li>+/- Adjust rail height</li>
+                    <li>+/- Adjust rail rotation</li>
+                    <li>Build action at (aimed) location</li>
+                  </ul>
+                </li>
+                <li>+/- Unequip building tool</li>
+              </ul>
+            </li>
+            <li><code>4: Build storage depot - 3 +4 actions</code>
+              <ul>
+                <li>+/- Equip building tool</li>
+                <li>Open build menu</li>
+                <li>Select storage depot
+                  <ul>
+                    <li>+/- Select category tab</li>
+                    <li>+/- Scroll to storage depot</li>
+                    <li>Select storage depot</li>
+                  </ul>
+                </li>
+                <li>Build action at (aimed) location</li>
+                <li>+/- Unequip building tool</li>
+              </ul>
+            </li>
+            <li><code>5: Set depot material - 4 +1 actions</code>
+              <ul>
+                <li>Open depot menu</li>
+                <li>Open material menu</li>
+                <li>+/- Scroll to material</li>
+                <li>Select desired material</li>
+                <li>Close depot menu</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="update">
+            <p class="update-label">Note:</p>
+            <p>T is used to denote total lengths of rail required to reach destination for final connection.</p>
+            <p>+/- is used to denote actions that might be necessary</p>
+          </div>
+          <p>This makes for a <i>minimum</i> total of <code>15 actions</code> with an upper limit of <code>30 + 3T actions</code> — NOT considering the cognitive cost for locomotion and perspective navigation. Which means you might have to perform 300 distinct actions to make 10 machines connected to their own storage depots.</p>
           <div class="update">
             <p class="update-label">update</p>
-            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i> — it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings — and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — in alignment with John Sweller's Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
+            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i>; it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings; and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — and in alignment with Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
             <p>Personally, I would rate the increase in complexity 2-4x higher after accounting for physical movement.</p>
           </div>
           <p>How can I avoid this?</p>

@@ -1401,7 +1401,7 @@ footer { padding: var(--pad); }
   letter-spacing: -0.02em;
   line-height: 1.7;
   color: var(--cream-dim);
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   padding-left: 2rem;
 }
 
