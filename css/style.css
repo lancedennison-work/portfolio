@@ -1361,7 +1361,7 @@ footer { padding: var(--pad); }
   color: var(--cream-dim);
   text-transform: lowercase;
   letter-spacing: .06em;
-  margin-bottom: .6rem;
+  margin-bottom: 0;/*.6rem;*/
 }
 
 .step-title {
@@ -1490,7 +1490,7 @@ code {
   font-family: var(--font-mono);
   font-size: .85em;
   background: var(--surface);
-  color: var(--cream);
+  color: var(--green);
   padding: .15em .4em;
   border-radius: 3px;
 }

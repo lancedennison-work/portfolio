@@ -30,9 +30,11 @@
         <li><a href="#step-1-7"><span class="toc-num">07</span>Custom Machines</a></li>
       </ul>
       <ul class="toc-list" id="toc-steps-2" style="display:none;">
-        <li><a href="#step-2-1"><span class="toc-num">01</span>how to fill in the foundation</a></li>
+        <li><a href="#step-2-1"><span class="toc-num">01</span>how to: foundation</a></li>
         <li><a href="#step-2-2"><span class="toc-num">02</span>more machines</a></li>
         <li><a href="#step-2-3"><span class="toc-num">03</span>comparative analysis</a></li>
+        <li><a href="#step-2-4"><span class="toc-num">04</span>flexible inventories</a></li>
+        <li><a href="#step-2-5"><span class="toc-num">05</span>crunchy stuff</a></li>
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -71,7 +73,7 @@
           <p>Unity and Unreal are the obvious portfolio choices. Unity's UI Toolkit has come a long way, and Unreal's UMG can handle complex interfaces. But realistically, both engines are built around rendering pipelines, physics, and 3D scenes. Stripping all of that out to build what is essentially a stylized text application would mean fighting the engine more than using it.</p>
           <p>Godot, on the other hand, offers a clean-slate approach to projects. I won't need to disable or exclude any features I don't need — they simply won't be in the project to start with. Its Control node system, native <code>TextEdit</code> and <code>CodeEdit</code> nodes, and lightweight runtime made it a natural fit.</p>
         </div>
-      </section><!-- /step-1 -->
+      </section><!-- /step-1-1 -->
       <!-- STEP 2 -->
       <section class="step reveal" id="step-1-2">
         <p class="step-label">step 2</p>
@@ -89,7 +91,7 @@
           <p>With six planned panels: Edit, Control, Map, Info, Space*, and Resource; the first task was getting them all sized, positioned, and styled consistently. The design goal was a white rounded-corner outline that turns green when a panel is active. This sounds simple, but I immediately ran into some annoying behavior: <code>PanelContainer</code> doesn't handle StyleBox overrides the same way <code>CodeEdit</code> and <code>TextEdit</code> do. Getting a consistent border effect across node types, each with their own rules about how styles are applied, took manual spoofing of theme behaviors that should have been uniform.</p>
           <p>The other small headache was focus management. Clicking off a panel needed to properly clear the active state, but there was no clean way to catch an unfocused click on empty space. The fix was placing a full-screen Button at the back of the scene to absorb any click that didn't land on a panel, forcing a focus reset.</p>
         </div>
-      </section><!-- /step-2 -->
+      </section><!-- /step-1-2 -->
       <!-- STEP 3 -->
       <section class="step reveal" id="step-1-3">
         <p class="step-label">step 3</p>
@@ -116,7 +118,7 @@
           <p>The more interesting challenge was <code>find_cell</code>. It is extremely important to me to avoid situations where the player is frustrated because the typing style that is fastest to them doesn't parse correctly. Several different natural ways of expressing a location: the formal <code>[A1]</code>, bare <code>A1</code>, a casual <code>a1</code>, or <code>(0,0)</code> as a raw coordinate; I wanted each of these to be valid inputs depending on the player's preference.</p>
           <p>Rather than handle each format separately at every call site, I consolidated everything into one function using two regex patterns. The coordinate format is checked first since it's syntactically distinct, and the function returns both the resolved <code>Vector2i</code> and label string together so callers never need a second lookup. Once that was in place, <code>update_map_cell_status</code> and <code>update_map_cell_resource</code> both route through it, meaning format flexibility is inherited automatically everywhere a cell could be referenced.</p>
         </div>
-      </section><!-- /step-3 -->
+      </section><!-- /step-1-3 -->
       <!-- STEP 4 -->
       <section class="step reveal" id="step-1-4">
         <p class="step-label">step 4</p>
@@ -147,7 +149,7 @@
           </div>
           <p>After that, the file commands themselves came together quickly: load, save, close, create, and delete all wired into the terminal. The EditPanel was also updated at this point; rather than showing a placeholder message when no file is open, it now lists the contents of the custom machines folder, so the panel is always showing something useful.</p>
         </div>
-      </section><!-- /step-4 -->
+      </section><!-- /step-1-4 -->
       <!-- STEP 5 -->
       <section class="step reveal" id="step-1-5">
         <p class="step-label">step 5</p>
@@ -170,7 +172,7 @@
           <h3 class="subsection-title">One Place for All Materials</h3>
           <p>The last piece was <code>materials.gd</code>: a static data file that serves as the single authoritative source for every material in the game: ores, raw materials, alloys, synthesized compounds, vaporized gases, and eventually manufactured products. The payoff is that machines never need to hardcode material logic; they query the database and act on whatever they get. Adding a new material type or processing method means changing one file, not hunting through machine scripts.</p>
         </div>
-      </section><!-- /step-5 -->
+      </section><!-- /step-1-5 -->
       <!-- STEP 6 -->
       <section class="step reveal" id="step-1-6">
         <p class="step-label">step 6</p>
@@ -206,7 +208,7 @@
           <h3 class="subsection-title">Handling Every Outcome</h3>
           <p>The back end of construction is <code>_continue_construction</code>, which calls <code>machine_manager.add_machine()</code> and routes every possible <code>ConstructionHelper.ERROR</code> result to an appropriate response. Success cases start the machine immediately. Recoverable errors — name already in use, location occupied, insufficient resources — either re-prompt for a different value or drop back to IDLE with an explanation. The goal was that no outcome leaves the player without feedback or stuck in a broken state.</p>
         </div>
-      </section><!-- /step-6 -->
+      </section><!-- /step-1-6 -->
       <!-- STEP 7 -->
       <section class="step reveal" id="step-1-7">
         <p class="step-label">step 7</p>
@@ -231,7 +233,7 @@
           <h3 class="subsection-title">Adding a New Blueprint</h3>
           <p>The last piece was getting player-written files to actually register as machines. A command <code>add_custom_machine</code> in <code>code_edit.gd</code> loads the script file, reads its config dictionary directly off the class, and hands it to <code>machine_manager</code>. With this, the player can write a config, run <code>add [filename]</code>, and the machine appears in the construction list, ready to be built with the <code>construct</code> command.</p>
         </div>
-      </section><!-- /step-7 -->
+      </section><!-- /step-1-7 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
   <div class="page">
@@ -255,8 +257,8 @@
             </ul>
           </ul>
         </div>
-      </section>
-      <section class="step reveal" id="step-2-2">
+      </section><!-- /step-2-1 -->
+      <!-- STEP 2 --><section class="step reveal" id="step-2-2">
         <p class="step-label">step 2</p>
         <h2 class="step-title">more machines</h2>
         <div class="subsection">
@@ -272,8 +274,8 @@
           <h3 class="subsection-title">another template</h3>
           <p>For the final — as of now — template class, I needed a machine type capable of handling multi-input processes that combine materials into a single processed output. I named this class <code>recipeMachine</code>. This machine operates by setting a recipe target, then attempting to populate its <code>queue_inventory</code> using the required amounts from the recipe field in Materials. Once the required materials have been queued, it consumes the inventory and adds the refined product to <code>output_inventory</code> for distribution. Currently, this parent class is used by <code>metallurgicFurnace</code> for alloy production and <code>chemicalReactor</code> for synthesized materials.</p>
         </div>
-      </section>
-      <section class="step reveal" id="step-2-3">
+      </section><!-- /step-2-2 -->
+      <!-- STEP 3 --><section class="step reveal" id="step-2-3">
         <p class="step-label">step 3</p>
         <h2 class="step-title">comparative analysis</h2>
         <div class="subsection">
@@ -364,19 +366,90 @@
           <p>This makes for a <i>minimum</i> total of <code>15 actions</code> with an upper limit of <code>30 + 3T actions</code> — NOT considering the cognitive cost for locomotion and perspective navigation. Which means you might have to perform 300 distinct actions to make 10 machines connected to their own storage depots.</p>
           <div class="update">
             <p class="update-label">update</p>
-            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i>; it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings; and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — and in alignment with Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
+            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i>; it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings; and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — and in alignment with Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild their current POV frame which consists of 3 parts — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
             <p>Personally, I would rate the increase in complexity 2-4x higher after accounting for physical movement.</p>
           </div>
           <p>How can I avoid this?</p>
-          <p>I do not currently intend to have intermediary storage structures, however, this changing settings would come at a similar experiential cost. If the user has to manually navigate between files to change the settings, that does come at a cost — changing the settings on the control panel would be quicker, but that is assuming they are proficient in the commands and make no mistakes when prompting. One function I can add would be to enable iteratively/recursively setting material types for machines based on build order. For example, if I make machine [1] that takes <code>iron_bars</code> as the input — the machine [2] <code>smeltingFurnace</code> that is made afterwards, then connected, should automatically set the recipe target to <code>iron_bar</code>.</p>
+          <p>I do not currently intend to have intermediary storage structures, however, this changing settings would come at a similar experiential cost. If the user has to manually navigate between files to change the settings, that does come at a cost — changing the settings on the control panel would be quicker, but that is assuming they are proficient in the commands and make no mistakes when prompting. One function I can add would be to enable iteratively/recursively setting material types for machines based on build order. For example, if I make machine [1] that takes <code>iron_bars</code> as the input — the machine [2] <code>(smeltingFurnace)</code> that is made afterwards, then connected, should automatically set the recipe target to <code>iron_bar</code>.</p>
         </div>
-      </section>
-      <section class="step reveal" id="step-2-8">
-        <p class="step-label">step 8</p>
-        <h2 class="step-title"></h2
+      </section><!-- /step-2-3 -->
+      <!-- STEP 4 -->
+      <section class="step reveal" id="step-2-4">
+        <p class="step-label">step 4</p>
+        <h2 class="step-title">Flexible Inventory</h2>
         <div class="subsection">
+          <h3 class="subsection-title">option 1: Current</h3>
+          <div style="display:flex; align-items:flex-start;">
+            <div class="media-placeholder">
+              <img src="blog media/inv_1.jpg" alt="Inventory diagram option: 1" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">jpeg — inventory diagram option: 1</p>
+            </div>
+            <p style="margin:1.5rem;">
+              The current way inventories are handled does not fit with my goal of flexibility. Currently (internal) sub-machines do not have their own ports. They use their shell (parent) machine's primary inventory for inputted materials and primary output inventory for materials to output.
+            </p>
+          </div>
         </div>
-      </section>
+        <div class="subsection">
+          <h3 class="subsection-title">Option 2</h3>
+          <div style="display:flex; align-items:flex-start;">
+            <div class="media-placeholder">
+              <img src="blog media/inv_2.jpg" alt="Inventory diagram option: 2" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">jpeg — inventory diagram option: 2</p>
+            </div>
+            <p style="margin:1.5rem;">This layout benefits from the least amount of complexity — the shell machine directly ports input into sub-machine input and the output inventory directly ports to output, or other sub machines. The problem that comes with this is that the connection process must be hard-coded, any change would have to directly manipulate sub-machine inventories which might cause errors.</p>
+          </div>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Option 3</h3>
+          <div style="display:flex; align-items:flex-start;">
+            <div class="media-placeholder">
+              <img src="blog media/inv_3.jpg" alt="Inventory diagram option: 3" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">jpeg — inventory diagram option: 3</p>
+            </div>
+            <p style="margin:1.5rem;">This setup offers the highest degree of run-time safety; since it uses ports for the sub-machines — it uses their safeguarded inventory manipulation functions, and can be readily changed from external calls.</p>
+          </div>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">option 4: Disabusing Old Fixations</h3>
+          <div style="display:flex; align-items:flex-start;">
+            <div class="media-placeholder">
+              <img src="blog media/inv_4.jpg" alt="Inventory diagram option: 4" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">jpeg — inventory diagram option: 4</p>
+            </div>
+            <p style="margin:1.5rem;">At the beginning of this development, I wanted custom machines to feel different than just having multiple machines. I wanted them to feel like completely self-contained systems — so I was attached to the idea of restricting sub-machines from connecting to the outside directly. However, this is not a meaningful difference when the connections are manually configured inside the custom machine, it just requires more steps to route the materials to ultimately the same effective function. Therefore I overhauled the inventory system to account for this more efficient process. But — as of writing this — I am having doubts, I still think that having sub-machines isolated from outside machines lend toward them feeling different from stand-alone machines. I might use a fourth option that instead — still uses the shell machine's ports for external connection, but uses the sub-machine's inventory as reference. This would be basically option 2, but uses ports for transferring between sub-machines.</p>
+          </div>
+        </div>
+      </section><!-- /step-2-4 -->
+      <!-- STEP 5 -->
+      <section class="step reveal" id="step-2-5">
+        <p class="step-label">step 5</p>
+        <h2 class="step-title">The Crunchy Stuff</h2>
+        <div class="subsection">
+          <h3 class="subsection-title">Inventory System</h3>
+          <p>Ports now own their own typed buffers instead of pointing at shared machine inventories. <code>_inventory</code> and <code>_output_inventory</code> are gone from <code>Machine</code>, replaced by a single <code>_processing_inventory</code> for material mid-process. Vault ports now reference the vault inventory directly rather than going through a special-case class. A new <code>flush()</code> drains <code>_processing_inventory</code> into output port buffers via <code>take_up_to</code>.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Port System</h3>
+          <p>Raw dictionaries for input and output have been promoted to typed <code>InputSystem</code>/<code>OutputSystem</code> classes. All port access routes through a safe <code>_get_port()</code> with context-aware error logging. Ports can now be protected against removal, renaming is atomic, and a new <code>make_port_id()</code> standardizes auto-generated naming. <code>PortSystem</code> holds a direct machine reference so <code>flush()</code> can access the processing inventory without awkward cross-object reaching.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">HALT! & Machine Lifecycle</h3>
+          <p>The <code>setup → verify_requirements → start</code> chain is now clearly defined: <code>start()</code> registers the process queue then calls verify; <code>restart()</code> skips registration and calls verify only. A <code>_halt</code> flag separates intentional stops from failed verification, so now the user can stop a malfunctioning machine from trying to restart each loop to avoid stacking errors.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Recipe & Separator Port Reconciliation</h3>
+          <p>Port reconciliation logic was extracted from <code>recipeMachine</code> into a shared <code>_reconcile_ports()</code> helper called by both <code>set_recipe</code> and <code>verify_requirements</code>, breaking the mutual recursion the previous design had.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Control Panel</h3>
+          <p><code>input_received</code> now carries an <code>InputResult</code> payload so callers can distinguish completion, cancellation, and halt. Prompt state is now an <code>InputRequest</code> class rather than a raw dictionary. <code>halt</code> is valid as a response to any machine prompt; a suppress system was added for per-machine and global output silencing, and <code>cmd_cancel</code> now correctly emits its signal to unblock waiting machine coroutines.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Custom Machine</h3>
+          <p>Shared inventories between sub-machines are replaced by direct port-to-port linking. <code>verify_requirements</code> now runs sub-machines first before checking external ports. Config connections are validated at verify time rather than assumed correct, and sub-machine prompts are prefixed with the parent name for player context.</p>
+        </div>
+      </section><!-- /step-2-5 -->
+      <!-- STEP  -->
       <!-- <section class="step reveal" id="step-2-">
         <p class="step-label">step 1</p>
         <h2 class="step-title"></h2>
@@ -388,7 +461,7 @@
   <div class="page">
     <h1 class="blog-header">Phase 3: <span style="color:var(--cream-dim);font-weight:400;">Finalizing</span></h1>
     <div class="blog-article">
-      <!-- <section class="step reveal" id="step-1">
+      <!-- <section class="step reveal" id="step-3-1">
         <p class="step-label">step </p>
         <h2 class="step-title"></h2>
         <div class="subsection">
@@ -400,7 +473,7 @@
   <div class="page">
     <h1 class="blog-header">Phase 4: <span style="color:var(--cream-dim);font-weight:400;">Polishing</span></h1>
     <div class="blog-article">
-      <!-- <section class="step reveal" id="step-1">
+      <!-- <section class="step reveal" id="step-4-1">
         <p class="step-label">step </p>
         <h2 class="step-title"></h2>
         <div class="subsection">
