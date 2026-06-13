@@ -44,6 +44,7 @@
     <h1 class="blog-title">Loop Factory<span style="color:var(--cream-dim);font-weight:400;">*</span></h1>
     <p><span style="font-family:var(--font-mono);font-size:.8em;color:rgba(236,232,223,.35);">* temporary name</span></p>
     <p class="blog-tagline">A text-based incremental factory game where players manage a factory through a terminal-style Control Panel — writing configs, collecting resources, discovering map sectors, and unlocking new blueprints over time.</p>
+    <p class="blog-tagline">Though I work on this game almost every day — with much of it being pure code, I won't have daily updates to showcase my progress.</p>
     <div class="blog-divider"></div>
   </div><!-- /blog-header-wrap -->
   <div class="page">
@@ -246,14 +247,17 @@
           <p style="margin-bottom: 0;">Now that I have the foundational technical features, I can fill out the functional content for the game.<br>So, I need to:</p>
           <ul>
             <li>Complete remaining blueprint machines (the machines given to the player through milestones)</li>
-            <li>Complete command panel command functionality</li>
+            <li>Complete control panel command functionality</li>
             <li>Implement editable machine files (similar how custom machines are handled)</li>
             <li>Flesh out dependencies for gameplay mechanics (e.g. quests)</li>
             <li>Refine gameplay design</li>
             <ul>
               <li>Core gameplay loop</li>
-              <li>Mateial weights (as in spawn rates, conversions, etc.)</li>
+              <li>Material weights (as in spawn rates, conversions, etc.)</li>
               <li>UI/UX — would a single terminal be better?</li>
+              <ul>
+                <li>True single terminal or window with tabs?</li>
+              <ul>
             </ul>
           </ul>
         </div>
@@ -366,7 +370,7 @@
           <p>This makes for a <i>minimum</i> total of <code>15 actions</code> with an upper limit of <code>30 + 3T actions</code> — NOT considering the cognitive cost for locomotion and perspective navigation. Which means you might have to perform 300 distinct actions to make 10 machines connected to their own storage depots.</p>
           <div class="update">
             <p class="update-label">update</p>
-            <p>Last night I wrote this, and this morning I realized why it wasn't an issue for me in games such as <i>Minedustry</i>; it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings; and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — and in alignment with Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild their current POV frame which consists of 3 parts — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
+            <p>Last night I wrote this, and this morning I realized <i>why</i> it wasn't an issue for me in games such as <i>Minedustry</i>; it's because of the dimensions. In <i>StarRupture</i>, you have to physically run between the buildings to change the settings; and they can be pretty far from each other. In 2D games like <i>Minedustry</i> you can pan over to the other building instantaneously to change its setting. In addition to that — and in alignment with Cognitive Load Theory — I believe that there is also more friction opening a menu in a 3D game rather than a 2D game. After closing a menu, players must rebuild their current POV frame which consists of 3 parts — 1: spatial context, 2: goal state 3: timing awareness. And I think the cognitive load to rebuild the spatial context from 3 dimensions, to 2, back into 3, is much higher in comparison than 2D-2D.</p>
             <p>Personally, I would rate the increase in complexity 2-4x higher after accounting for physical movement.</p>
           </div>
           <p>How can I avoid this?</p>
