@@ -38,15 +38,30 @@
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  column-gap: 1.5rem;
   align-items: stretch;
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem 0;
+  flex-direction: column;
+}
+@media (max-width: 1000px) {
+  .two-col {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .two-col p {
+    padding-top: 0;
+  }
+  .two-col .media-placeholder {
+    margin-bottom: 0;
+  }
 }
 
 .two-col .media-placeholder {
-  height: 100%;
-  min-height: unset;
+  height: auto;
+  width: 100%;
   padding: 0;
+  margin-top: 1rem;
 }
 
 .two-col .media-placeholder img,
@@ -58,8 +73,7 @@
 }
 .two-col p {
   display: flex;
-  margin-top: 1.5rem;
-  flex-direction: column;
+  padding-top: 1.5rem;
 }
 
 /* ============================================================
@@ -90,8 +104,8 @@ a {
 
 img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
 }
 
@@ -1468,7 +1482,7 @@ footer { padding: var(--pad); }
 .blog-article img,
 .blog-article video {
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
   border-radius: 6px;
 }
@@ -1507,18 +1521,17 @@ footer { padding: var(--pad); }
   align-items: center;
   justify-content: center;
   gap: .5rem;
-  min-height: 160px;
   max-width: var(--max-w) - var(--pad);
   max-height: calc(100vh - var(--nav-h) - var(--toc-h));
 }
 
 .media-placeholder img,
 .media-placeholder video {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+  max-height: calc(100vh - var(--nav-h) - var(--toc-h) - var(--pad));
+  max-width: 100%;
+  width: auto;
+  height: 100%;
   border-radius: 6px;
-  margin: 0;
 }
 
 .media-placeholder-label {
@@ -1546,16 +1559,31 @@ code {
 
 /* ── FOLDED STUFF ── */
 .technical-folded {
+  display: inline;
   font-size: .75rem;
   font-family: var(--font-mono);
   color: rgba(236,232,223,.25);
   font-style: italic;
   letter-spacing: .02em;
-  margin-top: .35rem;
 }
 body:not(.hide-technical) .technical-folded { display: none; }
 
 body.hide-technical [data-technical] { display: none; }
+
+[data-technical]::after {
+  content: '// technical details folded';
+  display: none;
+  font-size: .75rem;
+  font-family: var(--font-mono);
+  color: rgba(236,232,223,.25);
+  font-style: italic;
+  letter-spacing: .02em;
+  margin-top: .5rem;
+}
+
+body.hide-technical [data-technical]::after {
+  display: block;
+}
 
 .subsection-h4 {
   font-size: .95rem; font-weight: 600;
