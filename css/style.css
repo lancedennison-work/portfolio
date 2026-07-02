@@ -103,10 +103,10 @@ a {
 }
 
 img {
-  display: block;
+  height: 100%;
   width: auto;
-  height: auto;
   object-fit: cover;
+  object-position: center;
 }
 
 /* ============================================================
@@ -573,10 +573,19 @@ footer { padding: var(--pad); }
 }
 
 .about-photo {
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
-  aspect-ratio: unset;
+  aspect-ratio: 4/5;
   background: var(--surface);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-photo img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  object-position: center;
 }
 
 .about-text-group {
@@ -655,8 +664,17 @@ footer { padding: var(--pad); }
 .about-hero-photo {
   border-radius: 8px;
   overflow: hidden;
-  aspect-ratio: 2/3;
+  aspect-ratio: 4/7;
   background: var(--surface);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-hero-photo img{
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* ============================================================
@@ -722,7 +740,7 @@ footer { padding: var(--pad); }
 
 .experience {
   padding: var(--pad) 0;
-  border-bottom: 1px solid var(--cream-faint);
+  /* border-bottom: 1px solid var(--cream-faint); */
 }
 
 .experience-heading {
@@ -794,18 +812,23 @@ footer { padding: var(--pad); }
   display: flex;
   align-items:flex-start;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: var(--pad);
   flex-wrap: wrap;
 }
 
 .current-project-section h1 {
-  font-size: clamp(1.5rem, 10vw, 3rem);
+  font-size: clamp(1.5rem, 20vw, 8rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: .9;
   text-transform: lowercase;
   color: var(--white);
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex: 0 1 420px;   /* caps heading's width so it wraps before row breaks */
+  min-width: 0;      /* lets it shrink below "current project:" full-width */
+  width: auto;
 }
 
 .section-eyebrow {
@@ -828,6 +851,8 @@ footer { padding: var(--pad); }
   border: 1px solid var(--cream-faint);
   transition: border-color .2s, background-color .2s;
   text-decoration: none;
+  flex: 1 1 420px;   /* grows to fill leftover space, shrinks last */
+  min-width: 0;
 }
 
 .current-project-card:hover {
