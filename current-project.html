@@ -28,20 +28,20 @@
         <p class="toc-phase-label" id="phase-title-2" style="display:none;">functional content</p>
       </ul>
       <ul class="toc-list" id="toc-steps-1">
-        <li><a href="#step-1-1"><span class="toc-num">01</span>Getting Started</a></li>
-        <li><a href="#step-1-2"><span class="toc-num">02</span>UI Foundation</a></li>
-        <li><a href="#step-1-3"><span class="toc-num">03</span>The Map Matrix</a></li>
-        <li><a href="#step-1-4"><span class="toc-num">04</span>Terminal &amp; Files</a></li>
-        <li><a href="#step-1-5"><span class="toc-num">05</span>Items &amp; Inventories</a></li>
-        <li><a href="#step-1-6"><span class="toc-num">06</span>Constructing Machines</a></li>
-        <li><a href="#step-1-7"><span class="toc-num">07</span>Custom Machines</a></li>
+        <li><a href="#step-1-1"><span class="toc-num">01</span><span class="toc-step-title">Getting Started</span></a></li>
+        <li><a href="#step-1-2"><span class="toc-num">02</span><span class="toc-step-title">UI Foundation</span></a></li>
+        <li><a href="#step-1-3"><span class="toc-num">03</span><span class="toc-step-title">The Map Matrix</span></a></li>
+        <li><a href="#step-1-4"><span class="toc-num">04</span><span class="toc-step-title">Terminal &amp; Files</span></a></li>
+        <li><a href="#step-1-5"><span class="toc-num">05</span><span class="toc-step-title">Items &amp; Inventories</span></a></li>
+        <li><a href="#step-1-6"><span class="toc-num">06</span><span class="toc-step-title">Constructing Machines</span></a></li>
+        <li><a href="#step-1-7"><span class="toc-num">07</span><span class="toc-step-title">Custom Machines</span></a></li>
       </ul>
       <ul class="toc-list" id="toc-steps-2" style="display:none;">
-        <li><a href="#step-2-1"><span class="toc-num">01</span>Filling the Foundaiton</a></li>
-        <li><a href="#step-2-2"><span class="toc-num">02</span>More Machines</a></li>
-        <li><a href="#step-2-3"><span class="toc-num">03</span>Comparative Analysis</a></li>
-        <li><a href="#step-2-4"><span class="toc-num">04</span>Flexible Inventory</a></li>
-        <!-- <li><a href="#step-2-5"><span class="toc-num">05</span>The Crunchy Stuff</a></li> -->
+        <li><a href="#step-2-1"><span class="toc-num">01</span><span class="toc-step-title">Filling the Foundaiton</span></a></li>
+        <li><a href="#step-2-2"><span class="toc-num">02</span><span class="toc-step-title">More Machines</span></a></li>
+        <li><a href="#step-2-3"><span class="toc-num">03</span><span class="toc-step-title">Comparative Analysis</span></a></li>
+        <li><a href="#step-2-4"><span class="toc-num">04</span><span class="toc-step-title">Flexible Inventory</span></a></li>
+        <!-- <li><a href="#step-2-5"><span class="toc-num">05</span><span class="toc-step-title">The Crunchy Stuff</span></a></li> -->
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -617,43 +617,38 @@
       document.body.classList.add('hide-technical');
       techToggles.forEach(t => t.checked = false);
     }
+    function setTechnicalVisible(visible) {
+      const offset = updateScrollPadding();
+
+      // Find element closest to top of viewport
+      const contentEls = [...document.querySelectorAll('.blog-article p, .blog-article .subsection, .blog-article .update')];
+      const nearest = contentEls.find(el => el.getBoundingClientRect().top >= offset);
+
+      // Check if element (or the technical block) getting folded
+      const vanishing = !visible
+        ? (nearest?.closest('[data-technical]') ?? nearest?.querySelector(':scope > .subsection-body[data-technical]'))
+        : null;
+      // Pick a anchor that wont be folded by the toggle
+      const anchor = vanishing
+        ? (vanishing.closest('.subsection')?.querySelector('.subsection-title') ?? vanishing)
+        : nearest;
+      const beforeTop = (!vanishing && anchor) ? anchor.getBoundingClientRect().top : null;
+      document.body.classList.toggle('hide-technical', !visible);
+      techToggles.forEach(t => t.checked = visible);
+      localStorage.setItem('showTechnical', String(visible));
+      if (!anchor) return;
+      if (vanishing) {
+        // Nothing to preserve visually — snap to the section title instead.
+        const targetTop = anchor.getBoundingClientRect().top + window.scrollY - offset - 16;
+        window.scrollTo({ top: targetTop, behavior: 'instant' });
+      } else {
+        // Keep the anchor pinned at the same viewport position, compensating
+        // for any [data-technical] content that folded/unfolded above it.
+        window.scrollBy({ top: anchor.getBoundingClientRect().top - beforeTop, behavior: 'instant' });
+      }
+    }
     techToggles.forEach(toggle => {
-      toggle.addEventListener('change', () => {
-        const anchor = toggle.getBoundingClientRect().top;
-
-        // Find the element closest to the top of the viewport
-        const allElements = [...document.querySelectorAll('.blog-article p, .blog-article .subsection, .blog-article .update')];
-        const offset = updateScrollPadding();
-        const nearest = allElements.find(el => el.getBoundingClientRect().top >= offset);
-
-        // Check if that element is inside a data-technical block
-        const technicalAncestor = nearest?.closest('[data-technical]');
-
-        if (toggle.checked) {
-          document.body.classList.remove('hide-technical');
-          localStorage.setItem('showTechnical', 'true');
-          techToggles.forEach(t => t.checked = true);
-        } else {
-          document.body.classList.add('hide-technical');
-          localStorage.setItem('showTechnical', 'false');
-          techToggles.forEach(t => t.checked = false);
-        }
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            if (!toggle.checked && technicalAncestor) {
-              // Scroll to the step title containing this technical block
-              const step = technicalAncestor.closest('.subsection');
-              const target = step?.querySelector('.subsection-title') ?? technicalAncestor;
-              const targetTop = target.getBoundingClientRect().top + window.scrollY - offset - 16;
-              window.scrollTo({ top: targetTop, behavior: 'instant' });
-            } else {
-              const newTop = toggle.getBoundingClientRect().top;
-              window.scrollBy({ top: newTop - anchor, behavior: 'instant' });
-            }
-          });
-        });
-      });
+      toggle.addEventListener('change', () => setTechnicalVisible(toggle.checked));
     });
     // Add folded message under data-technical block
     document.querySelectorAll('[data-technical]').forEach(el => {

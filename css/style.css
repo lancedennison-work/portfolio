@@ -85,7 +85,7 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-anchor: none; }
 
 body {
   background: var(--bg);
@@ -1437,6 +1437,11 @@ footer { padding: var(--pad); }
 }
 
 .toc-list a.toc-active .toc-num { color: rgba(236,232,223,.5); }
+
+@media (max-width: 1000px) {
+  .toc-step-title { display: none; }
+  .toc-list a { padding: .25rem .5rem; }
+}
 
 /* ── Steps ── */
 
