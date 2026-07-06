@@ -818,7 +818,7 @@ footer { padding: var(--pad); }
 }
 
 .current-project-section h1 {
-  font-size: clamp(1.5rem, 20vw, 8rem);
+  font-size: clamp(1.5rem, 20vw, 7rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: .9;
@@ -1316,7 +1316,7 @@ footer { padding: var(--pad); }
 }
 
 /* ============================================================
-   current-project.html — dev blog
+   dev blog pages (loop-factory.html, passassin-demo.html)
    ============================================================ */
 
 .blog-header-wrap {

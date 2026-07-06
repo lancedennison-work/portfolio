@@ -38,7 +38,7 @@
 
   load(prefix + 'components/nav.html', 'nav-placeholder', () => {
     // Use the placeholder's next siblings, not querySelector('nav')
-    // which would match the TOC <nav> on current-project.html
+    // which would match the TOC <nav> on loop-factory.html
     const nav  = document.querySelector('nav.site-nav');
     const menu = document.getElementById('mobileMenu');
     if (nav)  resolveLinks(nav);

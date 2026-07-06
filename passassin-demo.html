@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passassin — Dev Blog — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow">dev blog · in progress</p>
+    <h1 class="blog-title">Passassin</h1>
+    <p class="blog-tagline">You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know exactly where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <div class="page">
+    <div class="blog-article">
+      <div class="update">
+        <p class="update-label">note</p>
+        <p>This blog was originally on a website I had for a free trial, so, I no longer have the original version. I lost all the text, but have most of the media still saved on my computer so I am rebuilding around those from memory. So please, bear with the missing stuff as I catch it up! (And just ignore if I mix up tenses, I'm trying to channel my past self)</p>
+      </div>
+
+      <!-- STEP: INTRO -->
+      <section class="step reveal" id="step-intro">
+        <p class="step-label">step 1</p>
+        <h2 class="step-title">Intro</h2>
+        <div class="subsection">
+          <h3 class="subsection-title">Project Goal</h3>
+          <p>The aim of this project is to make an ambitious Unreal Third-Person Stealth-Shooter game from the ground up, only using blueprint nodes where C++ fails to be useful (like ABP graphs). I am going to go off my first guess to create novel (to me) solutions for the first iterations of the classes, and refine the technical elements towards my goal designs or game-design-standard solutions I remember.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Pitch</h3>
+          <p>You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know exactly where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Inspirations</h3>
+          <p>I have a few different games that will guide the direction of my design goals.</p>
+          <h4 class="subsection-h4">Stealth: Dishonored</h4>
+          <p>I want a complex stealth system: Enemies that--</p>
+          <ul>
+            <li>Can patrol</li>
+            <li>Have a vision cone</li>
+            <li>Vision state that builds a tolerance value up to spotting the character
+              <ul>
+                <li>And back down if not triggered</li>
+              </ul>
+            </li>
+            <li>Attack when able</li>
+            <li>Investigate when vision fully gained, then lost</li>
+            <li>Goes back to patrol when found nothing</li>
+            <li>Alerted mode when someone raises the alarm</li>
+          </ul>
+          <h4 class="subsection-h4">Enemy Behavior: Halo</h4>
+          <p>I want flavorful enemy behaviors; which the Halo franchise famously has. Each enemy type has so much personality baked into them through their behavior tree. This is well supported by the amazing animation of each "class" that sells the experiential narrative that--the Covenant as a prime example--are distinct races in a strict caste system socially and militarily.</p>
+          <h4 class="subsection-h4">Group Behavior: The Last of Us</h4>
+          <p>I want a system to allow for cooperative enemy behavior--like how enemies can "bark" to others, and work together to locate you, pincer you, and otherwise act like people who use the numbers they have as an advantage. This differs from many stealth games which, a lot of the time, seem to have you almost magically globally visible. WIth a more nuanced system, like TLoU, actors have to share information for them to accurately pinpoint your location.</p>
+        </div>
+      </section><!-- /step-intro -->
+
+      <!-- STEP: AGENT -->
+      <section class="step reveal" id="step-agent">
+        <p class="step-label">step 2</p>
+        <h2 class="step-title">Agent</h2>
+        <div class="subsection">
+          <p>To allow for functionality testing, Agent will start out with some of the functionality that will only be present in PlayerAgent.</p>
+          <p>Agent needs</p>
+          <ul>
+            <li>Hitbox arrangement...</li>
+            <li>Animation State Modifier Tracking ...</li>
+            <li>...</li>
+            <li>(Temporary for Player)
+              <ul>
+                <li>Input mapped Locomotion ...</li>
+                <li>Camera ...</li>
+                <li>...</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/Hitscan.gif" alt="base Hiscan Desc" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">base Hiscan Desc</p>
+          </div>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/Bones.gif" alt="Bones gif desc" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">Bones gif desc</p>
+          </div>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/WinnerCode.png" alt="fire logic code ss" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">fire logic code ss</p>
+          </div>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">AgentAnimInstance</h3>
+          <p>[handles animation modifiers for ABP anim tree cuz hard otherwise]</p>
+          <div class="media-placeholder">
+            <img src="blog media\pass-blog\WalkRunAnimState.png" alt="AnimStates gif Desc" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">Run Walk Nodes Anim State</p>
+          </div>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/AnimStates.gif" alt="AnimStates gif Desc" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">AnimStates gif Desc</p>
+          </div>
+        <div class="subsection">
+          <h3 class="subsection-title">AgentObserver</h3>
+          <p>For later use... Tracks all actions Agents perform... Allows for more flexible/frequent records in addition to engine auto save states [for rewinding]...</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/" alt="agentobserver code ss" onerror="this.style.display='none'">
+            <p class="media-placeholder-label" style="display:block;">agentobserver code ss</p>
+          </div>
+        </div>
+      </section><!-- /step-agent -->
+
+      <!-- STEP: CLASS SPLIT -->
+      <section class="step reveal" id="step-class-split">
+        <p class="step-label">step 3</p>
+        <h2 class="step-title">Class Split</h2>
+        <div class="subsection">
+          <h3 class="subsection-title">Player</h3>
+          <p>...</p>
+          <p>Player needs</p>
+          <ul>
+            <li>(Taken from Agent)</li>
+            <li>...</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Enemy</h3>
+          <p>...</p>
+          <p>Enemy needs</p>
+          <ul>
+            <li>AI states
+              <ul>
+                <li>...</li>
+              </ul>
+            </li>
+            <li>...</li>
+          </ul>
+        </div>
+      </section><!-- /step-class-split -->
+
+      <!-- STEP: PLAYER -->
+      <section class="step reveal" id="step-player">
+        <p class="step-label">step 4</p>
+        <h2 class="step-title">Player</h2>
+        <div class="subsection">
+          <h3 class="subsection-title">Functional Crosshair</h3>
+          <p>The--key, new--feature that the PlayerAgent needs---that isn't cut out from the pre-split Agent class, is a UI crosshair. Currently the way the AAgent shoots: it draws a trace hitscan out using the muzzle as the start of the vector, then it uses the firing range down the camera forward as the trace end. In third person games, the camera... [you can see past where gun can shoot].</p>
+          <p>[solution]</p>
+          <p>I set up some tools for testing and drew debug lines based on them to use for iterating. To test my options and find how I want the hitscan-behavior/reticle-placement, I needed a way to probe in the same direction relative to the player's weapon every tick.</p>
+          <p>Manually updating on each tick the direction each based on the player's movement and rotation, to test seemed excessive. Especially when the camera boom does exactly what I am looking for. The spring arm component has a fixed path, it's just normally supposed to be behind the player. So, I socketed one to the weapon muzzle, and one to the follow camera and flipped them around.</p>
+          <p>This perfectly creates a no-fuss, consistent angle, every-tick, with linear probing at fixed maximum distance. Now I can see where the gun is pointing towards and hitting and where the camera--always pointing at the center of the screen--is hitting. I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/3Scans.png" alt="all three at once test description picks whichever is hitting the closest agent" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">all three at once test description picks whichever is hitting the closest agent</p>
+          </div>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/WinnerTrace.gif" alt="all 3 hitcan debugs" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">all 3 hitcan debugs</p>
+          </div>
+          <p>This gives 3 options.</p>
+          <ul>
+            <li>Red: Trace from muzzle to Camera
+              <ul>
+                <li>Pros: Highest accuracy; its target location doesn't bob around from the idle animation, and is always at the center of the screen so you don't have to coax the camera into lining up the hitscan</li>
+                <li>Cons: Looks weird if you can see the line the closer you are to the target as it skews further away from the barrel direction, and when you get the barrel close enough to something it kind of breaks.</li>
+                <li>Accurate past close range for both hipfire and aiming</li>
+              </ul>
+            </li>
+            <li>Blue: Trace from muzzle straight out
+              <ul>
+                <li>Pros: Works well up close, and is animation-accurate.</li>
+                <li>Cons: Moves around a lot the farther away you are aiming due to aforementioned accuracy with the idle animation. Primitive rotational movement and no IK on the arms means the trace end is almost never at the center of the screen.</li>
+                <li>Accurate at very close range, more accurate during aiming due to camera offset</li>
+              </ul>
+            </li>
+            <li>Purple: Trace sweep between arms
+              <ul>
+                <li>Pros: Makes up for the inconsistent distance weaknesses of the bounding arms.</li>
+                <li>Cons: Though it works well to balance at long range since the angle gets very close to the red, it does not equally balance the middle distances</li>
+                <li>Maybe the least accurate at this stage, very hard to balance just right</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/WinnerCode.png" alt="winner code ss" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">winner code ss</p>
+          </div>
+          <p>Current Winner: Muzzle to Camera Arm Probe; the other two have been banished to the future iteration shadow realm.</p>
+          <p>Since I already have an object always at the center of the screen, the debug sphere for the camera-anchored arm has been promoted to pseudo reticle/crosshair! Congrats!</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/MuzzleToCamera.gif" alt="black = no agent red = agent" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">black = no agent red = agent</p>
+          </div>
+        </div>
+      </section><!-- /step-player -->
+
+      <!-- STEP: ENEMY -->
+      <section class="step reveal" id="step-enemy">
+        <p class="step-label">step 5</p>
+        <h2 class="step-title">Enemy</h2>
+        <div class="subsection">
+          <h3 class="subsection-title">Behaviors</h3>
+          <p>[desc about tree]</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/EnemyLoopSmall.gif" alt="enemy state loop gif" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">enemy state loop</p>
+          </div>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Behavior Modifiers</h3>
+          <p>Alarmed -&gt; triggered one to all others</p>
+          <p>[triggers investigate->tighter but longer cone, higher search tolerance, resets when search resets]</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/" alt="alarmed to normal gif" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">alarmed to normal gif</p>
+          </div>
+        </div>
+        <div class="subsection">
+          <h3 class="subsection-title">Enemy AI Locomotion (Manual)</h3>
+          <p>To make AI pathfinding, without the actor using valid movement paths from the engine, they need a solution to objects blocking their path. ... [Reassign Tick target to -&gt; reverse vector math + buffer]</p>
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/" alt="retarget code ss" onerror="this.style.display='none'">
+            <p class="media-placeholder-label" style="display:block;">retarget code ss</p>
+          </div>
+        </div>
+      </section><!-- /step-enemy -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div id="footer-placeholder"></div>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+  <script src="./components/components.js" data-prefix="./"></script>
+</body>
+</html>
