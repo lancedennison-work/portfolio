@@ -18,217 +18,314 @@
     <div class="blog-divider"></div>
   </div><!-- /blog-header-wrap -->
 
+  <!-- PHASE: INTRO -->
   <div class="page">
+    <h1 class="blog-header" id="phase-1">Intro</h1>
     <div class="blog-article">
       <div class="update">
         <p class="update-label">note</p>
         <p>This blog was originally on a website I had for a free trial, so, I no longer have the original version. I lost all the text, but have most of the media still saved on my computer so I am rebuilding around those from memory. So please, bear with the missing stuff as I catch it up! (And just ignore if I mix up tenses, I'm trying to channel my past self)</p>
       </div>
 
-      <!-- STEP: INTRO -->
-      <section class="step reveal" id="step-intro">
-        <p class="step-label">step 1</p>
-        <h2 class="step-title">Intro</h2>
-        <div class="subsection">
-          <h3 class="subsection-title">Project Goal</h3>
-          <p>The aim of this project is to make an ambitious Unreal Third-Person Stealth-Shooter game from the ground up, only using blueprint nodes where C++ fails to be useful (like ABP graphs). I am going to go off my first guess to create novel (to me) solutions for the first iterations of the classes, and refine the technical elements towards my goal designs or game-design-standard solutions I remember.</p>
-        </div>
-        <div class="subsection">
-          <h3 class="subsection-title">Pitch</h3>
-          <p>You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know exactly where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
-        </div>
-        <div class="subsection">
-          <h3 class="subsection-title">Inspirations</h3>
-          <p>I have a few different games that will guide the direction of my design goals.</p>
-          <h4 class="subsection-h4">Stealth: Dishonored</h4>
-          <p>I want a complex stealth system: Enemies that--</p>
-          <ul>
-            <li>Can patrol</li>
-            <li>Have a vision cone</li>
-            <li>Vision state that builds a tolerance value up to spotting the character
-              <ul>
-                <li>And back down if not triggered</li>
-              </ul>
-            </li>
-            <li>Attack when able</li>
-            <li>Investigate when vision fully gained, then lost</li>
-            <li>Goes back to patrol when found nothing</li>
-            <li>Alerted mode when someone raises the alarm</li>
-          </ul>
-          <h4 class="subsection-h4">Enemy Behavior: Halo</h4>
-          <p>I want flavorful enemy behaviors; which the Halo franchise famously has. Each enemy type has so much personality baked into them through their behavior tree. This is well supported by the amazing animation of each "class" that sells the experiential narrative that--the Covenant as a prime example--are distinct races in a strict caste system socially and militarily.</p>
-          <h4 class="subsection-h4">Group Behavior: The Last of Us</h4>
-          <p>I want a system to allow for cooperative enemy behavior--like how enemies can "bark" to others, and work together to locate you, pincer you, and otherwise act like people who use the numbers they have as an advantage. This differs from many stealth games which, a lot of the time, seem to have you almost magically globally visible. WIth a more nuanced system, like TLoU, actors have to share information for them to accurately pinpoint your location.</p>
-        </div>
-      </section><!-- /step-intro -->
+      <!-- STEP: PROJECT GOAL -->
+      <section class="step reveal" id="step-1-1">
+        <h2 class="step-title">Project Goal</h2>
+        <p>The aim of this project is to make an ambitious Unreal Third-Person Stealth-Shooter game from the ground up, only using blueprint nodes where C++ fails to be useful (like ABP graphs). I am going to go off my first guess to create novel (to me) solutions for the first iterations of the classes, and refine the technical elements towards my goal designs or game-design-standard solutions I remember.</p>
+      </section><!-- /step-1-1 -->
 
-      <!-- STEP: AGENT -->
-      <section class="step reveal" id="step-agent">
-        <p class="step-label">step 2</p>
-        <h2 class="step-title">Agent</h2>
-        <div class="subsection">
-          <p>To allow for functionality testing, Agent will start out with some of the functionality that will only be present in PlayerAgent.</p>
-          <p>Agent needs</p>
-          <ul>
-            <li>Hitbox arrangement...</li>
-            <li>Animation State Modifier Tracking ...</li>
-            <li>...</li>
-            <li>(Temporary for Player)
-              <ul>
-                <li>Input mapped Locomotion ...</li>
-                <li>Camera ...</li>
-                <li>...</li>
-              </ul>
-            </li>
-          </ul>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/Hitscan.gif" alt="base Hiscan Desc" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">base Hiscan Desc</p>
-          </div>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/Bones.gif" alt="Bones gif desc" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">Bones gif desc</p>
-          </div>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/WinnerCode.png" alt="fire logic code ss" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">fire logic code ss</p>
-          </div>
-        </div>
-        <div class="subsection">
-          <h3 class="subsection-title">AgentAnimInstance</h3>
-          <p>[handles animation modifiers for ABP anim tree cuz hard otherwise]</p>
-          <div class="media-placeholder">
-            <img src="blog media\pass-blog\WalkRunAnimState.png" alt="AnimStates gif Desc" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">Run Walk Nodes Anim State</p>
-          </div>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/AnimStates.gif" alt="AnimStates gif Desc" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">AnimStates gif Desc</p>
-          </div>
-        <div class="subsection">
-          <h3 class="subsection-title">AgentObserver</h3>
-          <p>For later use... Tracks all actions Agents perform... Allows for more flexible/frequent records in addition to engine auto save states [for rewinding]...</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/" alt="agentobserver code ss" onerror="this.style.display='none'">
-            <p class="media-placeholder-label" style="display:block;">agentobserver code ss</p>
-          </div>
-        </div>
-      </section><!-- /step-agent -->
+      <!-- STEP: PITCH -->
+      <section class="step reveal" id="step-1-2">
+        <h2 class="step-title">Pitch</h2>
+        <p>You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know exactly where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
+      </section><!-- /step-1-2 -->
 
-      <!-- STEP: CLASS SPLIT -->
-      <section class="step reveal" id="step-class-split">
-        <p class="step-label">step 3</p>
-        <h2 class="step-title">Class Split</h2>
-        <div class="subsection">
-          <h3 class="subsection-title">Player</h3>
-          <p>...</p>
-          <p>Player needs</p>
-          <ul>
-            <li>(Taken from Agent)</li>
-            <li>...</li>
-          </ul>
+      <!-- STEP: INSPIRATIONS -->
+      <section class="step reveal" id="step-1-3">
+        <h2 class="step-title">Inspirations</h2>
+        <p>I have a few different games that will guide the direction of my design goals.</p>
+        <h3 class="subsection-h3">Stealth: Dishonored</h3>
+        <p>I want a complex stealth system: Enemies that—</p>
+        <ul>
+          <li>Can patrol</li>
+          <li>Have a vision cone</li>
+          <li>Vision state that builds a tolerance value up to spotting the character
+            <ul>
+              <li>And back down if not triggered</li>
+            </ul>
+          </li>
+          <li>Attack when able</li>
+          <li>Investigate when vision fully gained, then lost</li>
+          <li>Goes back to patrol when found nothing</li>
+          <li>Alerted mode when someone raises the alarm</li>
+        </ul>
+        <div class="media-placeholder">
+          <img src="" alt="Dishonored enemy detection" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">dishonored enemy detection</p>
         </div>
-        <div class="subsection">
-          <h3 class="subsection-title">Enemy</h3>
-          <p>...</p>
-          <p>Enemy needs</p>
-          <ul>
-            <li>AI states
-              <ul>
-                <li>...</li>
-              </ul>
-            </li>
-            <li>...</li>
-          </ul>
+        <h3 class="subsection-h3">Enemy Behavior: Halo</h3>
+        <p>I want flavorful enemy behaviors; which the Halo franchise famously has. Each enemy type has so much personality baked into them through their behavior tree. This is well supported by the amazing animation of each "class" that sells the experiential narrative that—the Covenant as a prime example—are distinct races in a strict caste system socially and militarily.</p>
+        <div class="media-placeholder">
+          <img src="" alt="Covenant behavior" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">covenant behavior</p>
         </div>
-      </section><!-- /step-class-split -->
+        <h3 class="subsection-h3">Group Behavior: The Last of Us</h3>
+        <p>I want a system to allow for cooperative enemy behavior—like how TLoU enemies can "bark" to others, work together to locate you, and otherwise act like people who use the numbers they have as an advantage. This differs from many stealth games which, a lot of the time, seem to have you almost magically globally visible once the alarm has been raised. With a more nuanced system, like TLoU, actors have to share information for them to accurately pinpoint your location.</p>
+        <div class="media-placeholder">
+          <img src="" alt="TLoU enemy coop" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">tlou enemy coop</p>
+        </div>
+      </section><!-- /step-1-3 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: AGENT -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">Agent</h1>
+    <div class="blog-article">
+
+      <!-- STEP: (Agent overview) -->
+      <section class="step reveal" id="step-2-1">
+        <p>To allow for functionality testing, Agent will start out with some of the functionality that will only be present in PlayerAgent.</p>
+        <h3 class="subsection-h3">Agent needs:</h3>
+        <ul>
+          <li>Hitbox arrangement - use mesh over capsule for collision channel</li>
+          <li>Animation State Modifier Tracking: crouching and aiming alter the other animations</li>
+          <li>Weapon object and shooting functionality</li>
+          <li>Trackable health</li>
+          <li>(Temporary for Player)
+            <ul>
+              <li>Input mapped Locomotion</li>
+              <li>Follow Camera on boom for third-person view</li>
+            </ul>
+          </li>
+        </ul>
+        <p>The current way the weapon shoots is it looks [range] distance down the camera direction, and draws a trace from the muzzle socket of the gun. I added a debug draw to show the trace, add a sphere at collision, and a color indicator for, no hit (red), hit (yellow), and agent hit (green).</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/Hitscan.gif" alt="Hitscan trace debug draw, colored by hit result" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">hitscan trace debug — red: no hit, yellow: hit, green: agent hit</p>
+        </div>
+        <p>With the mesh skeletons that come with the Unreal mannequins, they provide complex and "visually accurate" hitboxes, so with the capsule ignoring the collision channel the gun uses, the player only actually hits if they hit somewhere on the body.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/Bones.gif" alt="Skeletal mesh hitboxes" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">skeletal mesh hitboxes</p>
+        </div>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/WinnerCode.png" alt="Fire logic code" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">fire logic</p>
+        </div>
+      </section><!-- /step-2-1 -->
+
+      <!-- STEP: AGENTANIMINSTANCE -->
+      <section class="step reveal" id="step-2-2">
+        <h2 class="step-title">AgentAnimInstance</h2>
+        <p>ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic. AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming, to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/WalkRunAnimState.png" alt="Blend Poses by Bool node graph in ABP_Manny" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">blend poses by bool — driven by AgentAnimInstance's modifier state</p>
+        </div>
+        <p>Below shows crouching, aiming, and jumping all being used in combination with each other, blended into main animation states (like locomotion).</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/AnimStates.gif" alt="Crouching, aiming, and jumping blended together" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">crouching, aiming, and jumping blended across locomotion states</p>
+        </div>
+      </section><!-- /step-2-2 -->
+
+      <!-- STEP: AGENTOBSERVER -->
+      <section class="step reveal" id="step-2-3">
+        <h2 class="step-title">AgentObserver</h2>
+        <p>I want to add a function to allow for rewinding of time, for dramatic short resets after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine auto save states.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/UAOrecord.png" alt="UAgentObserver::RecordMovement code" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">UAgentObserver::RecordMovement — logging agent events for rewind playback</p>
+        </div>
+      </section><!-- /step-2-3 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: CLASS SPLIT -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-3">Class Split</h1>
+    <div class="blog-article">
 
       <!-- STEP: PLAYER -->
-      <section class="step reveal" id="step-player">
-        <p class="step-label">step 4</p>
+      <section class="step reveal" id="step-3-1">
         <h2 class="step-title">Player</h2>
-        <div class="subsection">
-          <h3 class="subsection-title">Functional Crosshair</h3>
-          <p>The--key, new--feature that the PlayerAgent needs---that isn't cut out from the pre-split Agent class, is a UI crosshair. Currently the way the AAgent shoots: it draws a trace hitscan out using the muzzle as the start of the vector, then it uses the firing range down the camera forward as the trace end. In third person games, the camera... [you can see past where gun can shoot].</p>
-          <p>[solution]</p>
-          <p>I set up some tools for testing and drew debug lines based on them to use for iterating. To test my options and find how I want the hitscan-behavior/reticle-placement, I needed a way to probe in the same direction relative to the player's weapon every tick.</p>
-          <p>Manually updating on each tick the direction each based on the player's movement and rotation, to test seemed excessive. Especially when the camera boom does exactly what I am looking for. The spring arm component has a fixed path, it's just normally supposed to be behind the player. So, I socketed one to the weapon muzzle, and one to the follow camera and flipped them around.</p>
-          <p>This perfectly creates a no-fuss, consistent angle, every-tick, with linear probing at fixed maximum distance. Now I can see where the gun is pointing towards and hitting and where the camera--always pointing at the center of the screen--is hitting. I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/3Scans.png" alt="all three at once test description picks whichever is hitting the closest agent" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">all three at once test description picks whichever is hitting the closest agent</p>
-          </div>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/WinnerTrace.gif" alt="all 3 hitcan debugs" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">all 3 hitcan debugs</p>
-          </div>
-          <p>This gives 3 options.</p>
-          <ul>
-            <li>Red: Trace from muzzle to Camera
-              <ul>
-                <li>Pros: Highest accuracy; its target location doesn't bob around from the idle animation, and is always at the center of the screen so you don't have to coax the camera into lining up the hitscan</li>
-                <li>Cons: Looks weird if you can see the line the closer you are to the target as it skews further away from the barrel direction, and when you get the barrel close enough to something it kind of breaks.</li>
-                <li>Accurate past close range for both hipfire and aiming</li>
-              </ul>
-            </li>
-            <li>Blue: Trace from muzzle straight out
-              <ul>
-                <li>Pros: Works well up close, and is animation-accurate.</li>
-                <li>Cons: Moves around a lot the farther away you are aiming due to aforementioned accuracy with the idle animation. Primitive rotational movement and no IK on the arms means the trace end is almost never at the center of the screen.</li>
-                <li>Accurate at very close range, more accurate during aiming due to camera offset</li>
-              </ul>
-            </li>
-            <li>Purple: Trace sweep between arms
-              <ul>
-                <li>Pros: Makes up for the inconsistent distance weaknesses of the bounding arms.</li>
-                <li>Cons: Though it works well to balance at long range since the angle gets very close to the red, it does not equally balance the middle distances</li>
-                <li>Maybe the least accurate at this stage, very hard to balance just right</li>
-              </ul>
-            </li>
-          </ul>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/WinnerCode.png" alt="winner code ss" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">winner code ss</p>
-          </div>
-          <p>Current Winner: Muzzle to Camera Arm Probe; the other two have been banished to the future iteration shadow realm.</p>
-          <p>Since I already have an object always at the center of the screen, the debug sphere for the camera-anchored arm has been promoted to pseudo reticle/crosshair! Congrats!</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/MuzzleToCamera.gif" alt="black = no agent red = agent" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">black = no agent red = agent</p>
-          </div>
-        </div>
-      </section><!-- /step-player -->
+        <p>The PlayerAgent has the smaller diversion from its parent; the player is actually ripping some of the parent's functionality away (ironic really), but it doesn't need as much new behavior.</p>
+        <h3 class="subsection-h3">Player needs:</h3>
+        <ul>
+          <li>(Taken from Agent)
+            <ul>
+              <li>Input mapped Locomotion</li>
+              <li>Follow Camera on boom for third-person view</li>
+            </ul>
+          </li>
+          <li>A better shooting solution to handle the third-person camera offset problem</li>
+        </ul>
+      </section><!-- /step-3-1 -->
 
       <!-- STEP: ENEMY -->
-      <section class="step reveal" id="step-enemy">
-        <p class="step-label">step 5</p>
+      <section class="step reveal" id="step-3-2">
         <h2 class="step-title">Enemy</h2>
-        <div class="subsection">
-          <h3 class="subsection-title">Behaviors</h3>
-          <p>[desc about tree]</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/EnemyLoopSmall.gif" alt="enemy state loop gif" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">enemy state loop</p>
-          </div>
+        <p>The EnemyAgent, however, will need a lot of new functions.</p>
+        <h3 class="subsection-h3">Enemy needs to</h3>
+        <ul>
+          <li>Manage AI states</li>
+            <ul>
+              <li>Patrolling, Investigating, Attacking… Dead is a state <strong>of the ai</strong> I suppose…</li>
+            </ul>
+          </li>
+          <li>Move around on its patrol</li>
+          <li>Find the player visually</li>
+          <li>Find the player physically</li>
+          <li>"Aim" and shoot at the player</li>
+        </ul>
+      </section><!-- /step-3-2 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: PLAYER -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-4">Player</h1>
+    <div class="blog-article">
+
+      <!-- STEP: FUNCTIONAL CROSSHAIR -->
+      <section class="step reveal" id="step-4-1">
+        <h2 class="step-title">Functional Crosshair</h2>
+        <p>The—key, new—feature that the PlayerAgent needs—that isn't cut out from the pre-split Agent class, is a crosshair/reticle. Currently the way the AAgent shoots: it draws a trace hitscan out using the muzzle as the start of the vector, then it travels (firing range) down the camera forward vector to get the trace end, and hits anything along that new path. In third person games, there is always the issue of the camera and the gun being in very different places, and the closer an object is to the gun, the more extreme that difference becomes. So, you have to find how to balance between the bullets—at least feeling like they are—coming out of the gun, and going to where you are aiming.</p>
+        <p>Sometimes this means they show you where you are aiming, <i>and</i> where you are going to hit, like in Helldivers 2:</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/aimsway.gif" alt="Helldivers 2 aim and hit indicators" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">helldivers 2 — separate aim and hit indicators</p>
         </div>
-        <div class="subsection">
-          <h3 class="subsection-title">Behavior Modifiers</h3>
-          <p>Alarmed -&gt; triggered one to all others</p>
-          <p>[triggers investigate->tighter but longer cone, higher search tolerance, resets when search resets]</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/" alt="alarmed to normal gif" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">alarmed to normal gif</p>
-          </div>
+        <p>To test my options and find how I want the hitscan-behavior/reticle-placement to function, I needed a way to probe in the same direction relative to the player's weapon every tick.</p>
+        <p>Manually updating the direction based on the player's movement and rotation every tick, to test for collisions, seemed excessive. Especially, when the camera boom does exactly what I am looking for.</p>
+        <p>The camera boom uses a Spring Arm Component: it has a fixed path, with a maximum range, and changes its length depending on physical collision; it's just normally supposed to be behind the player. So, I socketed one to the weapon muzzle, and one to the follow camera and flipped them around.</p>
+        <p>Voilà.</p>
+        <p>This perfectly creates a no-fuss, consistent angle, with linear probing at fixed maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/3Scans.png" alt="Muzzle probe, camera probe, and sweep between them" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">muzzle probe, camera probe, and the sweep between them</p>
         </div>
-        <div class="subsection">
-          <h3 class="subsection-title">Enemy AI Locomotion (Manual)</h3>
-          <p>To make AI pathfinding, without the actor using valid movement paths from the engine, they need a solution to objects blocking their path. ... [Reassign Tick target to -&gt; reverse vector math + buffer]</p>
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/" alt="retarget code ss" onerror="this.style.display='none'">
-            <p class="media-placeholder-label" style="display:block;">retarget code ss</p>
-          </div>
+        <p>To test which one I liked, I chose one as the winner, each tick: whichever collision was hitting the closest agent, is the one that the gun used for Fire(). That way, I could test all three options and together as a fourth, secret, option.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/WinnerTrace.gif" alt="All three hitscan debugs at once" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">all three hitscan debugs at once</p>
         </div>
-      </section><!-- /step-enemy -->
+        <p>The 3 options.</p>
+        <ul>
+          <li>Red: Trace from muzzle to Camera
+            <ul>
+              <li>Pros: Highest accuracy; its target location doesn't bob around from the idle animation, and is always at the center of the screen so you don't have to coax the camera into lining up the hitscan</li>
+              <li>Cons: Looks weird if you can see the line the closer you are to the target as it skews further away from the barrel direction, and when you get the barrel close enough to something it kind of breaks.</li>
+              <li>Accurate past close range for both hipfire and aiming</li>
+            </ul>
+          </li>
+          <li>Blue: Trace from muzzle straight out
+            <ul>
+              <li>Pros: Works well up close, and is animation-accurate.</li>
+              <li>Cons: Moves around a lot the farther away you are aiming due to aforementioned accuracy with the idle animation. Primitive rotational movement and no IK on the arms means the trace end is almost never at the center of the screen.</li>
+              <li>Accurate at very close range, more accurate during aiming due to camera offset.</li>
+            </ul>
+          </li>
+          <li>Purple: Trace sweep between arms
+            <ul>
+              <li>Pros: Makes up for the inconsistent distance weaknesses of the bounding arms.</li>
+              <li>Cons: Though it works well to balance at long range since the angle gets very close to the red, it does not equally balance the middle distances</li>
+              <li>Maybe the least accurate at this stage, very hard to balance just right.</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>The real solution is animation / moving the gun to point in the direction of the "Red" option. But this was a fun test to set up.</p>
+        </div>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/WinnerCode.png" alt="Winner-selection code" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">picking whichever probe is hitting the closest agent, each tick</p>
+        </div>
+        <p>Current Winner: Muzzle to Camera Arm Probe; the other two have been banished to the future iteration shadow realm.</p>
+        <p>Since I already have an object always at the center of the screen, the debug sphere for the camera-anchored arm has been promoted to pseudo reticle/crosshair! Congrats!</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/MuzzleToCamera.gif" alt="Muzzle to camera arm probe, black is no agent, red is agent" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">black = no agent, red = agent</p>
+        </div>
+      </section><!-- /step-4-1 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ENEMY -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-5">Enemy</h1>
+    <div class="blog-article">
+
+      <!-- STEP: BEHAVIORS -->
+      <section class="step reveal" id="step-5-1">
+        <h2 class="step-title">Behaviors</h2>
+        <p>Currently, enemies have four behavior tree states: Patrol, Investigate, Attack, and Die. While patrolling, they move towards their next patrol point, then to the next once they reach it. When investigating, they go to the last place they saw the player, if they can no longer see them. When attacking, they face the player and shoot. When they die, well… they're dead.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/EnemyLoopSmall.gif" alt="Enemy behavior tree state loop" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">enemy behavior state loop</p>
+        </div>
+      </section><!-- /step-5-1 -->
+
+      <!-- STEP: BEHAVIOR MODIFIERS -->
+      <section class="step reveal" id="step-5-2">
+        <h2 class="step-title">Behavior Modifiers</h2>
+        <p>Alarmed is a behavior condition; the reason it is not a primary state is because it alters their global behavior, an enemy can be alarmed in any of previously mentioned states.</p>
+        <h3 class="subsection-h3">What it does</h3>
+        <p>When an enemy is Alarmed, they are actively looking, instead of passively guarding. Instead of just keeping an eye out on their "post" (close surroundings), they are searching for an enemy that isn't close to them since someone else spotted them.</p>
+        <p>Additionally, when on alarm, everyone knows that something is going on, so the enemies will have greater tolerances for searching when alarmed.</p>
+        <h3 class="subsection-h3">Why?</h3>
+        <p>This provides a more realistic sentry behavior. If you are guarding the back of a building, but someone near the front raises the alarm, you are going to search a much more distant area, requiring you to focus, tightening your (active) field of vision as you strain to look farther away. Of course, you aren't a camera, you aren't zooming in; but you are switching from a passive scan to a focused search, so your brain will shift priority from your peripheral vision. Also, if someone had raised the alarm, you are going to look around for a lot longer than a "hey what was that" search.</p>
+        <p>Alarmed vision cone:</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/AlarmedCone.png" alt="Alarmed vision cone" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">alarmed vision cone</p>
+        </div>
+        <p>Normal vision cone:</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/CalmCone.png" alt="Normal vision cone" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">normal vision cone</p>
+        </div>
+      </section><!-- /step-5-2 -->
+
+      <!-- STEP: ENEMY VISION -->
+      <section class="step reveal" id="step-5-3">
+        <h2 class="step-title">Enemy Vision</h2>
+        <p>Currently the way enemies "see" the player is either they are in their vision cone or they are not. For a stealth game, they need to have a more robust system. The player needs time to be within their vision but not yet spotted. And while we are at it, let's add a "scanning" behavior, these are enemies, not security cameras.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/visionbuild.gif" alt="Vision tolerance building up before spotting" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">vision tolerance building toward a spot</p>
+        </div>
+        <div class="media-placeholder">
+          <img src="/blog media/pass-blog/visionsweep.gif" alt="Scanning behavior" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">scanning behavior</p>
+        </div>
+      </section><!-- /step-5-3 -->
+
+      <!-- STEP: MORE REALISTIC DETECTION -->
+      <section class="step reveal" id="step-5-4">
+        <h2 class="step-title">More Realistic Detection</h2>
+        <p>If you are on the peripherals of someone's vision… Also, let's change the pawn's view location to the head—<i>much</i> more realistic than the navel.</p>
+        <div class="media-placeholder">
+          <img src="" alt="thresholds 3 part" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">thresholds 3 part</p>
+        </div>
+      </section><!-- /step-5-4 -->
+
+      <!-- STEP: ENEMY AI LOCOMOTION (MANUAL) -->
+      <section class="step reveal" id="step-5-5">
+        <h2 class="step-title">Enemy AI Locomotion (Manual)</h2>
+        <p>To make AI pathfinding, without the actor using valid movement paths from the engine, they need a solution to objects blocking their path. … [Reassign Tick target to -> reverse vector math + buffer]</p>
+        <div class="media-placeholder">
+          <img src="" alt="Retarget code" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">retarget code</p>
+        </div>
+      </section><!-- /step-5-5 -->
 
     </div><!-- /blog-article -->
   </div><!-- /page -->
