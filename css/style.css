@@ -1487,7 +1487,8 @@ footer { padding: var(--pad); }
   color: var(--cream-dim);
   margin-bottom: 1rem;
 }
-.blog-article ul {
+.blog-article ul,
+.blog-article ol {
   font-size: clamp(.95rem, 1.5vw, 1.05rem);
   font-weight: 400;
   letter-spacing: -0.02em;

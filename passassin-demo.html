@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +11,53 @@
 </head>
 <body>
   <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+        <ul class="toc-list">
+          <p class="toc-phase-label">sections</p>
+          <li><a href="#phase-1">Intro</a></li>
+          <li><a href="#phase-2">Agent</a></li>
+          <li><a href="#phase-3">Class Split</a></li>
+          <li><a href="#phase-4">Player</a></li>
+          <li><a href="#phase-5">Enemy</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-1">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-1-1">Project Goal</a></li>
+          <li><a href="#step-1-2">Pitch</a></li>
+          <li><a href="#step-1-3">Inspirations</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-2" style="display:none;">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-2-1">Overview</a></li>
+          <li><a href="#step-2-2">AgentAnimInstance</a></li>
+          <li><a href="#step-2-3">AgentObserver</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-3" style="display:none;">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-3-1">Player</a></li>
+          <li><a href="#step-3-2">Enemy</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-4" style="display:none;">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-4-1">Functional Crosshair</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-5" style="display:none;">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-5-1">Behaviors</a></li>
+          <li><a href="#step-5-2">Behavior Modifiers</a></li>
+          <li><a href="#step-5-3">Enemy Vision</a></li>
+          <li><a href="#step-5-4">More Realistic Detection</a></li>
+          <li><a href="#step-5-5">Enemy AI Locomotion (Manual)</a></li>
+        </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
   <div class="blog-header-wrap">
     <p class="blog-eyebrow">dev blog · in progress</p>
     <h1 class="blog-title">Passassin</h1>
-    <p class="blog-tagline">You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know exactly where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
+    <p class="blog-tagline">You play as an assassin that uses the ability to phase through solid objects. The tradeoff; you can't see through those walls, so you have to use information from other senses to know <i>exactly</i> where to pop out behind your target, instead of out in the open with a bunch of bad guys looking right at you.</p>
     <div class="blog-divider"></div>
   </div><!-- /blog-header-wrap -->
 
@@ -171,9 +214,9 @@
         <p>The EnemyAgent, however, will need a lot of new functions.</p>
         <h3 class="subsection-h3">Enemy needs to</h3>
         <ul>
-          <li>Manage AI states</li>
+          <li>Manage AI states
             <ul>
-              <li>Patrolling, Investigating, Attacking… Dead is a state <strong>of the ai</strong> I suppose…</li>
+              <li>Patrolling, Investigating, Attacking, Dead is a state <i>of the AI entity</i>, I suppose…</li>
             </ul>
           </li>
           <li>Move around on its patrol</li>
@@ -302,7 +345,7 @@
           <p class="media-placeholder-label">vision tolerance building toward a spot</p>
         </div>
         <div class="media-placeholder">
-          <img src="/blog media/pass-blog/visionsweep.gif" alt="Scanning behavior" onerror="this.style.display='none'">
+          <img src="blog media/pass-blog/visionsweep.gif" alt="Scanning behavior" onerror="this.style.display='none'">
           <p class="media-placeholder-label">scanning behavior</p>
         </div>
       </section><!-- /step-5-3 -->
@@ -310,17 +353,50 @@
       <!-- STEP: MORE REALISTIC DETECTION -->
       <section class="step reveal" id="step-5-4">
         <h2 class="step-title">More Realistic Detection</h2>
-        <p>If you are on the peripherals of someone's vision… Also, let's change the pawn's view location to the head—<i>much</i> more realistic than the navel.</p>
+        <p>If you are in the center of someone's vision, you are going to be spotted far quicker than if you are on the peripherals of someone's vision, so the cone needs to build up at a different rate depending on the angle.</p>
+        <p>I have three options I intend to use for different behavior profiles.</p>
         <div class="media-placeholder">
-          <img src="" alt="thresholds 3 part" onerror="this.style.display='none'">
-          <p class="media-placeholder-label">thresholds 3 part</p>
+          <img src="blog media/pass-blog/VisionMeterGraph.png" alt="Linear, ramping, and threshold fill-rate curves" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">linear (red), ramping (purple), and threshold (green) fill curves</p>
+        </div>
+        <ul>
+          <li>Red: Linear detection, detection rises at the same rate as the angle approaches the center</li>
+          <li>Purple: Ramping detection, detection increases at a proportionally higher rate closer to the center</li>
+          <li>Green: Detection thresholds, detection stays at a set rate until within the next section of the cone, then it jumps to that section's set rate.</li>
+        </ul>
+        <br>
+        <p>I am going to use the "Ramping" detection rate as the default, it feels best suited for this application: getting caught at the center of their vision is very punishing, but getting caught at edge leaves you a lot of time to get out of the way.</p>
+        <p>The curve mode does not change during run time, so the values of the curve will be static, which allows them to be pre-calculated. To save from having to calculate the modifier and apply it to the MeterFillRate every time the player is in the vision cone, a lookup table is populated once, allowing O(1) access each time. At BeginPlay(), AngleFillCurveLUT is built with a 100 element array of floats, 1 element for each % of the (half) cone angle the player is within.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/metercurvecode.png" alt="ComputeAngleFillMultiplierForRatio and BuildAngleFillCurveLUT code" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">ComputeAngleFillMultiplierForRatio and BuildAngleFillCurveLUT</p>
+        </div>
+        <p>Also, let's change the pawn's view location to the head—<i>much</i> more realistic than the navel.</p>
+        <p>Below shows the linear scaling detection curve, with the values exaggerated to demonstrate the function.</p>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/metermulti.gif" alt="Multiple enemies filling detection meters at different rates" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">detection meters filling at different rates, viewed from the head</p>
         </div>
       </section><!-- /step-5-4 -->
 
       <!-- STEP: ENEMY AI LOCOMOTION (MANUAL) -->
       <section class="step reveal" id="step-5-5">
         <h2 class="step-title">Enemy AI Locomotion (Manual)</h2>
-        <p>To make AI pathfinding, without the actor using valid movement paths from the engine, they need a solution to objects blocking their path. … [Reassign Tick target to -> reverse vector math + buffer]</p>
+        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a solution routing around objects blocking their path. The enemy is going to perform the following algorithm:</p>
+        <ol>
+          <li>Set the movement target to the player's last location.</li>
+          <li>Draw a straight line to the target.</li>
+          <li>Is there a collision?
+            <ul>
+              <li>Get the location of the collision object's center</li>
+              <li>Calculate the vector from that center to the collision location</li>
+              <li>Increase the magnitude by a buffer amount</li>
+              <li>Set the endpoint of that vector as the new target destination.</li>
+            </ul>
+          </li>
+          <li>Move towards the target.</li>
+        </ol>
+        <p>This is more expensive per-tick than a pre-calculated movement space, but for this stage of the project I am trying to avoid pre-built solutions and use as much pure code as I can.</p>
         <div class="media-placeholder">
           <img src="" alt="Retarget code" onerror="this.style.display='none'">
           <p class="media-placeholder-label">retarget code</p>
@@ -332,6 +408,64 @@
 
   <div id="footer-placeholder"></div>
   <script>
+    // Make href anchor link scroll padding based off header height
+    function updateScrollPadding() {
+      const toc = document.querySelector('.toc');
+      if (!toc) return 0;
+      const tocHeight = toc.getBoundingClientRect().height;
+      const tocMargin = parseFloat(window.getComputedStyle(toc).marginBottom) / 2;
+      const total = tocHeight + tocMargin;
+      document.documentElement.style.setProperty('--toc-h', total + 'px');
+      return total;
+    }
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          updateScrollPadding();
+        });
+      });
+    });
+    window.addEventListener('resize', updateScrollPadding);
+    window.addEventListener('componentsLoaded', () => {
+      updateScrollPadding();
+    });
+    document.querySelector('.toc').addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      window.scrollTo({ top: window.scrollY, behavior: 'instant' });
+      const offset = updateScrollPadding();
+      const y = target.offsetTop - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+
+    // TOC active highlight on scroll
+    const tocSteps = document.querySelectorAll('.step[id]');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const activeId = entry.target.id;
+        const match = activeId.match(/^step-(\d+)-(\d+)$/);
+        if (!match) return;
+        const activePhase = match[1];
+        tocLinks.forEach(l => l.classList.remove('toc-active'));
+        const activeStepLink = document.querySelector(`.toc-list a[href="#${activeId}"]`);
+        if (activeStepLink) activeStepLink.classList.add('toc-active');
+        const activePhaseLink = document.querySelector(`.toc-list a[href="#phase-${activePhase}"]`);
+        if (activePhaseLink) activePhaseLink.classList.add('toc-active');
+        document.querySelectorAll('[id^="toc-steps-"]').forEach(list => {
+          list.style.display = list.id === `toc-steps-${activePhase}` ? '' : 'none';
+        });
+      });
+    }, {
+      rootMargin: `-${64 + 40}px 0px -55% 0px`,
+      threshold: 0
+    });
+    tocSteps.forEach(step => tocObserver.observe(step));
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
