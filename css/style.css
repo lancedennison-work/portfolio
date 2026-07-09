@@ -472,7 +472,7 @@ footer { padding: var(--pad); }
 /* ── Hero ── */
 .hero {
   padding-top: calc(var(--nav-h) + var(--pad));
-  padding-bottom: var(--pad);
+  /* padding-bottom: var(--pad); */
   padding-left: var(--pad);
   padding-right: var(--pad);
   margin: 0 auto;
@@ -809,12 +809,12 @@ footer { padding: var(--pad); }
    ============================================================ */
 
 .current-project-section {
-  display: flex;
+  display: block;
   align-items:flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  /* gap: 1rem; */
   margin-bottom: var(--pad);
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .current-project-section h1 {
@@ -824,10 +824,11 @@ footer { padding: var(--pad); }
   line-height: .9;
   text-transform: lowercase;
   color: var(--white);
-  flex-wrap: wrap;
-  flex-direction: row;
-  flex: 0 1 420px;   /* caps heading's width so it wraps before row breaks */
-  min-width: 0;      /* lets it shrink below "current project:" full-width */
+  margin-bottom: var(--pad);
+  /* flex-wrap: wrap;
+  flex-direction: row; */
+  /*flex: 0 1 420px;   /* caps heading's width so it wraps before row breaks */
+  /*min-width: 0;      /* lets it shrink below "current project:" full-width */
   width: auto;
 }
 
@@ -850,14 +851,26 @@ footer { padding: var(--pad); }
   background: var(--surface);
   border: 1px solid var(--cream-faint);
   transition: border-color .2s, background-color .2s;
-  text-decoration: none;
-  flex: 1 1 420px;   /* grows to fill leftover space, shrinks last */
-  min-width: 0;
 }
 
 .current-project-card:hover {
   border-color: var(--cream-dim);
   background: var(--surface-2);
+}
+
+.current-project-logo {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  position: relative;   /* anchor for the img */
+}
+
+.current-project-logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* shrink to fit, keep aspect ratio */
 }
 
 .current-project-info {
