@@ -18,9 +18,10 @@
           <p class="toc-phase-label">sections</p>
           <li><a href="#phase-1">Intro</a></li>
           <li><a href="#phase-2">Agent</a></li>
-          <li><a href="#phase-3">Class Split</a></li>
-          <li><a href="#phase-4">Player</a></li>
-          <li><a href="#phase-5">Enemy</a></li>
+          <li><a href="#phase-3">Player</a></li>
+          <li><a href="#phase-4">Enemy</a></li>
+          <li><a href="#phase-5">Complex Vision</a></li>
+          <li><a href="#phase-6">AI movement</a></li>
         </ul>
         <ul class="toc-list" id="toc-steps-1">
           <p class="toc-phase-label">subsections</p>
@@ -33,23 +34,27 @@
           <li><a href="#step-2-1">Overview</a></li>
           <li><a href="#step-2-2">AgentAnimInstance</a></li>
           <li><a href="#step-2-3">AgentObserver</a></li>
+          <li><a href="#step-2-4">Player</a></li>
+          <li><a href="#step-2-5">Enemy</a></li>
         </ul>
         <ul class="toc-list" id="toc-steps-3" style="display:none;">
           <p class="toc-phase-label">subsections</p>
-          <li><a href="#step-3-1">Player</a></li>
-          <li><a href="#step-3-2">Enemy</a></li>
+          <li><a href="#step-3-1">Functional Crosshair</a></li>
         </ul>
         <ul class="toc-list" id="toc-steps-4" style="display:none;">
           <p class="toc-phase-label">subsections</p>
-          <li><a href="#step-4-1">Functional Crosshair</a></li>
+          <li><a href="#step-4-1">Behaviors</a></li>
+          <li><a href="#step-4-2">Behavior Modifiers</a></li>
         </ul>
         <ul class="toc-list" id="toc-steps-5" style="display:none;">
           <p class="toc-phase-label">subsections</p>
-          <li><a href="#step-5-1">Behaviors</a></li>
-          <li><a href="#step-5-2">Behavior Modifiers</a></li>
-          <li><a href="#step-5-3">Enemy Vision</a></li>
-          <li><a href="#step-5-4">More Realistic Detection</a></li>
-          <li><a href="#step-5-5">Enemy AI Locomotion (Manual)</a></li>
+          <li><a href="#step-5-1">Enemy Vision</a></li>
+          <li><a href="#step-5-2">More Realistic Detection</a></li>
+          <li><a href="#step-5-3">Arboriculture: Behavior</a></li>
+        </ul>
+        <ul class="toc-list" id="toc-steps-6" style="display:none;">
+          <p class="toc-phase-label">subsections</p>
+          <li><a href="#step-6-1">Enemy AI Locomotion (Manual)</a></li>
         </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -162,10 +167,12 @@
       <!-- STEP: AGENTANIMINSTANCE -->
       <section class="step reveal" id="step-2-2">
         <h2 class="step-title">AgentAnimInstance</h2>
-        <p>ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic. AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming, to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
-        <div class="media-placeholder">
-          <img src="blog media/pass-blog/WalkRunAnimState.png" alt="Blend Poses by Bool node graph in ABP_Manny" onerror="this.style.display='none'">
-          <p class="media-placeholder-label">blend poses by bool — driven by AgentAnimInstance's modifier state</p>
+        <div class="two-col">
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/WalkRunAnimState.png" alt="Blend Poses by Bool node graph in ABP_Manny" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">blend poses by bool — driven by AgentAnimInstance's modifier state</p>
+          </div>
+          <p>ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic. AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming, to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
         </div>
         <p>Below shows crouching, aiming, and jumping all being used in combination with each other, blended into main animation states (like locomotion).</p>
         <div class="media-placeholder">
@@ -177,23 +184,17 @@
       <!-- STEP: AGENTOBSERVER -->
       <section class="step reveal" id="step-2-3">
         <h2 class="step-title">AgentObserver</h2>
-        <p>I want to add a function to allow for rewinding of time, for dramatic short resets after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine auto save states.</p>
-        <div class="media-placeholder">
-          <img src="blog media/pass-blog/UAOrecord.png" alt="UAgentObserver::RecordMovement code" onerror="this.style.display='none'">
-          <p class="media-placeholder-label">UAgentObserver::RecordMovement — logging agent events for rewind playback</p>
+        <div class="two-col">
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/UAOrecord.png" alt="UAgentObserver::RecordMovement code" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">UAgentObserver::RecordMovement — logging agent events for rewind playback</p>
+          </div>
+          <p>I want to add a function to allow for rewinding of time, for dramatic short resets after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine auto save states.</p>
         </div>
       </section><!-- /step-2-3 -->
 
-    </div><!-- /blog-article -->
-  </div><!-- /page -->
-
-  <!-- PHASE: CLASS SPLIT -->
-  <div class="page">
-    <h1 class="blog-header" id="phase-3">Class Split</h1>
-    <div class="blog-article">
-
       <!-- STEP: PLAYER -->
-      <section class="step reveal" id="step-3-1">
+      <section class="step reveal" id="step-2-4">
         <h2 class="step-title">Player</h2>
         <p>The PlayerAgent has the smaller diversion from its parent; the player is actually ripping some of the parent's functionality away (ironic really), but it doesn't need as much new behavior.</p>
         <h3 class="subsection-h3">Player needs:</h3>
@@ -206,10 +207,10 @@
           </li>
           <li>A better shooting solution to handle the third-person camera offset problem</li>
         </ul>
-      </section><!-- /step-3-1 -->
+      </section><!-- /step-2-4 -->
 
       <!-- STEP: ENEMY -->
-      <section class="step reveal" id="step-3-2">
+      <section class="step reveal" id="step-2-5">
         <h2 class="step-title">Enemy</h2>
         <p>The EnemyAgent, however, will need a lot of new functions.</p>
         <h3 class="subsection-h3">Enemy needs to</h3>
@@ -224,18 +225,18 @@
           <li>Find the player physically</li>
           <li>"Aim" and shoot at the player</li>
         </ul>
-      </section><!-- /step-3-2 -->
+      </section><!-- /step-2-5 -->
 
     </div><!-- /blog-article -->
   </div><!-- /page -->
 
   <!-- PHASE: PLAYER -->
   <div class="page">
-    <h1 class="blog-header" id="phase-4">Player</h1>
+    <h1 class="blog-header" id="phase-3">Player</h1>
     <div class="blog-article">
 
       <!-- STEP: FUNCTIONAL CROSSHAIR -->
-      <section class="step reveal" id="step-4-1">
+      <section class="step reveal" id="step-3-1">
         <h2 class="step-title">Functional Crosshair</h2>
         <p>The—key, new—feature that the PlayerAgent needs—that isn't cut out from the pre-split Agent class, is a crosshair/reticle. Currently the way the AAgent shoots: it draws a trace hitscan out using the muzzle as the start of the vector, then it travels (firing range) down the camera forward vector to get the trace end, and hits anything along that new path. In third person games, there is always the issue of the camera and the gun being in very different places, and the closer an object is to the gun, the more extreme that difference becomes. So, you have to find how to balance between the bullets—at least feeling like they are—coming out of the gun, and going to where you are aiming.</p>
         <p>Sometimes this means they show you where you are aiming, <i>and</i> where you are going to hit, like in Helldivers 2:</p>
@@ -247,10 +248,12 @@
         <p>Manually updating the direction based on the player's movement and rotation every tick, to test for collisions, seemed excessive. Especially, when the camera boom does exactly what I am looking for.</p>
         <p>The camera boom uses a Spring Arm Component: it has a fixed path, with a maximum range, and changes its length depending on physical collision; it's just normally supposed to be behind the player. So, I socketed one to the weapon muzzle, and one to the follow camera and flipped them around.</p>
         <p>Voilà.</p>
-        <p>This perfectly creates a no-fuss, consistent angle, with linear probing at fixed maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
-        <div class="media-placeholder">
-          <img src="blog media/pass-blog/3Scans.png" alt="Muzzle probe, camera probe, and sweep between them" onerror="this.style.display='none'">
-          <p class="media-placeholder-label">muzzle probe, camera probe, and the sweep between them</p>
+        <div class="two-col">
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/3Scans.png" alt="Muzzle probe, camera probe, and sweep between them" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">muzzle probe, camera probe, and the sweep between them</p>
+          </div>
+          <p>This perfectly creates a no-fuss, consistent angle, with linear probing at fixed maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
         </div>
         <p>To test which one I liked, I chose one as the winner, each tick: whichever collision was hitting the closest agent, is the one that the gun used for Fire(). That way, I could test all three options and together as a fourth, secret, option.</p>
         <div class="media-placeholder">
@@ -295,28 +298,28 @@
           <img src="blog media/pass-blog/MuzzleToCamera.gif" alt="Muzzle to camera arm probe, black is no agent, red is agent" onerror="this.style.display='none'">
           <p class="media-placeholder-label">black = no agent, red = agent</p>
         </div>
-      </section><!-- /step-4-1 -->
+      </section><!-- /step-3-1 -->
 
     </div><!-- /blog-article -->
   </div><!-- /page -->
 
   <!-- PHASE: ENEMY -->
   <div class="page">
-    <h1 class="blog-header" id="phase-5">Enemy</h1>
+    <h1 class="blog-header" id="phase-4">Enemy</h1>
     <div class="blog-article">
 
       <!-- STEP: BEHAVIORS -->
-      <section class="step reveal" id="step-5-1">
+      <section class="step reveal" id="step-4-1">
         <h2 class="step-title">Behaviors</h2>
         <p>Currently, enemies have four behavior tree states: Patrol, Investigate, Attack, and Die. While patrolling, they move towards their next patrol point, then to the next once they reach it. When investigating, they go to the last place they saw the player, if they can no longer see them. When attacking, they face the player and shoot. When they die, well… they're dead.</p>
         <div class="media-placeholder">
           <img src="blog media/pass-blog/EnemyLoopSmall.gif" alt="Enemy behavior tree state loop" onerror="this.style.display='none'">
           <p class="media-placeholder-label">enemy behavior state loop</p>
         </div>
-      </section><!-- /step-5-1 -->
+      </section><!-- /step-4-1 -->
 
       <!-- STEP: BEHAVIOR MODIFIERS -->
-      <section class="step reveal" id="step-5-2">
+      <section class="step reveal" id="step-4-2">
         <h2 class="step-title">Behavior Modifiers</h2>
         <p>Alarmed is a behavior condition; the reason it is not a primary state is because it alters their global behavior, an enemy can be alarmed in any of previously mentioned states.</p>
         <h3 class="subsection-h3">What it does</h3>
@@ -334,10 +337,18 @@
           <img src="blog media/pass-blog/CalmCone.png" alt="Normal vision cone" onerror="this.style.display='none'">
           <p class="media-placeholder-label">normal vision cone</p>
         </div>
-      </section><!-- /step-5-2 -->
+      </section><!-- /step-4-2 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: COMPLEX VISION -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-5">Complex Vision</h1>
+    <div class="blog-article">
 
       <!-- STEP: ENEMY VISION -->
-      <section class="step reveal" id="step-5-3">
+      <section class="step reveal" id="step-5-1">
         <h2 class="step-title">Enemy Vision</h2>
         <p>Currently the way enemies "see" the player is either they are in their vision cone or they are not. For a stealth game, they need to have a more robust system. The player needs time to be within their vision but not yet spotted. And while we are at it, let's add a "scanning" behavior, these are enemies, not security cameras.</p>
         <div class="media-placeholder">
@@ -348,10 +359,10 @@
           <img src="blog media/pass-blog/visionsweep.gif" alt="Scanning behavior" onerror="this.style.display='none'">
           <p class="media-placeholder-label">scanning behavior</p>
         </div>
-      </section><!-- /step-5-3 -->
+      </section><!-- /step-5-1 -->
 
       <!-- STEP: MORE REALISTIC DETECTION -->
-      <section class="step reveal" id="step-5-4">
+      <section class="step reveal" id="step-5-2">
         <h2 class="step-title">More Realistic Detection</h2>
         <p>If you are in the center of someone's vision, you are going to be spotted far quicker than if you are on the peripherals of someone's vision, so the cone needs to build up at a different rate depending on the angle.</p>
         <p>I have three options I intend to use for different behavior profiles.</p>
@@ -377,31 +388,66 @@
           <img src="blog media/pass-blog/metermulti.gif" alt="Multiple enemies filling detection meters at different rates" onerror="this.style.display='none'">
           <p class="media-placeholder-label">detection meters filling at different rates, viewed from the head</p>
         </div>
-      </section><!-- /step-5-4 -->
+      </section><!-- /step-5-2 -->
+
+      <!-- STEP: ARBORICULTURE: BEHAVIOR -->
+      <section class="step reveal" id="step-5-3">
+        <h2 class="step-title">Arboriculture: Behavior</h2>
+        <p>I am adding some complex, layered behavior, so to keep everything in order, the behavior states need the ability to handle differing "profiles" depending on the active action state.</p>
+        <p>For EnemyAgent to have varying behaviors based on conditions and actions, they now use an "Activity Profile".</p>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>Ignore the red squiggly underline, Visual Studio was being silly.</p>
+        </div>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/ProfileCode.png" alt="FEnemyActivityProfile struct" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">FEnemyActivityProfile</p>
+        </div>
+        <p>This is composed of three other structs:</p>
+        <ul>
+          <li><strong>FVisionModifier:</strong> Controls the size of the EnemyAgent's vision cone with length and width modifiers.</li>
+          <li><strong>FVisionMeterProfile:</strong> Controls the rates of visual detection using fill and drain rate modifiers. FillRateModifier is applied to the calculated ratio of MaxFillRate currently active from the AngleFillCurveLUT calculation. This allows differing action states to hold different detection behaviors, for instance, an enemy that is actively investigating can spot the player quicker, and maintain their concentration for longer.</li>
+          <li><strong>FSweepProfile:</strong> Establishes the behavior of a scan loop, assigning sweep count, size, speed and its own FVisionMeterProfile.</li>
+        </ul>
+        <div class="media-placeholder">
+          <img src="blog media/pass-blog/VisionProfileComponentsCode.png" alt="FVisionModifier, FVisionMeterProfile, and FSweepProfile structs" onerror="this.style.display='none'">
+          <p class="media-placeholder-label">FVisionModifier, FVisionMeterProfile, and FSweepProfile</p>
+        </div>
+      </section><!-- /step-5-3 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ENEMY (cont.) -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-6">AI movement</h1>
+    <div class="blog-article">
 
       <!-- STEP: ENEMY AI LOCOMOTION (MANUAL) -->
-      <section class="step reveal" id="step-5-5">
+      <section class="step reveal" id="step-6-1">
         <h2 class="step-title">Enemy AI Locomotion (Manual)</h2>
-        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a solution routing around objects blocking their path. The enemy is going to perform the following algorithm:</p>
-        <ol>
-          <li>Set the movement target to the player's last location.</li>
-          <li>Draw a straight line to the target.</li>
-          <li>Is there a collision?
-            <ul>
-              <li>Get the location of the collision object's center</li>
-              <li>Calculate the vector from that center to the collision location</li>
-              <li>Increase the magnitude by a buffer amount</li>
-              <li>Set the endpoint of that vector as the new target destination.</li>
-            </ul>
-          </li>
-          <li>Move towards the target.</li>
-        </ol>
-        <p>This is more expensive per-tick than a pre-calculated movement space, but for this stage of the project I am trying to avoid pre-built solutions and use as much pure code as I can.</p>
-        <div class="media-placeholder">
-          <img src="" alt="Retarget code" onerror="this.style.display='none'">
-          <p class="media-placeholder-label">retarget code</p>
+        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a solution routing around to objects blocking their path. The enemy is going to perform the following algorithm:</p>
+        <div class="two-col">
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/buffervectorgraph.png" alt="Retarget vector diagram" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">retarget vector diagram</p>
+          </div>
+          <ol>
+            <li>Set the movement target to the player's last location.</li>
+            <li>Draw a straight line to the target.</li>
+            <li>Is there a collision?
+              <ul>
+                <li>Get the location of the collision object's center</li>
+                <li>Calculate the vector from that center to the collision location</li>
+                <li>Increase the magnitude by a buffer amount</li>
+                <li>Set the endpoint of that vector as the new target destination.</li>
+              </ul>
+            </li>
+            <li>Move towards the target.</li>
+          </ol>
         </div>
-      </section><!-- /step-5-5 -->
+        <p>This is more expensive per-tick than a pre-calculated movement space, but for this stage of the project I am trying to avoid pre-built solutions and use as much pure code as I can.</p>
+      </section><!-- /step-6-1 -->
 
     </div><!-- /blog-article -->
   </div><!-- /page -->
