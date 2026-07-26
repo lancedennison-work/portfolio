@@ -77,7 +77,7 @@
               <img src="blog media/UI_sketch.png" alt="Sketch of the UI" onerror="this.style.display='none'">
               <p class="media-placeholder-label">image — sketch of the UI</p>
             </div>
-            <p>The game is a terminal-driven factory simulation inspired by cassette-futurist aesthetics. The player takes on the role as the sole remote operator of an industrial facility— constructing production lines, designing custom machines, and balancing limited factory resources to automate an increasingly demanding manufacturing process.</p>
+            <p class="two-col-text">The game is a terminal-driven factory simulation inspired by cassette-futurist aesthetics. The player takes on the role as the sole remote operator of an industrial facility— constructing production lines, designing custom machines, and balancing limited factory resources to automate an increasingly demanding manufacturing process.</p>
           </div>
         </div>
         <div class="subsection">
@@ -269,7 +269,7 @@
               <img src="blog media/config.png" alt="Custom machine config file in EditPanel" onerror="this.style.display='none'">
               <p class="media-placeholder-label">screenshot — custom machine config file in EditPanel</p>
             </div>
-            <p>The entire point of the Edit Panel is letting players define their own machines — as a way for players to construct tailored production systems that reflect their own approach. The core design challenge is determining the appropriate level of control: players should be able to define production behavior and structure machine relationships, but also need to be restricted from accessing machine variables to make infinite item generators.</p>
+            <p class="two-col-text">The entire point of the Edit Panel is letting players define their own machines — as a way for players to construct tailored production systems that reflect their own approach. The core design challenge is determining the appropriate level of control: players should be able to define production behavior and structure machine relationships, but also need to be restricted from accessing machine variables to make infinite item generators.</p>
           </div>
         </div>
         <div class="subsection">
@@ -450,7 +450,7 @@
               <img src="blog media/inv_1.jpg" alt="Inventory diagram option: 1" onerror="this.style.display='none'">
               <p class="media-placeholder-label">jpeg — inventory diagram option: 1</p>
             </div>
-            <p>The existing approach treats a custom machine as a single unit. Internal sub-machines do not own independent ports; instead, they share the parent machine's input and output inventories. This keeps the overall structure simple, but it also means every internal machine is tightly coupled to the parent. As more processing chains emerge, that coupling starts limiting how complex the internal systems can be.</p>
+            <p class="two-col-text">The existing approach treats a custom machine as a single unit. Internal sub-machines do not own independent ports; instead, they share the parent machine's input and output inventories. This keeps the overall structure simple, but it also means every internal machine is tightly coupled to the parent. As more processing chains emerge, that coupling starts limiting how complex the internal systems can be.</p>
           </div>
         </div>
         <div class="subsection">
@@ -460,7 +460,7 @@
               <img src="blog media/inv_2.jpg" alt="Inventory diagram option: 2" onerror="this.style.display='none'">
               <p class="media-placeholder-label">jpeg — inventory diagram option: 2</p>
             </div>
-            <p>This layout gives each sub-machine its own inventories while keeping routing largely managed by the parent machine. It is the least complicated design to understand and implement, and most factory layouts would work without much overhead. The drawback is flexibility — since the routing is effectively built into the structure, changing connections at runtime requires the parent to directly manipulate sub-machine inventories, which makes future customization more fragile.</p>
+            <p class="two-col-text">This layout gives each sub-machine its own inventories while keeping routing largely managed by the parent machine. It is the least complicated design to understand and implement, and most factory layouts would work without much overhead. The drawback is flexibility — since the routing is effectively built into the structure, changing connections at runtime requires the parent to directly manipulate sub-machine inventories, which makes future customization more fragile.</p>
           </div>
         </div>
         <div class="subsection">
@@ -470,7 +470,7 @@
               <img src="blog media/inv_3.jpg" alt="Inventory diagram option: 3" onerror="this.style.display='none'">
               <p class="media-placeholder-label">jpeg — inventory diagram option: 3</p>
             </div>
-            <p>This setup treats sub-machines much more like independent factory components by giving them their own ports and routing every transfer through those interfaces. It introduces slightly more structural complexity, but provides the greatest amount of runtime flexibility. Connections can be reconfigured without reaching directly into another machine's internals, and every transfer continues to use the same validation and safety rules as the rest of the factory. That consistency feels much easier to build upon.</p>
+            <p class="two-col-text">This setup treats sub-machines much more like independent factory components by giving them their own ports and routing every transfer through those interfaces. It introduces slightly more structural complexity, but provides the greatest amount of runtime flexibility. Connections can be reconfigured without reaching directly into another machine's internals, and every transfer continues to use the same validation and safety rules as the rest of the factory. That consistency feels much easier to build upon.</p>
           </div>
         </div>
         <div class="subsection">
@@ -480,7 +480,7 @@
               <img src="blog media/inv_4.jpg" alt="Inventory diagram option: 4" onerror="this.style.display='none'">
               <p class="media-placeholder-label">jpeg — inventory diagram option: 4</p>
             </div>
-            <p>While exploring these layouts, I realized I had been holding onto an assumption from much earlier in development. I originally wanted custom machines to feel fundamentally different from simply taping several machines together, so I was attached to restricting sub-machines from connecting directly to the outside world. The more I experimented, though, the less convincing that reasoning became — the restriction isn't functionally different, it only introduces extra configuration work.<br>This option no longer forces internal machines into isolation: they can directly link ports to external machines but can still be referenced from the shell. The shell would no longer have its own inventories, and the internal machines would still use ports to interact with their siblings. I'm still not completely convinced the answer is simply removing the distinction altogether — I still think isolated sub-machines lend toward custom machines feeling different from stand-alone machines.</p>
+            <p class="two-col-text">While exploring these layouts, I realized I had been holding onto an assumption from much earlier in development. I originally wanted custom machines to feel fundamentally different from simply taping several machines together, so I was attached to restricting sub-machines from connecting directly to the outside world. The more I experimented, though, the less convincing that reasoning became — the restriction isn't functionally different, it only introduces extra configuration work.<br>This option no longer forces internal machines into isolation: they can directly link ports to external machines but can still be referenced from the shell. The shell would no longer have its own inventories, and the internal machines would still use ports to interact with their siblings. I'm still not completely convinced the answer is simply removing the distinction altogether — I still think isolated sub-machines lend toward custom machines feeling different from stand-alone machines.</p>
           </div>
         </div>
         <div class="subsection">

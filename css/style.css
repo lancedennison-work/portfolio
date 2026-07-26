@@ -49,7 +49,7 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
-  .two-col p {
+  .two-col-text {
     padding-top: 0;
   }
   .two-col .media-placeholder {
@@ -71,8 +71,8 @@
   object-fit: contain;
   border-radius: 6px;
 }
-.two-col p {
-  display: flex;
+.two-col-text {
+  /* display: flex; */
   padding-top: 1.5rem;
 }
 

@@ -131,7 +131,6 @@
   <div class="page">
     <h1 class="blog-header" id="phase-2">Agent</h1>
     <div class="blog-article">
-
       <!-- STEP: (Agent overview) -->
       <section class="step reveal" id="step-2-1">
         <p>To allow for functionality testing, Agent will start out with some of the functionality that will only be present in PlayerAgent.</p>
@@ -172,7 +171,7 @@
             <img src="blog media/pass-blog/WalkRunAnimState.png" alt="Blend Poses by Bool node graph in ABP_Manny" onerror="this.style.display='none'">
             <p class="media-placeholder-label">blend poses by bool — driven by AgentAnimInstance's modifier state</p>
           </div>
-          <p>ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic. AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming, to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
+          <p class="two-col-text">ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic. AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming, to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
         </div>
         <p>Below shows crouching, aiming, and jumping all being used in combination with each other, blended into main animation states (like locomotion).</p>
         <div class="media-placeholder">
@@ -189,7 +188,7 @@
             <img src="blog media/pass-blog/UAOrecord.png" alt="UAgentObserver::RecordMovement code" onerror="this.style.display='none'">
             <p class="media-placeholder-label">UAgentObserver::RecordMovement — logging agent events for rewind playback</p>
           </div>
-          <p>I want to add a function to allow for rewinding of time, for dramatic short resets after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine auto save states.</p>
+          <p class="two-col-text">I want to add a function to allow for rewinding of time, for dramatic short resets after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine auto save states.</p>
         </div>
       </section><!-- /step-2-3 -->
 
@@ -253,7 +252,7 @@
             <img src="blog media/pass-blog/3Scans.png" alt="Muzzle probe, camera probe, and sweep between them" onerror="this.style.display='none'">
             <p class="media-placeholder-label">muzzle probe, camera probe, and the sweep between them</p>
           </div>
-          <p>This perfectly creates a no-fuss, consistent angle, with linear probing at fixed maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
+          <p class="two-col-text">This perfectly creates a no-fuss, consistent angle, with linear probing at fixed maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end probe sockets of the arms (where they are colliding with something), and if an Agent collides with that path, I get a blended target vector for the pseudo-midpoint.</p>
         </div>
         <p>To test which one I liked, I chose one as the winner, each tick: whichever collision was hitting the closest agent, is the one that the gun used for Fire(). That way, I could test all three options and together as a fourth, secret, option.</p>
         <div class="media-placeholder">
@@ -422,51 +421,94 @@
   <div class="page">
     <h1 class="blog-header" id="phase-6">AI movement</h1>
     <div class="blog-article">
+
       <!-- STEP: ENEMY AI LOCOMOTION (MANUAL) -->
       <section class="step reveal" id="step-6-1">
         <h2 class="step-title">Enemy AI Locomotion (Manual)</h2>
-        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a solution routing around to objects blocking their path. The enemy is going to perform the following algorithm:</p>
-        <div class="two-col">
-          <div class="media-placeholder">
-            <img src="blog media/pass-blog/buffervectorgraph.png" alt="Retarget vector diagram" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">retarget vector diagram</p>
+        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a solution routing around to objects blocking their path.</p>
+        <section class="subsection">
+          <h3 class="subsection-title">wall bumpers</h3>
+          <p>This solution prevents the agent from being colliding into walls by adding a buffer, essentially adding bumpers to obstacles.</p>
+          <div class="two-col">
+            <div class="media-placeholder">
+              <img src="blog media/pass-blog/buffervectorgraph.png" alt="Retarget vector diagram" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">retarget vector diagram</p>
+            </div>
+            <div class="two-col-text">
+              <p>This behavior is guided by the following loop</p>
+              <ol>
+                <li>Set the movement target to the player's last location.</li>
+                <li>Draw a straight line to the target.</li>
+                <li>Is there a collision?
+                  <ol>
+                    <li>Get the location of the collision object's center</li>
+                    <li>Calculate the vector from that center to the collision location</li>
+                    <li>Increase the magnitude by a buffer amount</li>
+                    <li>Set the endpoint of that vector as the new target destination.</li>
+                  </ol>
+                </li>
+                <li>Move towards the target.</li>
+              </ol>
+            </div>
           </div>
-          <ol>
-            <li>Set the movement target to the player's last location.</li>
-            <li>Draw a straight line to the target.</li>
-            <li>Is there a collision?
-              <ul>
-                <li>Get the location of the collision object's center</li>
-                <li>Calculate the vector from that center to the collision location</li>
-                <li>Increase the magnitude by a buffer amount</li>
-                <li>Set the endpoint of that vector as the new target destination.</li>
-              </ul>
-            </li>
-            <li>Move towards the target.</li>
-          </ol>
-        </div>
-        <p>This solution has major drawbacks— it is more expensive per-tick than a pre-calculated movement space, and it also creates a "wall-hugging" behavior. Instead of walking around obvious obstacles, they will first try to walk straight through the wall until they get within buffer range, then they begin to route around it.</p>
-        <div class="two-col">
+          <p>This solution has major drawbacks— it is more expensive per-tick than a pre-calculated movement space, and it also creates a "wall-hugging" behavior. Instead of walking around obvious obstacles, they will first try to walk straight through the wall until they get within buffer range, then they begin to route around it.</p>
+        </section>
+        <section class="subsection">
+          <h3 class="subsection-title">endpoint avoidance</h3>
+          <p>This solution, instead, investigates the farthest obstructive endpoint of the obstacle, then adds a buffer at that point.</p>
           <div class="media-placeholder">
             <img src="blog media/pass-blog/orthoginal_sweep.png" alt="Retarget vector sweep diagram" onerror="this.style.display='none'">
             <p class="media-placeholder-label">Retarget vector sweep diagram</p>
           </div>
-          <ol>
-            Another Option
-            <li>Set the movement target to the player's last location.</li>
-            <li>Draw a straight line to the target.</li>
-            <li>Is there a collision?
-              <ul>
-                <li>Get the location of the collision object's center</li>
-                <li>Calculate the vector from that center to the collision location</li>
-                <li>Increase the magnitude by a buffer amount</li>
-                <li>Set the endpoint of that vector as the new target destination.</li>
-              </ul>
-            </li>
-            <li>Move towards the target.</li>
-          </ol>
-        </div>
-        <p>
+          <div class="two-col">
+            <div class="media-placeholder">
+              <img src="blog media/pass-blog/orthoginal_primary.png" alt="Retarget vector orthoginal to primary" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">Retarget vector orthoginal to primary</p>
+            </div>
+            <div class="two-col-text">
+              <div class="update">To the left is a secondary option of this method; using the orthoginal vector starting from the original path vector.</div>
+              <p>This loop would be performed for both left and right of the collsion point and whichever is shorter wins.</p>
+              <ol>
+                <li>Set the movement target to the player's last location.</li>
+                <li>Draw a straight line to the target.</li>
+                <li>Is there a collision?</li>
+                  <ol>
+                    <li>Sweep query hit trace.</li>
+                    <li>Are we no longer hitting the obstacle?</li>
+                    <ol>
+                      <li>Use previous collision trace.</li>
+                      <li>Add a buffer vector orthoginal to that trace's vector.</li>
+                      <li>That location becomes new intermediate location.</li>
+                    </ol>
+                  </ol>
+                <li>Move towards target.</li>
+              </ol>
+            </div>
+          </div>
+          <p>This solution creates a different problem. This effectively sets multiple straight lines as the path, so they run in a straight line, perform a sharp turn, then run in a straight line again— <i>very</i> robotic.</p>
+        </section>
+        <section class="subsection">
+          <h3 class="subsection-title">how can fix?</h3>
+          <div class="two-col">
+            <div class="media-placeholder">
+              <img src="blog media/pass-blog/pathoptions.png" alt="Path options" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">Path options</p>
+            </div>
+            <div class="two-col-text">
+              <p>If the agent, rotates then moves it creates the path shown in the solid black line.</p>
+              <p>But, if you have the agent rotate as they move, it creates a curved path. The tricky part is how fast they should rotate, so that they actually arrive at their location, and they don't go so wide they run into a different wall.</p>
+              <p>In the ideal scenario, that results in the dashed black line.</p>
+              <p><small>When I made this diagram, I added the dashed blue line to represent the "bumper" simulated by the buffer system, but I don't quite remeber <i>why</i> it is here</small></p>
+            </div>
+          </div>
+        </section>
+        <section class="subsection">
+          <h3 class="subsection-title">In-engine</h3>
+          <div class="media-placeholder">
+              <img src="" alt="EnemyAgent pathfinding gif" onerror="this.style.display='none'">
+              <p class="media-placeholder-label">EnemyAgent pathfinding gif</p>
+            </div>
+        </section>
       </section><!-- /step-6-1 -->
 
     </div><!-- /blog-article -->
