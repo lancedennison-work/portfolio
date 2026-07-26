@@ -422,7 +422,6 @@
   <div class="page">
     <h1 class="blog-header" id="phase-6">AI movement</h1>
     <div class="blog-article">
-
       <!-- STEP: ENEMY AI LOCOMOTION (MANUAL) -->
       <section class="step reveal" id="step-6-1">
         <h2 class="step-title">Enemy AI Locomotion (Manual)</h2>
@@ -446,7 +445,28 @@
             <li>Move towards the target.</li>
           </ol>
         </div>
-        <p>This is more expensive per-tick than a pre-calculated movement space, but for this stage of the project I am trying to avoid pre-built solutions and use as much pure code as I can.</p>
+        <p>This solution has major drawbacks— it is more expensive per-tick than a pre-calculated movement space, and it also creates a "wall-hugging" behavior. Instead of walking around obvious obstacles, they will first try to walk straight through the wall until they get within buffer range, then they begin to route around it.</p>
+        <div class="two-col">
+          <div class="media-placeholder">
+            <img src="blog media/pass-blog/orthoginal_sweep.png" alt="Retarget vector sweep diagram" onerror="this.style.display='none'">
+            <p class="media-placeholder-label">Retarget vector sweep diagram</p>
+          </div>
+          <ol>
+            Another Option
+            <li>Set the movement target to the player's last location.</li>
+            <li>Draw a straight line to the target.</li>
+            <li>Is there a collision?
+              <ul>
+                <li>Get the location of the collision object's center</li>
+                <li>Calculate the vector from that center to the collision location</li>
+                <li>Increase the magnitude by a buffer amount</li>
+                <li>Set the endpoint of that vector as the new target destination.</li>
+              </ul>
+            </li>
+            <li>Move towards the target.</li>
+          </ol>
+        </div>
+        <p>
       </section><!-- /step-6-1 -->
 
     </div><!-- /blog-article -->
