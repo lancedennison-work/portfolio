@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI movement — Passassin — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+      <ul class="toc-list">
+        <p class="toc-phase-label">sections</p>
+        <li><a href="../passassin-demo.html">Intro</a></li>
+        <li><a href="agent.html">Agent</a></li>
+        <li><a href="class-split.html">Class Split</a></li>
+        <li><a href="complex-vision.html">Complex Vision</a></li>
+        <li><a href="ai-movement.html" class="toc-active">AI movement</a></li>
+      </ul>
+      <ul class="toc-list">
+        <p class="toc-phase-label">subsections</p>
+        <li><a href="#phase-1">Manual Locomotion</a></li>
+        <li><a href="#phase-2">Reassess</a></li>
+        <li><a href="#phase-3">Robust Pathfinding</a></li>
+        <li><a href="#phase-4">Big News!</a></li>
+      </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
+    <h1 class="blog-title">AI movement</h1>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <!-- PHASE: ENEMY AI LOCOMOTION (MANUAL) -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-1">Enemy AI Locomotion (Manual)</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-1-1">
+        <p>To make AI pathfinding, without the actor using pre-calculated movement paths from the engine, they need a
+          solution routing around to objects blocking their path.</p>
+      </section><!-- /step-1-1 -->
+
+      <section class="step reveal" id="step-1-2">
+        <h2 class="step-title">wall bumpers</h2>
+        <p>This solution prevents the agent from being colliding into walls by adding a buffer, essentially adding
+          bumpers to obstacles.</p>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="retarget vector diagram">
+            <img src="../blog media/pass-blog/buffervectorgraph.png">
+          </div>
+          <div class="two-col-text">
+            <p>This behavior is guided by the following loop</p>
+            <ol>
+              <li>Set the movement target to the player's last location.</li>
+              <li>Draw a straight line to the target.</li>
+              <li>Is there a collision?
+                <ol>
+                  <li>Get the location of the collision object's center</li>
+                  <li>Calculate the vector from that center to the collision location</li>
+                  <li>Increase the magnitude by a buffer amount</li>
+                  <li>Set the endpoint of that vector as the new target destination.</li>
+                </ol>
+              </li>
+              <li>Move towards the target.</li>
+            </ol>
+          </div>
+        </div>
+        <p>This solution has major drawbacks— it is more expensive per-tick than a pre-calculated movement space, and
+          it also creates a "wall-hugging" behavior. Instead of walking around obvious obstacles, they will first try
+          to walk straight through the wall until they get within buffer range, then they begin to route around it.
+        </p>
+      </section><!-- /step-1-2 -->
+
+      <section class="step reveal" id="step-1-3">
+        <h2 class="step-title">endpoint avoidance</h2>
+        <p>This solution, instead, investigates the farthest obstructive endpoint of the obstacle, then adds a buffer
+          at that point.</p>
+        <div class="media-placeholder" data-label="Retarget vector sweep diagram">
+          <img src="../blog media/pass-blog/orthoginal_sweep.png">
+        </div>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="Retarget vector orthoginal to primary">
+            <img src="../blog media/pass-blog/orthoginal_primary.png">
+          </div>
+          <div class="two-col-text">
+            <div class="update" style="margin-top: 0;">To the left is a secondary option of this method; using the orthoginal vector starting
+              from the original path vector.</div>
+            <p>This loop would be performed for both left and right of the collsion point and whichever is shorter
+              wins.</p>
+            <ol>
+              <li>Set the movement target to the player's last location.</li>
+              <li>Draw a straight line to the target.</li>
+              <li>Is there a collision?</li>
+              <ol>
+                <li>Sweep query hit trace.</li>
+                <li>Are we no longer hitting the obstacle?</li>
+                <ol>
+                  <li>Use previous collision trace.</li>
+                  <li>Add a buffer vector orthoginal to that trace's vector.</li>
+                  <li>That location becomes new intermediate location.</li>
+                </ol>
+              </ol>
+              <li>Move towards target.</li>
+            </ol>
+          </div>
+        </div>
+        <p>This solution creates a different problem. This effectively sets multiple straight lines as the path, so
+          they run in a straight line, perform a sharp turn, then run in a straight line again— <i>very</i> robotic.
+        </p>
+      </section><!-- /step-1-3 -->
+
+      <section class="step reveal" id="step-1-4">
+        <h2 class="step-title">how can fix?</h2>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="Path options">
+            <img src="../blog media/pass-blog/pathoptions.png">
+          </div>
+          <div class="two-col-text">
+            <p>If the agent, rotates then moves it creates the path shown in the solid black line.</p>
+            <p>But, if you have the agent rotate as they move, it creates a curved path. The tricky part is how fast
+              they should rotate, so that they actually arrive at their location, and they don't go so wide they run
+              into a different wall.</p>
+            <p>In the ideal scenario, that results in the dashed black line.</p>
+            <p><small>When I made this diagram, I added the dashed blue line to represent the "bumper" simulated by
+                the buffer system, but I don't quite remeber <i>why</i> it is here</small></p>
+          </div>
+        </div>
+      </section><!-- /step-1-4 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: REASSESS -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">Reassess</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-2-1">
+        <h2 class="step-title">Reframe</h2>
+        <p>I have decided that manual sweeping through an object is too costly to perform, especially if the agent is
+          going to have to avoid a lot of obstacles in one go.</p>
+        <p>Therefore, I am turning to BoxExtent. If I perform a dot product with the BoxExtent and the orthogonal
+          AxisDir, we get the distance traced down the AxisDir to the edge of the BoxExtent.</p>
+        <p><code>const FVector Right = (FVector(0,0,1) ^ StraightPath).GetSafeNormal();</code></p>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p><code>AxisDir = Right</code></p>
+        </div>
+        <p>
+          <code>const float EdgeDistance = FVector::DotProduct(ObjectBounds.BoxExtent, AxisDir.GetAbs()) + Buffer;</code>
+        </p>
+        <p>Is this a single check (as is times performed) to find the edge of the object rather than a bunch of
+          different traces to slice through until it finds a clear shot.</p>
+        <p>This also has gained a few capabilities, if the new path— buffered from the edge— also hits something, it
+          measures the distance between the two objects, and if there is room to walk down the midpoint, then it adds
+          that as the intermediate location.</p>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>Right now the manual movement is turned off to demonstrate the pathfinding alone.</p>
+        </div>
+        <p>Good news: The pathfinding works!</p>
+        <div class="media-placeholder" data-label="EnemyAgent pathfinding gif">
+          <video src="../blog media/pass-blog/PathingUnfinished.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <p>Bad news: It doesn't.</p>
+        <p>It does correctly go around objects, but you might have noticed that something was off… This pathfinding
+          only works because the buffer is set to much larger than realistic value.</p>
+        <p>In the gif, only the rectangle box is being avoided, the problem is that the 'wall' is a composite object.
+          This problem is exacerbated by what I am calling the 'midpoint problem'; currently it traces out to the edge
+          of the object to get the edge distance from the object origin, which means, if we are trying to go through a
+          box, it puts the intermediate point off of the center of that wall, which is not what we want. This problem
+          is demonstrated below.</p>
+        <div class="media-placeholder" data-label="Midpoint problem">
+          <img src="../blog media/pass-blog/midpoint error.png">
+        </div>
+        <p>This calculation is supposed to work the first time to avoid the single object, and right now, it doesn't.
+        </p>
+      </section><!-- /step-2-1 -->
+
+      <section class="step reveal" id="step-2-2">
+        <h2 class="step-title">What can we do?</h2>
+        <p>There are two ways we can go about this: more probes, or grouping shapes into their composite.</p>
+        <p>Performing more probes keeps things aligned with my goal of doing things manually, but it quickly becomes
+          an issue.</p>
+        <p>Which is solved with grouping. If the agent is trying to get somewhere that is straight through a wall that
+          is composed of many blocks, the rechecking might need to go though 50 more blocks that reach all the way to
+          the edge of the map. If you group together the objects you can use the whole shape.</p>
+        <p>But this has a problem, in the below scenario, both the <code>Bounds.SphereRadius</code> and the <code>
+            Bounds.BoxExtent</code> would result in going wide around a completely empty space that would
+          realistically be cut across. This helps when an obstacle is larger than the collision object on its own, but
+          it greatly oversteps in cases like the following:</p>
+        <div class="media-placeholder" data-label="Composite vs realistic">
+          <img src="../blog media/pass-blog/compositeboundscomp.png">
+        </div>
+      </section><!-- /step-2-2 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ROBUST(ER) PATHFINDING -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-3">Robust(er) Pathfinding</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-3-1">
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>This is by far the biggest addition to this project ~1000 lines.</p>
+          <p>I tried very hard to make this as robust as possible, and ran into some severe limitations in my engine
+            knowledge.</p>
+        </div>
+      </section><!-- /step-3-1 -->
+
+      <section class="step reveal" id="step-3-2">
+        <h2 class="step-title">Midpoint [not a] Problem</h2>
+        <p>Before even working on the composite solution, the pathfinding needs to work on a single shape.</p>
+        <p>Here is what we now do when we hit an object.</p>
+      </section><!-- /step-3-2 -->
+
+      <section class="step reveal" id="step-3-3">
+        <h2 class="step-title">Single Object Demonstration</h2>
+        <ol>
+          <li>
+            <strong>SetMovementTarget</strong> — TickPatrolling / TickInvestigating call
+            <code>SetMovementTarget</code> to set off the cascade. Planning is collision-triggered— it is only used when the path ahead is obstructed.
+          </li>
+          <li>
+            <strong>EvaluateNextMovementLeg</strong> — the main planning loop. It first checks whether an existing
+            queued path is still clear, then loops up to <code>MovementLegsAhead</code>, probing and resolving one hop
+            at a time.
+            <ol>
+              <li>
+                <strong>IsPathClear</strong> — swept box, agent-sized, along the leg. Returns true if clear. The sweep
+                is lifted by <code>MaxStepHeight</code>. (Now they can use their legs to step over things!!!)
+              </li>
+              <li>
+                <strong>FindPath</strong> — the core step for the avoidance loop. Derives Right/Left from the hit
+                surface normal, builds the obstacle footprint, finds the relevant tangent corners, resolves both sides
+                unconditionally, then picks a winner based on total distance.
+                <ol>
+                  <li>
+                    <strong>Obstacle footprint</strong> — the nearest single AggGeom element, flattened to XY and
+                    hulled.
+                  </li>
+                  <li>
+                    <strong>FindHullTangentVertices</strong> — finds the tangent corners as seen from the agent.
+                    <ol>
+                      <li>
+                        A vertex is tangent when both hull neighbours fall on the same side of the view ray — two
+                        cross products.
+                      </li>
+                      <li>
+                        Not the hit face's corners: those only coincide with the tangents head-on, so once a corner is
+                        rounded one of them is behind you.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>TryResolveAvoidanceSide</strong> — resolves each side independently and validates the
+                    resulting candidate by re-sweeping.
+                    <ol>
+                      <li>
+                        <strong>TryGetSphereTangentPoint</strong> — for round obstacles, computes the candidate in
+                        closed form.
+                        <ol>
+                          <li>
+                            L = √(D² - R²); the touch point is
+                            P + (L²/D)·D̂ ± (L·R/D)·⊥.
+                            <code>AxisDir</code>'s sign picks which of the two.
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <strong>ComputeBufferedCornerPoint</strong> — for cornered obstacles, offsets the tangent
+                        corner outward along the bisector of the two meeting faces.
+                        <ol>
+                          <li>
+                            Distance is Buffer / cos(half-angle), which clears both faces by exactly Buffer at any
+                            corner angle.
+                          </li>
+                          <li>
+                            Guarded against extremely acute corners, where it approaches infinity.
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <strong>Candidate validation and buffer growth</strong> — <code>TryResolveAvoidanceSide</code>
+                        first rejects candidates within <code>HopAcceptanceRadius</code> as no-progress.
+                        <ol>
+                          <li>Otherwise it re-sweeps the candidate.</li>
+                          <li>
+                            Same obstacle blocks -> double the buffer and retry for
+                            <code>MaxBufferGrowthAttempts</code>.
+                          </li>
+                          <li>Different obstacle -> dead end.</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Scoring</strong> — after both sides have been resolved, the shortest path wins.
+                    <ol>
+                      <li>
+                        If <code>MovementLegsAhead</code> is insufficient to reach <code>MovementTarget</code>, then a
+                        winner is chosen by the naive distance from the last hop of the leg to
+                        <code>MovementTarget</code>.
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <strong>Failure</strong> — if <code>FindPath</code> cannot produce a valid route and no existing queue
+                or newly generated hops remain, <code>RegisterPlanFailure</code> applies a cooldown to edge out moving
+                obstacles.
+                <ol>
+                  <li>
+                    After <code>MaxConsecutivePlanFailures</code>, the target is abandoned.
+                  </li>
+                  <li>
+                    For patrolling, this results in skipping the attempt at reaching the current patrol point and
+                    advancing to the next.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>TickMovement</strong> — walks the resulting queue.
+            <ol>
+              <li>
+                Hops use a tighter acceptance radius than the destination — avoidance is more precise than arrival.
+              </li>
+              <li>
+                When a hop is reached, it is popped and <code>EvaluateNextMovementLeg</code> runs again to refill the
+                queue, continue straight, or give up.
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <br>
+        <p>Here is a demonstration of the current pathfinding algorithm. This is before any composite shapes have been
+          accounted for, and in this gif, the agent only looks one step ahead to plan its path.</p>
+        <div class="media-placeholder" data-label="Single Object Single Leg Pathfinding gif">
+          <video src="../blog media/pass-blog/PathfindingSingleLeg.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <p>Below is a demonstration of the current pathfinding algorithm, using three legs (two moves ahead of the next step) to plan. The movement speed is sped up to show a whole patrol loop. (Also it seems to have been captured before I added the height tolerance?)</p>
+        <div class="media-placeholder" data-label="Single Object 3leg_sped_up gif">
+          <video src="../blog media/pass-blog/3leg_sped_up.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-3-3 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: BIG NEWS! -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-4">Big News!</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-4-1">
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>I don't have the time to flesh out this section with text yet, but I was very excited that everything was working, so I am adding the screenshots now!</p>
+        </div>
+      </section><!-- /step-4-1 -->
+
+      <section class="step reveal" id="step-4-2">
+        <h2 class="step-title">We have composite objects now!</h2>
+        <div class="media-placeholder" data-label="Grouping demo 1">
+          <img src="../blog media/pass-blog/grouping1.png">
+        </div>
+        <div class="media-placeholder" data-label="Grouping demo 2">
+          <img src="../blog media/pass-blog/grouping2.png">
+        </div>
+      </section><!-- /step-4-2 -->
+
+      <section class="step reveal" id="step-4-3">
+        <h2 class="step-title" style="border-bottom: 0;">And!</h2>
+        <h2 class="step-title" style="border-bottom: 0;">we can go under ledges!</h2>
+        <div class="media-placeholder" data-label="height band.png">
+          <img src="../blog media/pass-blog/height band.png">
+        </div>
+      </section><!-- /step-4-3 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div class="page">
+    <div class="section-divider"></div>
+    <nav class="blog-pager" aria-label="Part navigation">
+      <a class="blog-pager-prev" href="complex-vision.html"><span>previous</span>Complex Vision</a>
+    </nav>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="../components/blog-toc.js"></script>
+  <script src="../components/media.js"></script>
+  <script src="../components/components.js" data-prefix="../"></script>
+</body>
+
+</html>

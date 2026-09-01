@@ -1,0 +1,9 @@
+# Large animated media: record/export MP4 instead of GIF.
+# GIF stores every frame uncompressed — screen captures run 40-100MB each and
+# stay in git history forever. Convert with tools/gif2mp4.sh and commit the .mp4.
+*.gif
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store

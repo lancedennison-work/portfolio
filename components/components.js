@@ -65,4 +65,38 @@
     const footer = document.querySelector('footer');
     if (footer) resolveLinks(footer);
   });
+
+  // Smooth scrolling is opt-in (see html.smooth-scroll in style.css). Turn it on
+  // only for the duration of an anchor jump the user explicitly clicked, so the
+  // wheel, keyboard and scrollbar are never animated behind their back.
+  const root = document.documentElement;
+  let smoothTimer;
+
+  function endSmoothScroll() {
+    clearTimeout(smoothTimer);
+    root.classList.remove('smooth-scroll');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.isTrusted) return;
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href.length < 2 || !document.querySelector(href)) return;
+    root.classList.add('smooth-scroll');
+    clearTimeout(smoothTimer);
+    smoothTimer = setTimeout(endSmoothScroll, 1200);
+  });
+
+  window.addEventListener('scrollend', endSmoothScroll);
+
+  // If the reader takes over mid-jump, hand the scroll back to them rather than
+  // letting the two compose into a lurch.
+  ['wheel', 'touchstart', 'keydown'].forEach(type => {
+    window.addEventListener(type, (e) => {
+      if (!e.isTrusted || !root.classList.contains('smooth-scroll')) return;
+      endSmoothScroll();
+      window.scrollTo({ top: window.scrollY, behavior: 'auto' });
+    }, { passive: true });
+  });
 })();

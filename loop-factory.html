@@ -73,9 +73,8 @@
         <div class="subsection">
           <h3 class="subsection-title">The Pitch</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/UI_sketch.png" alt="Sketch of the UI" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">image — sketch of the UI</p>
+            <div class="media-placeholder" data-label="sketch of the UI">
+              <img src="blog media/UI_sketch.png">
             </div>
             <p class="two-col-text">The game is a terminal-driven factory simulation inspired by cassette-futurist aesthetics. The player takes on the role as the sole remote operator of an industrial facility— constructing production lines, designing custom machines, and balancing limited factory resources to automate an increasingly demanding manufacturing process.</p>
           </div>
@@ -118,9 +117,8 @@
           <div class="subsection-body" data-technical>
             <p>With six planned panels — Edit, Control, Map, Info, Space*, and Resource — the first task was getting them all sized, positioned, and styled consistently. The design goal was a white rounded-corner outline that turns green when a panel is active. On paper, this is straightforward. In practice, each node type behaves differently when it comes to styling: <code>PanelContainer</code> doesn't handle StyleBox overrides the same way <code>CodeEdit</code> and <code>TextEdit</code> do. Getting a consistent border effect across node types, each with their own rules about how styles are applied, took manual spoofing of theme behaviors that should have been uniform.</p>
             <p>The other small headache was focus management. Clicking off a panel needed to properly clear the active state, but there was no clean way to catch an unfocused click on empty space. The fix was placing a full-screen Button at the back of the scene to absorb any click that didn't land on a panel, forcing a focus reset.</p>
-            <div class="media-placeholder">
-              <img src="blog media/UI.gif" alt="Panel UI showing focus behavior" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">gif — panel UI showing focus behavior</p>
+            <div class="media-placeholder" data-label="panel UI showing focus behavior">
+              <img src="blog media/UI.gif">
             </div>
           </div>
         </div>
@@ -133,9 +131,8 @@
         <div class="subsection">
           <h3 class="subsection-title">Function vs. Form</h3>
           <p>The map is organized as a 4x9 matrix covering locations A1 through D9. My initial instinct was to index the matrix starting at 0, since matching the internal array indices to the displayed coordinates would be more natural. Despite that, I found the 1-based layout significantly more readable from the player's perspective. There wasn't a technical reason for the decision — it just looks better. The alternative is to keep the underlying coordinate system separate from what the player sees.</p>
-          <div class="media-placeholder">
-            <img src="blog media/map.gif" alt="Map grid with tooltips" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">gif — map grid with tooltips</p>
+          <div class="media-placeholder" data-label="map grid with tooltips">
+            <img src="blog media/map.gif">
           </div>
           <div class="update">
             <p class="update-label">update</p>
@@ -165,9 +162,8 @@
           <h3 class="subsection-title">Spoofing the Terminal</h3>
           <p>The Control Panel serves as the player's primary interface with the factory, so making it feel like a real terminal was one of the first priorities. The goal was to make a <code>CodeEdit</code> node behave like an actual command-line interface, which turned out to require much more intervention than expected. Terminals have a lot of subtle behavioral rules that users take for granted: the caret can't move behind the prompt, clicking doesn't reposition the caret, UP and DOWN scroll through history rather than moving between lines. None of that exists by default in <code>CodeEdit</code>, so each behavior had to be explicitly intercepted and handled.</p>
           <p>The history system, command extraction, and input guards all came together quickly enough, but the bigger realization was that complex operations were going to need a way to ask the player follow-up questions mid-command.</p>
-          <div class="media-placeholder">
-            <img src="blog media/terminal.gif" alt="Terminal manipulation" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">gif — terminal manipulation</p>
+          <div class="media-placeholder" data-label="terminal manipulation">
+            <img src="blog media/terminal.gif">
           </div>
         </div>
         <div class="subsection">
@@ -184,9 +180,8 @@
           <h3 class="subsection-title">A Confusing Engine Limitation</h3>
           <div class="subsection-body" data-technical>
             <p>With the terminal functional, the next task was the file system. <code>CodeEdit</code> inside EditPanel handles all file manipulation since it's the node the player directly edits in. Getting syntax highlighting working was the first real fight. Godot exposes a method to retrieve the theme their own editor uses, which would have been perfect — but it isn't callable at runtime. A built-in coding node that can't access the coding theme of the environment it lives in is a baffling decision, but it just meant setting every color up manually by cross-referencing Godot's editor theme values. More tedious than difficult, but the kind of thing that costs time for no satisfying reason.</p>
-            <div class="media-placeholder">
-              <img src="blog media/syntax-highlight-comparison.png" alt="Syntax highlighted code in EditPanel vs Godot editor" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">screenshot — syntax highlighted code in EditPanel (left) vs Godot editor (right)</p>
+            <div class="media-placeholder" data-label="screenshot — syntax highlighted code in EditPanel (left) vs Godot editor (right)">
+              <img src="blog media/syntax-highlight-comparison.png">
             </div>
             <p>After that, the file commands themselves came together quickly: load, save, close, create, and delete all wired into the terminal. The <code>EditPanel</code> was also updated at this point — rather than showing a placeholder message when no file is open, it now lists the contents of the custom machines folder, so the panel is always showing something useful.</p>
           </div>
@@ -247,9 +242,8 @@
           <h3 class="subsection-title">The Construction System</h3>
           <p>With machines proven to work, the construction system needed to give the player a way to build them through the terminal. The <code>construct</code> command kicks off a multi-step flow: type, level, name, and optionally a location for expedition machines. Each step is handled by <code>_collect_construction_data</code>, which advances through a <code>CON_STEP</code> enum and re-prompts for the current step if the player's input doesn't satisfy it.</p>
           <p>This layered approach maintains my stance on prompt flexibility. I don't want everything to fall apart if the player left out one piece of the required arguments — it handles what it was given and continues until it has all required information.</p>
-          <div class="media-placeholder">
-            <img src="blog media/construct.gif" alt="Construct command walking through steps" onerror="this.style.display='none'">
-            <p class="media-placeholder-label">gif — construct command walking through steps</p>
+          <div class="media-placeholder" data-label="construct command walking through steps">
+            <img src="blog media/construct.gif">
           </div>
         </div>
         <div class="subsection">
@@ -265,9 +259,8 @@
         <div class="subsection">
           <h3 class="subsection-title">The Design Goal</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/config.png" alt="Custom machine config file in EditPanel" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">screenshot — custom machine config file in EditPanel</p>
+            <div class="media-placeholder" data-label="screenshot — custom machine config file in EditPanel">
+              <img src="blog media/config.png">
             </div>
             <p class="two-col-text">The entire point of the Edit Panel is letting players define their own machines — as a way for players to construct tailored production systems that reflect their own approach. The core design challenge is determining the appropriate level of control: players should be able to define production behavior and structure machine relationships, but also need to be restricted from accessing machine variables to make infinite item generators.</p>
           </div>
@@ -446,9 +439,8 @@
         <div class="subsection">
           <h3 class="subsection-title" style="margin-bottom: 0;">Option 1: The Current Design</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/inv_1.jpg" alt="Inventory diagram option: 1" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">jpeg — inventory diagram option: 1</p>
+            <div class="media-placeholder" data-label="jpeg — inventory diagram option: 1">
+              <img src="blog media/inv_1.jpg">
             </div>
             <p class="two-col-text">The existing approach treats a custom machine as a single unit. Internal sub-machines do not own independent ports; instead, they share the parent machine's input and output inventories. This keeps the overall structure simple, but it also means every internal machine is tightly coupled to the parent. As more processing chains emerge, that coupling starts limiting how complex the internal systems can be.</p>
           </div>
@@ -456,9 +448,8 @@
         <div class="subsection">
           <h3 class="subsection-title" style="margin-bottom: 0;">Option 2: Simplicity First</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/inv_2.jpg" alt="Inventory diagram option: 2" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">jpeg — inventory diagram option: 2</p>
+            <div class="media-placeholder" data-label="jpeg — inventory diagram option: 2">
+              <img src="blog media/inv_2.jpg">
             </div>
             <p class="two-col-text">This layout gives each sub-machine its own inventories while keeping routing largely managed by the parent machine. It is the least complicated design to understand and implement, and most factory layouts would work without much overhead. The drawback is flexibility — since the routing is effectively built into the structure, changing connections at runtime requires the parent to directly manipulate sub-machine inventories, which makes future customization more fragile.</p>
           </div>
@@ -466,9 +457,8 @@
         <div class="subsection">
           <h3 class="subsection-title" style="margin-bottom: 0;">Option 3: Everything Through Ports</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/inv_3.jpg" alt="Inventory diagram option: 3" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">jpeg — inventory diagram option: 3</p>
+            <div class="media-placeholder" data-label="jpeg — inventory diagram option: 3">
+              <img src="blog media/inv_3.jpg">
             </div>
             <p class="two-col-text">This setup treats sub-machines much more like independent factory components by giving them their own ports and routing every transfer through those interfaces. It introduces slightly more structural complexity, but provides the greatest amount of runtime flexibility. Connections can be reconfigured without reaching directly into another machine's internals, and every transfer continues to use the same validation and safety rules as the rest of the factory. That consistency feels much easier to build upon.</p>
           </div>
@@ -476,9 +466,8 @@
         <div class="subsection">
           <h3 class="subsection-title" style="margin-bottom: 0;">Option 4: Disabusing Old Fixations</h3>
           <div class="two-col">
-            <div class="media-placeholder">
-              <img src="blog media/inv_4.jpg" alt="Inventory diagram option: 4" onerror="this.style.display='none'">
-              <p class="media-placeholder-label">jpeg — inventory diagram option: 4</p>
+            <div class="media-placeholder" data-label="jpeg — inventory diagram option: 4">
+              <img src="blog media/inv_4.jpg">
             </div>
             <p class="two-col-text">While exploring these layouts, I realized I had been holding onto an assumption from much earlier in development. I originally wanted custom machines to feel fundamentally different from simply taping several machines together, so I was attached to restricting sub-machines from connecting directly to the outside world. The more I experimented, though, the less convincing that reasoning became — the restriction isn't functionally different, it only introduces extra configuration work.<br>This option no longer forces internal machines into isolation: they can directly link ports to external machines but can still be referenced from the shell. The shell would no longer have its own inventories, and the internal machines would still use ports to interact with their siblings. I'm still not completely convinced the answer is simply removing the distinction altogether — I still think isolated sub-machines lend toward custom machines feeling different from stand-alone machines.</p>
           </div>
@@ -658,6 +647,7 @@
       el.after(indicator);
     });
   </script>
+  <script src="./components/media.js"></script>
   <script src="./components/components.js" data-prefix="./"></script>
 </body>
 </html>

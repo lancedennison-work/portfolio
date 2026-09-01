@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Split — Passassin — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+      <ul class="toc-list">
+        <p class="toc-phase-label">sections</p>
+        <li><a href="../passassin-demo.html">Intro</a></li>
+        <li><a href="agent.html">Agent</a></li>
+        <li><a href="class-split.html" class="toc-active">Class Split</a></li>
+        <li><a href="complex-vision.html">Complex Vision</a></li>
+        <li><a href="ai-movement.html">AI movement</a></li>
+      </ul>
+      <ul class="toc-list">
+        <p class="toc-phase-label">subsections</p>
+        <li><a href="#phase-1">Player</a></li>
+        <li><a href="#phase-2">Enemy</a></li>
+      </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
+    <h1 class="blog-title">Class Split</h1>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <!-- PHASE: PLAYER -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-1">Player</h1>
+    <div class="blog-article">
+
+      <!-- STEP: FUNCTIONAL CROSSHAIR -->
+      <section class="step reveal" id="step-1-1">
+        <h2 class="step-title">Functional Crosshair</h2>
+        <p>The key (new) feature that the PlayerAgent needs—that isn't cut out from the pre-split Agent class—is a
+          crosshair/reticle. Currently, how the AAgent shoots is: it draws a trace hitscan out using the muzzle as the
+          start of the vector, then it travels (firing range) down the camera forward vector to get the trace end, and
+          hits anything along that new path. In third person games, there is always the issue of the camera and the gun
+          being in very different places, and the closer an object is to the gun, the more extreme that difference
+          becomes. So, you have to find how to balance between the bullets—at least feeling like they are—coming out of
+          the gun, and going to where you are aiming.</p>
+        <p>Sometimes this means they show you where you are aiming, <i>and</i> where you are going to hit, like in
+          Helldivers 2:</p>
+        <div class="media-placeholder" data-label="helldivers 2 — separate aim and hit indicators">
+          <img src="../blog media/pass-blog/aimsway.gif">
+        </div>
+        <p>To test my options and find how I want the hitscan-behavior/reticle-placement to function, I needed a way to
+          probe in the same direction relative to the player's weapon every tick.</p>
+        <p>Manually updating the direction based on the player's movement and rotation every tick, to test for
+          collisions, seemed excessive. Especially, when the camera boom does exactly what I am looking for.</p>
+        <p>The camera boom uses a Spring Arm Component: it has a fixed path, with a maximum range, and changes its
+          length depending on physical collision; it's just normally supposed to be behind the player. So, I socketed
+          one to the weapon muzzle, and one to the follow camera and flipped them around.</p>
+        <p>Voilà.</p>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="muzzle probe, camera probe, and the sweep between them">
+            <img src="../blog media/pass-blog/3Scans.png">
+          </div>
+          <p class="two-col-text">This perfectly creates a no-fuss, consistent angle, with linear probing at fixed
+            maximum distance, every tick. Now I can see the path of the gun, where it is hitting and where the camera is
+            hitting (it's always pointing at the center of the screen). I then added a sweeping line between the end
+            probe sockets of the arms (where they are colliding with something), and if an Agent collides with that
+            path, I get a blended target vector for the pseudo-midpoint.</p>
+        </div>
+        <p>To test which one I liked, I chose one as the winner, each tick: whichever collision was hitting the closest
+          agent, is the one that the gun used for Fire(). That way, I could test all three options and together as a
+          fourth, secret, option.</p>
+        <div class="media-placeholder" data-label="all three hitscan debugs at once">
+          <video src="../blog media/pass-blog/WinnerTrace.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <p>The 3 options.</p>
+        <ul>
+          <li>Red: Trace from muzzle to Camera
+            <ul>
+              <li>Pros: Highest accuracy; its target location doesn't bob around from the idle animation, and is always
+                at the center of the screen so you don't have to coax the camera into lining up the hitscan</li>
+              <li>Cons: Looks weird if you can see the line the closer you are to the target as it skews further away
+                from the barrel direction, and when you get the barrel close enough to something it kind of breaks.</li>
+              <li>Accurate past close range for both hipfire and aiming</li>
+            </ul>
+          </li>
+          <li>Blue: Trace from muzzle straight out
+            <ul>
+              <li>Pros: Works well up close, and is animation-accurate.</li>
+              <li>Cons: Moves around a lot the farther away you are aiming due to aforementioned accuracy with the idle
+                animation. Primitive rotational movement and no IK on the arms means the trace end is almost never at
+                the center of the screen.</li>
+              <li>Accurate at very close range, more accurate during aiming due to camera offset.</li>
+            </ul>
+          </li>
+          <li>Purple: Trace sweep between arms
+            <ul>
+              <li>Pros: Makes up for the inconsistent distance weaknesses of the bounding arms.</li>
+              <li>Cons: Though it works well to balance at long range since the angle gets very close to the red, it
+                does not equally balance the middle distances</li>
+              <li>Maybe the least accurate at this stage, very hard to balance just right.</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>The real solution is animation / moving the gun to point in the direction of the "Red" option. But this was
+            a fun test to set up.</p>
+        </div>
+        <div class="media-placeholder" data-label="picking whichever probe is hitting the closest agent, each tick">
+          <img src="../blog media/pass-blog/WinnerCode.png">
+        </div>
+        <p>Current Winner: Muzzle to Camera Arm Probe; the other two have been banished to the future iteration shadow
+          realm.</p>
+        <p>Since I already have an object always at the center of the screen, the debug sphere for the camera-anchored
+          arm has been promoted to pseudo reticle/crosshair! Congrats!</p>
+        <div class="media-placeholder" data-label="black = no agent, red = agent">
+          <video src="../blog media/pass-blog/MuzzleToCamera.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-1-1 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ENEMY -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">Enemy</h1>
+    <div class="blog-article">
+
+      <!-- STEP: BEHAVIORS -->
+      <section class="step reveal" id="step-2-1">
+        <h2 class="step-title">Behaviors</h2>
+        <p>Currently, enemies have four behavior tree states: Patrol, Investigate, Attack, and Die. While patrolling,
+          they move towards their next patrol point, then to the next once they reach it. When investigating, they go to
+          the last place they saw the player, if they can no longer see them. When attacking, they face the player and
+          shoot. When they die, well… they're dead.</p>
+        <div class="media-placeholder" data-label="enemy behavior state loop">
+          <video src="../blog media/pass-blog/EnemyLoopSmall.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-2-1 -->
+
+      <!-- STEP: BEHAVIOR MODIFIERS -->
+      <section class="step reveal" id="step-2-2">
+        <h2 class="step-title">Behavior Modifiers</h2>
+        <p>Alarmed is a behavior condition; the reason it is not a primary state is because it alters their global
+          behavior, an enemy can be alarmed in any of previously mentioned states.</p>
+        <h3 class="subsection-h3">What it does</h3>
+        <p>When an enemy is Alarmed, they are actively looking, instead of passively guarding. Instead of just keeping
+          an eye out on their "post" (close surroundings), they are searching for an enemy that isn't close to them
+          since someone else spotted them.</p>
+        <p>Additionally, when on alarm, everyone knows that something is going on, so the enemies will have greater
+          tolerances for searching when alarmed.</p>
+        <h3 class="subsection-h3">Why?</h3>
+        <p>This provides a more realistic sentry behavior. If you are guarding the back of a building, but someone near
+          the front raises the alarm, you are going to search a much more distant area, requiring you to focus,
+          tightening your (active) field of vision as you strain to look farther away. Of course, you aren't a camera,
+          you aren't zooming in; but you are switching from a passive scan to a focused search, so your brain will shift
+          priority from your peripheral vision. Also, if someone had raised the alarm, you are going to look around for
+          a lot longer than a "hey what was that" search.</p>
+        <p>Alarmed vision cone:</p>
+        <div class="media-placeholder" data-label="alarmed vision cone">
+          <img src="../blog media/pass-blog/AlarmedCone.png">
+        </div>
+        <p>Normal vision cone:</p>
+        <div class="media-placeholder" data-label="normal vision cone">
+          <img src="../blog media/pass-blog/CalmCone.png">
+        </div>
+      </section><!-- /step-2-2 -->
+
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div class="page">
+    <div class="section-divider"></div>
+    <nav class="blog-pager" aria-label="Part navigation">
+      <a class="blog-pager-prev" href="agent.html"><span>previous</span>Agent</a>
+      <a class="blog-pager-next" href="complex-vision.html"><span>next</span>Complex Vision</a>
+    </nav>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="../components/blog-toc.js"></script>
+  <script src="../components/media.js"></script>
+  <script src="../components/components.js" data-prefix="../"></script>
+</body>
+
+</html>

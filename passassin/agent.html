@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent — Passassin — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+      <ul class="toc-list">
+        <p class="toc-phase-label">sections</p>
+        <li><a href="../passassin-demo.html">Intro</a></li>
+        <li><a href="agent.html" class="toc-active">Agent</a></li>
+        <li><a href="class-split.html">Class Split</a></li>
+        <li><a href="complex-vision.html">Complex Vision</a></li>
+        <li><a href="ai-movement.html">AI movement</a></li>
+      </ul>
+      <ul class="toc-list">
+        <p class="toc-phase-label">subsections</p>
+        <li><a href="#phase-1">Overview</a></li>
+        <li><a href="#phase-2">AgentAnimInstance</a></li>
+        <li><a href="#phase-3">AgentObserver</a></li>
+        <li><a href="#phase-4">Player</a></li>
+        <li><a href="#phase-5">Enemy</a></li>
+      </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
+    <h1 class="blog-title">Agent</h1>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <!-- PHASE: OVERVIEW -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-1">Overview</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-1-1">
+        <p>To allow for functionality testing, Agent will start out with some of the functionality that will only be
+          present in PlayerAgent.</p>
+      </section><!-- /step-1-1 -->
+
+      <section class="step reveal" id="step-1-2">
+        <h2 class="step-title">Agent needs:</h2>
+        <ul>
+          <li>Hitbox arrangement - use mesh over capsule for collision channel</li>
+          <li>Animation State Modifier Tracking: crouching and aiming alter the other animations</li>
+          <li>Weapon object and shooting functionality</li>
+          <li>Trackable health</li>
+          <li>(Temporary for Player)
+            <ul>
+              <li>Input mapped Locomotion</li>
+              <li>Follow Camera on boom for third-person view</li>
+            </ul>
+          </li>
+        </ul>
+      </section><!-- /step-1-2 -->
+
+      <section class="step reveal" id="step-1-3">
+        <p>The current way the weapon shoots is it looks [range] distance down the camera direction, and draws a trace
+          from the muzzle socket of the gun. I added a debug draw to show the trace, add a sphere at collision, and a
+          color indicator for, no hit (red), hit (yellow), and agent hit (green).</p>
+        <div class="media-placeholder" data-label="hitscan trace debug — red: no hit, yellow: hit, green: agent hit">
+          <video src="../blog media/pass-blog/Hitscan.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <p>With the mesh skeletons that come with the Unreal mannequins, they provide complex and "visually accurate"
+          hitboxes, so with the capsule ignoring the collision channel the gun uses, the player only actually hits if
+          they hit somewhere on the body.</p>
+        <div class="media-placeholder" data-label="skeletal mesh hitboxes">
+          <video src="../blog media/pass-blog/Bones.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="media-placeholder" data-label="fire logic">
+          <img src="../blog media/pass-blog/WinnerCode.png">
+        </div>
+      </section><!-- /step-1-3 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: AGENTANIMINSTANCE -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">AgentAnimInstance</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-2-1">
+        <div class="two-col">
+          <div class="media-placeholder" data-label="blend poses by bool — driven by AgentAnimInstance's modifier state">
+            <img src="../blog media/pass-blog/WalkRunAnimState.png">
+          </div>
+          <p class="two-col-text">ABP_Manny is the only blueprint that is using Unreal's node graphs for its logic.
+            AgentAnimInstance, still maintains the records for the animation modifier states, like crouching and aiming,
+            to use Blend Poses by Bool to set the correct animation based on the Agent's actions.</p>
+        </div>
+        <p>Below shows crouching, aiming, and jumping all being used in combination with each other, blended into main
+          animation states (like locomotion).</p>
+        <div class="media-placeholder" data-label="crouching, aiming, and jumping blended across locomotion states">
+          <video src="../blog media/pass-blog/AnimStates.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-2-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: AGENTOBSERVER -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-3">AgentObserver</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-3-1">
+        <div class="two-col">
+          <div class="media-placeholder" data-label="UAgentObserver::RecordMovement — logging agent events for rewind playback">
+            <img src="../blog media/pass-blog/UAOrecord.png">
+          </div>
+          <p class="two-col-text">I want to add a function to allow for rewinding of time, for dramatic short resets
+            after death to get you back to try again quickly—and possibly for manual use. This class tracks all actions
+            Agents perform in chronological order. This allows for more flexible/frequent records in addition to engine
+            auto save states.</p>
+        </div>
+      </section><!-- /step-3-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: PLAYER -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-4">Player</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-4-1">
+        <p>The PlayerAgent has the smaller diversion from its parent; the player is actually ripping some of the
+          parent's functionality away (ironic really), but it doesn't need as much new behavior.</p>
+      </section><!-- /step-4-1 -->
+
+      <section class="step reveal" id="step-4-2">
+        <h2 class="step-title">Player needs:</h2>
+        <ul>
+          <li>(Taken from Agent)
+            <ul>
+              <li>Input mapped Locomotion</li>
+              <li>Follow Camera on boom for third-person view</li>
+            </ul>
+          </li>
+          <li>A better shooting solution to handle the third-person camera offset problem</li>
+        </ul>
+      </section><!-- /step-4-2 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ENEMY -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-5">Enemy</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-5-1">
+        <p>The EnemyAgent, however, will need a lot of new functions.</p>
+      </section><!-- /step-5-1 -->
+
+      <section class="step reveal" id="step-5-2">
+        <h2 class="step-title">Enemy needs to</h2>
+        <ul>
+          <li>Manage AI states
+            <ul>
+              <li>Patrolling, Investigating, Attacking, Dead is a state <i>of the AI entity</i>, I suppose…</li>
+            </ul>
+          </li>
+          <li>Move around on its patrol</li>
+          <li>Find the player visually</li>
+          <li>Find the player physically</li>
+          <li>"Aim" and shoot at the player</li>
+        </ul>
+      </section><!-- /step-5-2 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div class="page">
+    <div class="section-divider"></div>
+    <nav class="blog-pager" aria-label="Part navigation">
+      <a class="blog-pager-prev" href="../passassin-demo.html"><span>previous</span>Intro</a>
+      <a class="blog-pager-next" href="class-split.html"><span>next</span>Class Split</a>
+    </nav>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="../components/blog-toc.js"></script>
+  <script src="../components/media.js"></script>
+  <script src="../components/components.js" data-prefix="../"></script>
+</body>
+
+</html>

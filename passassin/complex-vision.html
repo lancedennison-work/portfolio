@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complex Vision — Passassin — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+      <ul class="toc-list">
+        <p class="toc-phase-label">sections</p>
+        <li><a href="../passassin-demo.html">Intro</a></li>
+        <li><a href="agent.html">Agent</a></li>
+        <li><a href="class-split.html">Class Split</a></li>
+        <li><a href="complex-vision.html" class="toc-active">Complex Vision</a></li>
+        <li><a href="ai-movement.html">AI movement</a></li>
+      </ul>
+      <ul class="toc-list">
+        <p class="toc-phase-label">subsections</p>
+        <li><a href="#phase-1">Enemy Vision</a></li>
+        <li><a href="#phase-2">More Realistic Detection</a></li>
+        <li><a href="#phase-3">Arboriculture: Behavior</a></li>
+      </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
+    <h1 class="blog-title">Complex Vision</h1>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <!-- PHASE: ENEMY VISION -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-1">Enemy Vision</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-1-1">
+        <div class="two-col">
+          <div class="media-placeholder" data-label="scanning behavior">
+            <video src="../blog media/pass-blog/visionsweep.mp4" autoplay loop muted playsinline></video>
+          </div>
+          <div class="two-col-text">
+            <p>Currently the way enemies "see" the player is either they are in their vision cone or they are not. For a
+              stealth game, they need to have a more robust system. The player needs time to be within their vision but
+              not yet spotted. And while we are at it, let's add a "scanning" behavior, these are enemies, not security
+              cameras.
+            </p>
+          </div>
+        </div>
+        <div class="media-placeholder" data-label="vision tolerance building toward a spot">
+          <video src="../blog media/pass-blog/visionbuild.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-1-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: MORE REALISTIC DETECTION -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">More Realistic Detection</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-2-1">
+        <p>If you are in the center of someone's vision, you are going to be spotted far quicker than if you are on the
+          peripherals of someone's vision, so the cone needs to build up at a different rate depending on the angle.</p>
+        <p>I have three options I intend to use for different behavior profiles.</p>
+        <div class="media-placeholder" data-label="linear (red), ramping (purple), and threshold (green) fill curves">
+          <img src="../blog media/pass-blog/VisionMeterGraph.png">
+        </div>
+        <ul>
+          <li>Red: Linear detection, detection rises at the same rate as the angle approaches the center</li>
+          <li>Purple: Ramping detection, detection increases at a proportionally higher rate closer to the center</li>
+          <li>Green: Detection thresholds, detection stays at a set rate until within the next section of the cone, then
+            it jumps to that section's set rate.</li>
+        </ul>
+        <br>
+        <p>I am going to use the "Ramping" detection rate as the default, it feels best suited for this application:
+          getting caught at the center of their vision is very punishing, but getting caught at edge leaves you a lot of
+          time to get out of the way.</p>
+        <p>The curve mode does not change during run time, so the values of the curve will be static, which allows them
+          to be pre-calculated. To save from having to calculate the modifier and apply it to the MeterFillRate every
+          time the player is in the vision cone, a lookup table is populated once, allowing O(1) access each time. At
+          BeginPlay(), AngleFillCurveLUT is built with a 100 element array of floats, 1 element for each % of the (half)
+          cone angle the player is within.</p>
+        <div class="media-placeholder" data-label="ComputeAngleFillMultiplierForRatio and BuildAngleFillCurveLUT">
+          <img src="../blog media/pass-blog/metercurvecode.png">
+        </div>
+        <p>Also, let's change the pawn's view location to the head—<i>much</i> more realistic than the navel.</p>
+        <p>Below shows the linear scaling detection curve, with the values exaggerated to demonstrate the function.</p>
+        <div class="media-placeholder" data-label="detection meters filling at different rates, viewed from the head">
+          <video src="../blog media/pass-blog/metermulti.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-2-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: ARBORICULTURE: BEHAVIOR -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-3">Arboriculture: Behavior</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-3-1">
+        <p>I am adding some complex, layered behavior, so to keep everything in order, the behavior states need the
+          ability to handle differing "profiles" depending on the active action state.</p>
+        <p>For EnemyAgent to have varying behaviors based on conditions and actions, they now use an "Activity Profile".
+        </p>
+        <div class="update">
+          <p class="update-label">note</p>
+          <p>Ignore the red squiggly underline, Visual Studio was being silly.</p>
+        </div>
+        <div class="media-placeholder" data-label="FEnemyActivityProfile">
+          <img src="../blog media/pass-blog/ProfileCode.png">
+        </div>
+        <p>This is composed of three other structs:</p>
+        <ul>
+          <li><strong>FVisionModifier:</strong> Controls the size of the EnemyAgent's vision cone with length and width
+            modifiers.</li>
+          <li><strong>FVisionMeterProfile:</strong> Controls the rates of visual detection using fill and drain rate
+            modifiers. FillRateModifier is applied to the calculated ratio of MaxFillRate currently active from the
+            AngleFillCurveLUT calculation. This allows differing action states to hold different detection behaviors,
+            for instance, an enemy that is actively investigating can spot the player quicker, and maintain their
+            concentration for longer.</li>
+          <li><strong>FSweepProfile:</strong> Establishes the behavior of a scan loop, assigning sweep count, size,
+            speed and its own FVisionMeterProfile.</li>
+        </ul>
+        <div class="media-placeholder" data-label="FVisionModifier, FVisionMeterProfile, and FSweepProfile">
+          <img src="../blog media/pass-blog/VisionProfileComponentsCode.png">
+        </div>
+      </section><!-- /step-3-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div class="page">
+    <div class="section-divider"></div>
+    <nav class="blog-pager" aria-label="Part navigation">
+      <a class="blog-pager-prev" href="class-split.html"><span>previous</span>Class Split</a>
+      <a class="blog-pager-next" href="ai-movement.html"><span>next</span>AI movement</a>
+    </nav>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="../components/blog-toc.js"></script>
+  <script src="../components/media.js"></script>
+  <script src="../components/components.js" data-prefix="../"></script>
+</body>
+
+</html>
