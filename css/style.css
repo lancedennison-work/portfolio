@@ -826,7 +826,7 @@ footer { padding: var(--pad); }
 }
 
 .current-project-section h1 {
-  font-size: clamp(1.5rem, 20vw, 7rem);
+  font-size: clamp(1.5rem, 10vw, 7rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: .9;
@@ -849,11 +849,26 @@ footer { padding: var(--pad); }
   color: var(--white);
 }
 
+/* The card reflows through three named-area layouts. The four blocks — text
+   (title + desc), meta, logo, cta — are all direct grid children, which is why
+   .current-project-meta sits beside .current-project-info in the markup instead
+   of inside it. Only grid-template-* changes between breakpoints; per-item
+   alignment is set on each item so the areas can move freely.
+
+   wide (default):     mid (<=1000px):     narrow (<=700px):
+     text | logo         text | meta         text text
+     meta | cta          text | logo         meta | logo
+                         text | cta          meta | cta                       */
 .current-project-card {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
+  display: grid;
+  /* Percentage rather than auto, so the side column is a constant share of the
+     card at every width instead of stepping with the logo's own size cap. The
+     min-content floor is the CTA, which is nowrap and must never be squeezed. */
+  grid-template-columns: minmax(0, 1fr) minmax(min-content, 16%);
+  grid-template-areas:
+    "text logo"
+    "meta cta";
+  gap: 1rem clamp(.75rem, 2.5vw, 2rem);
   padding: var(--pad) 2.5rem;
   border-radius: 8px;
   background: var(--surface);
@@ -861,16 +876,50 @@ footer { padding: var(--pad); }
   transition: border-color .2s, background-color .2s;
 }
 
+@media (max-width: 1000px) {
+  /* The text column takes the full card height and the other three stack into a
+     right-hand rail. The rail is wider than the wide layout's logo column
+     because it also has to hold the tag pills. */
+  .current-project-card {
+    grid-template-columns: minmax(0, 1fr) minmax(min-content, 30%);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "text meta"
+      "text logo"
+      "text cta";
+  }
+}
+
+@media (max-width: 700px) {
+  /* Too narrow to keep the description in a column, so it goes full width and
+     the tags pair off against the logo/CTA stack underneath. */
+  .current-project-card {
+    grid-template-columns: minmax(0, 1fr) minmax(min-content, 26%);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "text text"
+      "meta logo"
+      "meta cta";
+  }
+}
+
 .current-project-card:hover {
   border-color: var(--cream-dim);
   background: var(--surface-2);
 }
 
+/* The logo is a passenger: it takes the space the other three blocks leave and
+   never adds any. Absolutely positioning the img is what buys that — an in-flow
+   img contributes its intrinsic height to the row, and since the two marks have
+   opposite aspect ratios (Unreal 0.82:1, Godot 2.8:1), Unreal was growing the
+   card well past what the text needed. Out of flow it contributes nothing, so
+   the card is sized by text/meta/cta alone and the logo letterboxes into the
+   leftover. min-height is only a floor for when there is almost no leftover. */
 .current-project-logo {
-  flex: 1;
-  min-width: 0;
+  grid-area: logo;
   align-self: stretch;
-  position: relative;   /* anchor for the img */
+  position: relative;
+  min-height: 3.5rem;
 }
 
 .current-project-logo img {
@@ -878,10 +927,12 @@ footer { padding: var(--pad); }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;  /* shrink to fit, keep aspect ratio */
+  object-fit: contain;
 }
 
 .current-project-info {
+  grid-area: text;
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -911,18 +962,23 @@ footer { padding: var(--pad); }
 }
 
 .current-project-meta {
+  grid-area: meta;
+  align-self: end;
+  align-content: end;
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
 }
 
 .current-project-cta {
+  grid-area: cta;
+  align-self: end;
+  justify-self: end;
   font-size: .85rem;
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--cream-dim);
   white-space: nowrap;
-  flex-shrink: 0;
   transition: color .2s;
 }
 
@@ -1893,13 +1949,6 @@ body.hide-technical [data-technical]::after {
       grid-template-columns: 1fr;
       gap: .5rem;
    }
-
-  .current-project-card {
-      flex-direction: column;
-      align-items: flex-start;
-   }
-
-  .current-project-cta { align-self: flex-end; }
 
   .empty-state { grid-column: span 1; }
 
