@@ -841,12 +841,13 @@ footer { padding: var(--pad); }
 }
 
 .section-eyebrow {
-  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-size: clamp(3rem, 7vw, 7.5rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: .9;
   text-transform: lowercase;
   color: var(--white);
+  margin-bottom: var(--pad);
 }
 
 /* The card reflows through three named-area layouts. The four blocks — text
@@ -870,6 +871,8 @@ footer { padding: var(--pad); }
     "meta cta";
   gap: 1rem clamp(.75rem, 2.5vw, 2rem);
   padding: var(--pad) 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 8px;
   background: var(--surface);
   border: 1px solid var(--cream-faint);
@@ -1002,7 +1005,7 @@ footer { padding: var(--pad); }
 }
 
 .work-title {
-  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-size: clamp(3rem, 7vw, 7.5rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: .9;
@@ -1207,6 +1210,7 @@ footer { padding: var(--pad); }
 .proj-link-primary {
   background: var(--cream);
   color: var(--bg);
+  font-size: larger;
 }
 
 .proj-link-secondary {
@@ -1373,6 +1377,14 @@ footer { padding: var(--pad); }
   margin-bottom: var(--pad);
   /* height: 85vh; */
   min-height: 600px;
+}
+
+.iframe-wrap{
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  margin-bottom: var(--pad);
+  height: 85vh;
 }
 
 .iframe-wrap iframe {
