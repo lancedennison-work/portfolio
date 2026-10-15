@@ -1784,6 +1784,23 @@ code {
   border-radius: 3px;
 }
 
+pre.code-block {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+}
+pre.code-block code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: var(--cream-dim);
+}
+
 /* ── FOLDED STUFF ── */
 .technical-folded {
   display: inline;

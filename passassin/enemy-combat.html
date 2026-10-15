@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-padding-top: var(--toc-h, 0px)">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enemy Combat — Passassin — Lance Dennison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="nav-placeholder"></div>
+  <!-- TOC: horizontal grid, sticky under header -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-phase-group">
+      <script src="../components/passassin-toc.js" data-root="../" data-render="sections"></script>
+      <ul class="toc-list">
+        <p class="toc-phase-label">subsections</p>
+        <li><a href="#phase-1">Nerfing Enemies</a></li>
+      </ul>
+    </div>
+    <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
+  </nav>
+  <div class="blog-header-wrap">
+    <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
+    <h1 class="blog-title">Expanding Enemy Combat</h1>
+    <div class="blog-divider"></div>
+  </div><!-- /blog-header-wrap -->
+
+  <!-- PHASE: 1 -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-1">Nerfing Enemies</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-1-1">
+        <div class="two-col">
+          <div class="two-col-text">
+            <p>The enemies need a way to shoot at the player without insta-killing them every time the player is
+              spotted, so they need some built-in inaccuracy. I am going with a very simple approach that allows for
+              potentially different weapon behaviors: the <code>FireError</code> is built with a separate random
+              horizontal and vertical component. They start as a random degree within the range of a negative and
+              positive degree maximum, then are converted into linear values. These values are applied to a calculated
+              'up' and 'side' axis derived from the straight vector out of the muzzle to the chest of the player,
+              extended by the <code>FireRange</code>.</p>
+            <p>Rather than using a radial error, I am separating these values to accommodate unique spread behaviors, such as a weapon having more vertical error than
+              horizontal.</p>
+            <p>Additionally, there is a logic gate that avoids first-shot headshots; if the first round of an attack is
+              a headshot, it is instead treated as a bodyshot for damage. Therefore, the player will never be instantly
+              killed as soon as an enemy pulls the trigger. If I intend on the gameplay being more brutal, it can
+              always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
+              likely be experienced as unfair.</p>
+          </div>
+          <div class="media-placeholder" data-label="enemy weapon spread">
+            <video src="../blog media/pass-blog/FireError.mp4" autoplay loop muted playsinline></video>
+          </div>
+        </div>
+        <p>Below is the code for the error logic:</p>
+<pre class="code-block"><code>// Avoid gimbal lock
+const FVector Ref = FMath::Abs(AimDirN.Z) &lt; 0.999f ? FVector::UpVector : FVector::ForwardVector;
+// Horizontal and Vertical Component of Aim Direction
+const FVector SideAxis = FVector::CrossProduct(AimDirN, Ref).GetSafeNormal();
+// Derived UpVector to account for rotation
+FVector UpAxis = FVector::CrossProduct(SideAxis, AimDirN);
+
+// Unique random offset based on angle error projected onto both reference axes
+float RandDegH = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);
+float HorizontalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegH));
+
+float RandDegV = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);
+float VerticalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegV));
+
+// Apply error shape to shoot target
+const FVector FireError = (SideAxis * HorizontalOffset) + (UpAxis * VerticalOffset);
+const FVector ToAimPoint = (AimDirN * FireRange) + FireError;
+TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</code></pre>
+      </section><!-- /step-1-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <div class="page">
+    <div class="section-divider"></div>
+    <nav class="blog-pager" aria-label="Part navigation">
+      <script src="../components/passassin-toc.js" data-root="../" data-render="pager"></script>
+    </nav>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="../components/blog-toc.js"></script>
+  <script src="../components/media.js"></script>
+  <script src="../components/components.js" data-prefix="../"></script>
+</body>
+
+</html>

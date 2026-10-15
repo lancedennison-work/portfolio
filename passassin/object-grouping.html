@@ -18,19 +18,10 @@
   <!-- TOC: horizontal grid, sticky under header -->
   <nav class="toc" aria-label="Table of contents">
     <div class="toc-phase-group">
-      <ul class="toc-list">
-        <p class="toc-phase-label">sections</p>
-        <li><a href="../passassin-demo.html">Intro</a></li>
-        <li><a href="agent.html">Agent</a></li>
-        <li><a href="class-split.html">Class Split</a></li>
-        <li><a href="complex-vision.html">Complex Vision</a></li>
-        <li><a href="ai-movement.html">AI movement</a></li>
-        <li><a href="object-grouping.html" class="toc-active">Object Grouping</a></li>
-      </ul>
+      <script src="../components/passassin-toc.js" data-root="../" data-render="sections"></script>
       <ul class="toc-list">
         <p class="toc-phase-label">subsections</p>
         <li><a href="#phase-1">Current Implimentation</a></li>
-        <li><a href="#phase-2">Functioning Functionality</a></li>
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -45,43 +36,119 @@
   <div class="page">
     <h1 class="blog-header" id="phase-1">Current Implimentation</h1>
     <div class="blog-article">
-      <!-- STEP: 1 -->
       <section class="step reveal" id="step-1-1">
-        <!-- <h2 class="step-title"></h2> -->
-         <section class="subsection">
-            <p>The code for movement and object handling is around a thousand lines of code, so there wont but a lot of actual code documented, it will mostly be pseudocode</p>
-            <p>There is some bugs that still need squashing, but I haven't really documented how this system is working in a while so... here is how object discovery and grouping currently works.</p>
-            <ol>
-              <li>list goes here</li>
-            </ol>
-          </section>
-        <p>media for grouping process goes here</p>
+        <section class="subsection">
+          <p>The code for movement and object handling is around a thousand lines of code, so there won't be a lot of
+            actual code documented; it will mostly be pseudocode.</p>
+          <p>Object grouping is entirely new. Here is how object discovery and grouping currently works.</p>
+        </section>
       </section><!-- /step-1-1 -->
-    </div><!-- /blog-article -->
-  </div><!-- /page -->
 
-  <!-- PHASE: 2 -->
-  <div class="page">
-    <h1 class="blog-header" id="phase-2">Functioning Functionality</h1>
-    <div class="blog-article">
-      <!-- STEP: 1 -->
-      <section class="step reveal" id="step-2-1">
-        <!-- <h2 class="step-title"></h2> -->
-         <section class="subsection">
-            <p>Here are the bugs that got squashed from the previous implementation</p>
+      <section class="step reveal" id="step-1-2">
+        <h2 class="step-title">Grouping</h2>
+        <ol>
+          <li>
+            <strong>Trigger</strong> — runs inside <code>FindPath</code> when tangents are resolved and the primary
+            object isn't already in a cached group.
             <ol>
-              <li>list goes here</li>
+              <li>It captures the primary's hull and pivots, and sets <code>InitialCollisionPoint</code> to the
+                <code>FindPath</code> hit point.</li>
+              <li>It walks twice: Right pivot with <code>bForward=true</code> (CCW) and Left pivot with
+                <code>bForward=false</code> (CW). Both walks share one <code>Cluster</code> and one
+                <code>GroupPoints</code>.
+                <ol>
+                  <li>This avoids some orphan vertices that can be skipped from a single chain, and smooths out some of
+                    the lingering kinks in the system.</li>
+                </ol>
+              </li>
             </ol>
-          </section>
-        <p>media for final grouping process goes here</p>
-      </section><!-- /step-2-1 -->
+          </li>
+          <li>
+            <strong>Outcome</strong>
+            <ol>
+              <li>More than one member: the union is hulled and tangents are found on the merged shape. If both work,
+                the footprint and pivots are replaced and the group is registered. A merge failure keeps the
+                primary-only result.</li>
+              <li>One member: cached as isolated.</li>
+            </ol>
+          </li>
+          <li>
+            <strong>ChainDiscoverObstacles</strong> (per-walk)
+            <ol>
+              <li>It tracks the current hull, pivot, owner and starting pivot, with <code>RemainingHops</code> as a
+                runaway backstop. A degenerate corner ends the walk.</li>
+              <li>Hits are ignored for self, the player and the current object.</li>
+              <li><strong>Step 1</strong> is a box sweep down the outside of the edge, starting
+                <code>TraceStartHysteresisUU</code> along it.</li>
+              <li><strong>Step 2</strong> runs only if step 1 missed. It sweeps one buffer length past the edge
+                endpoint, outside then inside (buffer length capped to the object's inward depth), and outside wins if
+                both are hits.</li>
+              <li>Nothing found means advance to the next neighbor vertex in the chain order. A full lap ends the
+                walk.</li>
+            </ol>
+          </li>
+          <li>
+            <strong>Hit handling</strong>
+            <ol>
+              <li>Within <code>LoopClosureTolerance</code> of <code>InitialCollisionPoint</code>, the loop is closed
+                and the walk stops. A hit on a character also stops it.</li>
+              <li>To avoid cases of nested objects within the previous, <code>PrevObject</code> uses an exit flag: if
+                set, resume tracing <code>PrevObject</code> and swap current/previous. Otherwise update the flag from
+                whether <code>Neighbour</code> left <code>PrevObject</code>'s hull, and treat the hit as a miss.</li>
+              <li>Another cluster member gets a turn test: a wrong turn is a miss, and a valid turn is a wraparound
+                that stops.</li>
+              <li>An actual new object is first footprinted at the touch point and added to the cluster. A round one
+                hands off to <code>RouteAroundCircle</code> and waits for its return.</li>
+              <li>With fewer than 3 hull points, the walk stops.</li>
+              <li>Otherwise the continuation vertex is the nearest vertex, or the stopping point spliced in if it lies
+                on one of that vertex's edges and isn't within tolerance of either endpoint.</li>
+            </ol>
+          </li>
+          <li>
+            <strong>RouteAroundCircle</strong>
+            <ol>
+              <li>It caches the circle's neighbours using an overlap of its radius plus half the buffer, excluding
+                characters.</li>
+              <li>It picks the nearest unclaimed neighbour object to the entry point, skipping anything at
+                <code>InitialCollisionPoint</code>.</li>
+              <li>An older-group neighbour is absorbed and the walk stops. A round neighbour recurses.</li>
+              <li>A cornered neighbour gets its support vertex picked along the circle's tangent direction, then the
+                walk hands back to the edge walk.</li>
+            </ol>
+          </li>
+        </ol>
+      </section><!-- /step-1-2 -->
+
+      <section class="step reveal" id="step-1-3">
+        <p>Below are a few brainstorms that failed to produce accurate results.</p>
+        <div class="media-placeholder" data-label="failed grouping brainstorm — hulling almost working">
+          <img src="../blog media/pass-blog/hulling_almost_working.png">
+        </div>
+        <div class="media-placeholder" data-label="failed grouping brainstorm — connecting search failure">
+          <img src="../blog media/pass-blog/connecting_search_failure.png">
+        </div>
+        <p>Below shows a diagram of how the probe logic works in a 2d space, and a demonstration of the edge probe
+          cycle.</p>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="chain probe path graph — 2d probe logic">
+            <img src="../blog media/pass-blog/chain_probe_path_graph.png">
+          </div>
+          <div class="media-placeholder" data-label="chain probe debug — edge probe cycle">
+            <video src="../blog media/pass-blog/Chain_Probe_Debug.mp4" autoplay loop muted playsinline></video>
+          </div>
+        </div>
+        <p>Below shows a completed group footprint.</p>
+        <div class="media-placeholder" data-label="completed group footprint">
+          <img src="../blog media/pass-blog/Single_Plane_Grouping_result.png">
+        </div>
+      </section><!-- /step-1-3 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
 
   <div class="page">
     <div class="section-divider"></div>
     <nav class="blog-pager" aria-label="Part navigation">
-      <a class="blog-pager-prev" href="ai-movement.html"><span>previous</span>AI movement</a>
+      <script src="../components/passassin-toc.js" data-root="../" data-render="pager"></script>
     </nav>
   </div>
 
