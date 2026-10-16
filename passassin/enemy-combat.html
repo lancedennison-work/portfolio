@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
 </head>
 
 <body>
@@ -46,20 +47,8 @@
               positive degree maximum, then are converted into linear values. These values are applied to a calculated
               'up' and 'side' axis derived from the straight vector out of the muzzle to the chest of the player,
               extended by the <code>FireRange</code>.</p>
-            <p>Rather than using a radial error, I am separating these values to accommodate unique spread behaviors, such as a weapon having more vertical error than
-              horizontal.</p>
-            <p>Additionally, there is a logic gate that avoids first-shot headshots; if the first round of an attack is
-              a headshot, it is instead treated as a bodyshot for damage. Therefore, the player will never be instantly
-              killed as soon as an enemy pulls the trigger. If I intend on the gameplay being more brutal, it can
-              always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
-              likely be experienced as unfair.</p>
-          </div>
-          <div class="media-placeholder" data-label="enemy weapon spread">
-            <video src="../blog media/pass-blog/FireError.mp4" autoplay loop muted playsinline></video>
-          </div>
-        </div>
-        <p>Below is the code for the error logic:</p>
-<pre class="code-block"><code>// Avoid gimbal lock
+            <p>Below is the code for the error logic:</p>
+            <pre class="code-block"><code class="language-cpp">// Avoid gimbal lock
 const FVector Ref = FMath::Abs(AimDirN.Z) &lt; 0.999f ? FVector::UpVector : FVector::ForwardVector;
 // Horizontal and Vertical Component of Aim Direction
 const FVector SideAxis = FVector::CrossProduct(AimDirN, Ref).GetSafeNormal();
@@ -77,6 +66,19 @@ float VerticalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegV))
 const FVector FireError = (SideAxis * HorizontalOffset) + (UpAxis * VerticalOffset);
 const FVector ToAimPoint = (AimDirN * FireRange) + FireError;
 TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</code></pre>
+            <p>Rather than using a radial error, I am separating these values to accommodate unique spread behaviors,
+              such as a weapon having more vertical error than
+              horizontal.</p>
+            <p>Additionally, there is a logic gate that avoids first-shot headshots; if the first round of an attack is
+              a headshot, it is instead treated as a bodyshot for damage. Therefore, the player will never be instantly
+              killed as soon as an enemy pulls the trigger. If I intend on the gameplay being more brutal, it can
+              always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
+              likely be experienced as unfair.</p>
+          </div>
+          <div class="media-placeholder" data-label="enemy weapon spread">
+            <video src="../blog media/pass-blog/FireError.mp4" autoplay loop muted playsinline></video>
+          </div>
+        </div>
       </section><!-- /step-1-1 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
@@ -89,6 +91,9 @@ TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</code></pre>
   </div>
 
   <div id="footer-placeholder"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script>if (window.hljs) hljs.highlightAll();</script>
   <script src="../components/blog-toc.js"></script>
   <script src="../components/media.js"></script>
   <script src="../components/components.js" data-prefix="../"></script>

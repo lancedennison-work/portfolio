@@ -34,7 +34,7 @@
 
   <!-- PHASE: 1 -->
   <div class="page">
-    <h1 class="blog-header" id="phase-1">Current Implimentation</h1>
+    <h1 class="blog-header" id="phase-1">Testing</h1>
     <div class="blog-article">
       <section class="step reveal" id="step-1-1">
         <section class="subsection">
@@ -42,10 +42,51 @@
             actual code documented; it will mostly be pseudocode.</p>
           <p>Object grouping is entirely new. Here is how object discovery and grouping currently works.</p>
         </section>
+        <p>Below are a few brainstorms that failed to produce accurate results.</p>
+        <div class="media-placeholder" data-label="completed group footprint">
+          <img src="../blog media/pass-blog/Single_Plane_Grouping_result.png">
+        </div>
+        <div class="media-placeholder" data-label="failed grouping brainstorm — connecting search failure">
+          <img src="../blog media/pass-blog/connecting_search_failure.png">
+        </div>
+        <div class="media-placeholder" data-label="failed grouping brainstorm — hulling almost working">
+          <img src="../blog media/pass-blog/hulling_almost_working.png">
+        </div>
+        <section class="subsection">
+          <h3 class="subsection-title">the plan</h3>
+          <p>Below shows a diagram of how the probe logic works in a 2d space, and a demonstration of the edge probe
+            cycle.</p>
+          <div class="media-placeholder" data-label="chain probe path graph — 2d probe logic">
+            <img src="../blog media/pass-blog/chain_probe_path_graph.png">
+          </div>
+          <div class="media-placeholder" data-label="chain probe debug — edge probe cycle">
+            <video src="../blog media/pass-blog/Chain_Probe_Debug.mp4" autoplay loop muted playsinline></video>
+          </div>
+          <p>Below shows a completed group footprint.</p>
+        </section>
       </section><!-- /step-1-1 -->
 
       <section class="step reveal" id="step-1-2">
-        <h2 class="step-title">Grouping</h2>
+        <h2 class="step-title">Grouping TL;DR</h2>
+        <p><strong>Purpose:</strong> when <code>FindPath</code> hits an obstacle, find all the touching or nearby
+          obstacles that form one connected mass, so the agent avoids the whole cluster instead of just one piece.</p>
+        <p><strong>Trigger:</strong> runs once per obstacle, only when tangents resolved and the obstacle isn't already
+          in a cached group.</p>
+        <p><strong>How it works:</strong></p>
+        <ol>
+          <li>Start from the primary obstacle's hull and its two pivots. The <code>FindPath</code> hit point is the loop-closure marker.</li>
+          <li>Walk the cluster's outer edge twice, once CCW from the Right pivot and once CW from the Left pivot. Both walks share one cluster.</li>
+          <li>Each step sweeps along the edge (and a buffer past) looking for the next obstacle touching it.</li>
+          <li>Nothing found: move to the next vertex. A full lap ends the walk.</li>
+        </ol>
+        <p><strong>Result:</strong></p>
+        <ul>
+          <li>More than one member: hull the union, find tangents, and replace the footprint and pivots.
+        </ul>
+      </section><!-- /step-1-2 -->
+
+      <section class="step reveal" id="step-1-3">
+        <h2 class="step-title">Grouping; long version</h2>
         <ol>
           <li>
             <strong>Trigger</strong> — runs inside <code>FindPath</code> when tangents are resolved and the primary
@@ -117,30 +158,6 @@
             </ol>
           </li>
         </ol>
-      </section><!-- /step-1-2 -->
-
-      <section class="step reveal" id="step-1-3">
-        <p>Below are a few brainstorms that failed to produce accurate results.</p>
-        <div class="media-placeholder" data-label="failed grouping brainstorm — hulling almost working">
-          <img src="../blog media/pass-blog/hulling_almost_working.png">
-        </div>
-        <div class="media-placeholder" data-label="failed grouping brainstorm — connecting search failure">
-          <img src="../blog media/pass-blog/connecting_search_failure.png">
-        </div>
-        <p>Below shows a diagram of how the probe logic works in a 2d space, and a demonstration of the edge probe
-          cycle.</p>
-        <div class="two-col">
-          <div class="media-placeholder" data-label="chain probe path graph — 2d probe logic">
-            <img src="../blog media/pass-blog/chain_probe_path_graph.png">
-          </div>
-          <div class="media-placeholder" data-label="chain probe debug — edge probe cycle">
-            <video src="../blog media/pass-blog/Chain_Probe_Debug.mp4" autoplay loop muted playsinline></video>
-          </div>
-        </div>
-        <p>Below shows a completed group footprint.</p>
-        <div class="media-placeholder" data-label="completed group footprint">
-          <img src="../blog media/pass-blog/Single_Plane_Grouping_result.png">
-        </div>
       </section><!-- /step-1-3 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
