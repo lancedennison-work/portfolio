@@ -1784,7 +1784,7 @@ code {
   border-radius: 3px;
 }
 
-pre.code-block {
+.code-block {
   font-family: var(--font-mono);
   font-size: .8rem;
   line-height: 1.5;
@@ -1792,15 +1792,14 @@ pre.code-block {
   border-radius: 6px;
   padding: 1rem 1.25rem;
   margin: 1rem 0 1.5rem;
-  white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-pre.code-block code,
-pre.code-block code.hljs {
-  background: none;
-  padding: 0;
-  font-size: inherit;
+.code-block p {
   color: var(--cream-dim);
+  margin: 0;
+  min-height: 1.5em;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
 }
 
 /* ── FOLDED STUFF ── */

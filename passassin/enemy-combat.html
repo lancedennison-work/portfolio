@@ -47,38 +47,40 @@
               positive degree maximum, then are converted into linear values. These values are applied to a calculated
               'up' and 'side' axis derived from the straight vector out of the muzzle to the chest of the player,
               extended by the <code>FireRange</code>.</p>
-            <p>Below is the code for the error logic:</p>
-            <pre class="code-block"><code class="language-cpp">// Avoid gimbal lock
-const FVector Ref = FMath::Abs(AimDirN.Z) &lt; 0.999f ? FVector::UpVector : FVector::ForwardVector;
-// Horizontal and Vertical Component of Aim Direction
-const FVector SideAxis = FVector::CrossProduct(AimDirN, Ref).GetSafeNormal();
-// Derived UpVector to account for rotation
-FVector UpAxis = FVector::CrossProduct(SideAxis, AimDirN);
-
-// Unique random offset based on angle error projected onto both reference axes
-float RandDegH = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);
-float HorizontalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegH));
-
-float RandDegV = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);
-float VerticalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegV));
-
-// Apply error shape to shoot target
-const FVector FireError = (SideAxis * HorizontalOffset) + (UpAxis * VerticalOffset);
-const FVector ToAimPoint = (AimDirN * FireRange) + FireError;
-TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</code></pre>
-            <p>Rather than using a radial error, I am separating these values to accommodate unique spread behaviors,
-              such as a weapon having more vertical error than
-              horizontal.</p>
-            <p>Additionally, there is a logic gate that avoids first-shot headshots; if the first round of an attack is
-              a headshot, it is instead treated as a bodyshot for damage. Therefore, the player will never be instantly
-              killed as soon as an enemy pulls the trigger. If I intend on the gameplay being more brutal, it can
-              always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
-              likely be experienced as unfair.</p>
           </div>
           <div class="media-placeholder" data-label="enemy weapon spread">
             <video src="../blog media/pass-blog/FireError.mp4" autoplay loop muted playsinline></video>
           </div>
         </div>
+        <p>Below is the code for the error logic:</p>
+        <div class="code-block">
+          <p>// Avoid gimbal lock</p>
+          <p>const FVector Ref = FMath::Abs(AimDirN.Z) &lt; 0.999f ? FVector::UpVector : FVector::ForwardVector;</p>
+          <p>// Horizontal and Vertical Component of Aim Direction</p>
+          <p>const FVector SideAxis = FVector::CrossProduct(AimDirN, Ref).GetSafeNormal();</p>
+          <p>// Derived UpVector to account for rotation</p>
+          <p>FVector UpAxis = FVector::CrossProduct(SideAxis, AimDirN);</p>
+          <p></p>
+          <p>// Unique random offset based on angle error projected onto both reference axes</p>
+          <p>float RandDegH = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);</p>
+          <p>float HorizontalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegH));</p>
+          <p></p>
+          <p>float RandDegV = FMath::FRandRange(-FiringErrorDegMax, FiringErrorDegMax);</p>
+          <p>float VerticalOffset = FireRange * FMath::Tan(FMath::DegreesToRadians(RandDegV));</p>
+          <p></p>
+          <p>// Apply error shape to shoot target</p>
+          <p>const FVector FireError = (SideAxis * HorizontalOffset) + (UpAxis * VerticalOffset);</p>
+          <p>const FVector ToAimPoint = (AimDirN * FireRange) + FireError;</p>
+          <p>TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</p>
+        </div>
+        <p>Rather than using a radial error, I am separating these values to accommodate unique spread behaviors,
+          such as a weapon having more vertical error than
+          horizontal.</p>
+        <p>Additionally, there is a logic gate that avoids first-shot headshots; if the first round of an attack is
+          a headshot, it is instead treated as a bodyshot for damage. Therefore, the player will never be instantly
+          killed as soon as an enemy pulls the trigger. If I intend on the gameplay being more brutal, it can
+          always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
+          likely be experienced as unfair.</p>
       </section><!-- /step-1-1 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
@@ -93,7 +95,11 @@ TraceEnd = TraceStart + ToAimPoint.GetSafeNormal() * FireRange;</code></pre>
   <div id="footer-placeholder"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
-  <script>if (window.hljs) hljs.highlightAll();</script>
+  <script>
+    if (window.hljs) document.querySelectorAll(".code-block p").forEach(p => {
+      if (p.textContent) p.innerHTML = hljs.highlight(p.textContent, { language: "cpp" }).value;
+    });
+  </script>
   <script src="../components/blog-toc.js"></script>
   <script src="../components/media.js"></script>
   <script src="../components/components.js" data-prefix="../"></script>
