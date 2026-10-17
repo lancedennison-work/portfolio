@@ -21,7 +21,7 @@
       <script src="../components/passassin-toc.js" data-root="../" data-render="sections"></script>
       <ul class="toc-list">
         <p class="toc-phase-label">subsections</p>
-        <li><a href="#phase-1">Current Implimentation</a></li>
+        <li><a href="#phase-1">Testing</a></li>
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
@@ -40,20 +40,42 @@
         <section class="subsection">
           <p>The code for movement and object handling is around a thousand lines of code, so there won't be a lot of
             actual code documented; it will mostly be pseudocode.</p>
-          <p>Object grouping is entirely new. Here is how object discovery and grouping currently works.</p>
+          <p>Object grouping is entirely new. Here is how object discovery and grouping was created and how it works.</p>
         </section>
         <p>Below are a few brainstorms that failed to produce accurate results.</p>
-        <div class="media-placeholder" data-label="completed group footprint">
-          <img src="../blog media/pass-blog/Single_Plane_Grouping_result.png">
+        <div class="section-divider"></div>
+        <p>Initially, I had thought of only looking in the direction of the anchor point; in the diagram below, the
+          anchor point is a down-left offset, so we only need to look down and to the left for further obstructions in
+          that direction. Anything to the right or above does not matter at all for the purposes of getting around the
+          bottom left extent of the object.</p>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="single plane grouping">
+            <img src="../blog media/pass-blog/Single_Plane_Grouping.png">
+          </div>
+          <div class="media-placeholder" data-label="single plane grouping result">
+            <img src="../blog media/pass-blog/Single_Plane_Grouping_result.png">
+          </div>
         </div>
-        <div class="media-placeholder" data-label="failed grouping brainstorm — connecting search failure">
-          <img src="../blog media/pass-blog/connecting_search_failure.png">
+        <div class="media-placeholder" data-label="connecting search graph">
+          <img src="../blog media/pass-blog/connecting_search.png">
+        </div>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="failed grouping brainstorm — connecting search failure">
+            <img src="../blog media/pass-blog/connecting_search_failure.png">
+          </div>
+          <div class="two-col-text">
+            <p>Then, I thought of simply extending the faces of the object in their outward directions, until they
+              reached a clear state. This works for predictable, square arrangements like the diagram above, but fails
+              hilariously quick on more complex shapes like the diagram on the left.</p>
+            <p>This direction bias technically <i>does</i> work. The issue is that we don't know <i>how far</i> to
+              look. Therefore, we need to "wrap" the group's outside to know the actionable extents of the object.</p>
+          </div>
         </div>
         <div class="media-placeholder" data-label="failed grouping brainstorm — hulling almost working">
           <img src="../blog media/pass-blog/hulling_almost_working.png">
         </div>
         <section class="subsection">
-          <h3 class="subsection-title">the plan</h3>
+          <h3 class="subsection-title">The Plan</h3>
           <p>Below shows a diagram of how the probe logic works in a 2d space, and a demonstration of the edge probe
             cycle.</p>
           <div class="media-placeholder" data-label="chain probe path graph — 2d probe logic">
@@ -62,7 +84,6 @@
           <div class="media-placeholder" data-label="chain probe debug — edge probe cycle">
             <video src="../blog media/pass-blog/Chain_Probe_Debug.mp4" autoplay loop muted playsinline></video>
           </div>
-          <p>Below shows a completed group footprint.</p>
         </section>
       </section><!-- /step-1-1 -->
 
