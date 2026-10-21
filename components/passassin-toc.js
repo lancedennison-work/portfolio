@@ -33,8 +33,8 @@
     },
     { path: 'passassin/object-grouping.html', name: 'Object Grouping', desc: '' },
     {
-      path: 'passassin/enemy-combat.html', name: 'Expanding Combat',
-      desc: 'inaccurate enemy fire with separate horizontal and vertical spread'
+      path: 'passassin/expanding-systems.html', name: 'Expanding Systems',
+      desc: 'inaccurate enemy fire, plus rewinding agent history through the observer'
     },
   ];
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enemy Combat — Passassin — Lance Dennison</title>
+  <title>Expanding Systems — Passassin — Lance Dennison</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,22 +22,24 @@
       <script src="../components/passassin-toc.js" data-root="../" data-render="sections"></script>
       <ul class="toc-list">
         <p class="toc-phase-label">subsections</p>
-        <li><a href="#phase-1">Nerfing Enemies</a></li>
+        <li><a href="#phase-1">Enemy Combat</a></li>
+        <li><a href="#phase-2">Rewind</a></li>
       </ul>
     </div>
     <div class="section-divider" style="margin-top: 0.5rem; margin-bottom: 0;"></div>
   </nav>
   <div class="blog-header-wrap">
     <p class="blog-eyebrow"><a href="../passassin-demo.html">passassin</a> · dev blog</p>
-    <h1 class="blog-title">Expanding Enemy Combat</h1>
+    <h1 class="blog-title">Expanding Systems</h1>
     <div class="blog-divider"></div>
   </div><!-- /blog-header-wrap -->
 
   <!-- PHASE: 1 -->
   <div class="page">
-    <h1 class="blog-header" id="phase-1">Nerfing Enemies</h1>
+    <h1 class="blog-header" id="phase-1">Enemy Combat Behaviors</h1>
     <div class="blog-article">
       <section class="step reveal" id="step-1-1">
+        <h2 class="step-title">Nerfing Enemies</h2>
         <div class="two-col">
           <div class="two-col-text">
             <p>The enemies need a way to shoot at the player without insta-killing them every time the player is
@@ -82,6 +84,46 @@
           always be removed to up the sense of danger; otherwise this 'realistic' outcome would feel robotic and
           likely be experienced as unfair.</p>
       </section><!-- /step-1-1 -->
+    </div><!-- /blog-article -->
+  </div><!-- /page -->
+
+  <!-- PHASE: 2 -->
+  <div class="page">
+    <h1 class="blog-header" id="phase-2">Rewind</h1>
+    <div class="blog-article">
+      <section class="step reveal" id="step-2-1">
+        <h2 class="step-title">Making the Observer Do Something</h2>
+        <p>One of the primary mechanics will be a world-wide rewind that the player can trigger as an ability, or as a
+          death screen option for quickly redoing what just got you killed.</p>
+        <p>The first step of this system will be taking the records the <code>AgentObserver</code> keeps to rewind the
+          actions taken by any <code>AAgent</code> in the scene. The way that <code>AgentObserver</code> keeps its
+          records is sequential and at logged times, so we can simply move backwards down the log, applying the
+          attached agent's history. I am starting just with the world transform of each agent— so the rewind lerps
+          their position and rotation from where they currently are to the popped log's records.</p>
+        <div class="media-placeholder" data-label="rewinding agent movement">
+          <video src="../blog media/pass-blog/Rewind_Movement.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </section><!-- /step-2-1 -->
+
+      <section class="step reveal" id="step-2-2">
+        <h2 class="step-title">Restoring States</h2>
+        <p>Now that we have the agents moving backwards in time spacially, we need to make sure they have their
+          behaviors restored as well. Currently the observer does take into account when they change states, but there
+          are many state specific properties that need to be restored. For example, if an agent is travelling from
+          their third patrol point to their fourth and they get rewinded behind the third point, they will need to
+          correctly reassign the third patrol point as their movement target.</p>
+        <div class="media-placeholder" data-label="rewind state restoration"></div>
+      </section><!-- /step-2-2 -->
+
+      <section class="step reveal" id="step-2-3">
+        <h2 class="step-title">Rewinding Animations</h2>
+        <p>Now, we need to address the 'ice skating'. The agents move backwards correctly, but they don't look like
+          they are going in reverse. So, we need to play their animations in reverse while they are being restored to
+          previous conditions. This means we need to take into account what behaviors they were performing, since most
+          of the animations are triggered by the animgraph or functions like <code>Fire()</code>, the observer will
+          need to know the specific animations played.</p>
+        <div class="media-placeholder" data-label="rewinding animations"></div>
+      </section><!-- /step-2-3 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
 
