@@ -107,22 +107,34 @@
 
       <section class="step reveal" id="step-2-2">
         <h2 class="step-title">Restoring States</h2>
-        <p>Now that we have the agents moving backwards in time spacially, we need to make sure they have their
+        <p>Now that we have the agents moving backwards in time spatially, we need to make sure they have their
           behaviors restored as well. Currently the observer does take into account when they change states, but there
           are many state specific properties that need to be restored. For example, if an agent is travelling from
-          their third patrol point to their fourth and they get rewinded behind the third point, they will need to
+          their third patrol point to their fourth and they get rewound behind the third point, they will need to
           correctly reassign the third patrol point as their movement target.</p>
-        <div class="media-placeholder" data-label="rewind state restoration"></div>
+        <div class="media-placeholder" data-label="rewind state restoration">
+          <video src="../blog media/pass-blog/Rewind_States.mp4" autoplay loop muted playsinline></video>
+        </div>
       </section><!-- /step-2-2 -->
 
       <section class="step reveal" id="step-2-3">
         <h2 class="step-title">Rewinding Animations</h2>
-        <p>Now, we need to address the 'ice skating'. The agents move backwards correctly, but they don't look like
-          they are going in reverse. So, we need to play their animations in reverse while they are being restored to
-          previous conditions. This means we need to take into account what behaviors they were performing, since most
-          of the animations are triggered by the animgraph or functions like <code>Fire()</code>, the observer will
-          need to know the specific animations played.</p>
-        <div class="media-placeholder" data-label="rewinding animations"></div>
+        <div class="two-col">
+          <div class="media-placeholder" data-label="low-quality Stick Studio Pro mockup of agents dragged backwards">
+            <video src="../blog media/pass-blog/Pull_Back_Animation.mp4" autoplay loop muted playsinline></video>
+          </div>
+          <p class="two-col-text">
+            Now, we need to address the 'ice skating'. The agents move backwards correctly, but they don't look like
+            they are going in reverse. So, we need to play their animations in reverse while they are being restored to
+            previous conditions. This means we need to take into account what behaviors they were performing, since most
+            of the animations are triggered by the animgraph or functions like <code>fire()</code>, the observer will
+            need to know the specific animations played.
+            <br><br>
+            However there is a second, much cheaper option. Instead of making it look
+            "realistic", I could lean into the paranatural aspect of this ability and make the bodies look as if they
+            are being dragged backwards through space; by an unseen force. I made a very low-quality animation in Stick
+            Studio Pro to show an example of what I am talking about (the one on the left).</p>
+        </div>
       </section><!-- /step-2-3 -->
     </div><!-- /blog-article -->
   </div><!-- /page -->
