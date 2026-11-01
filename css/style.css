@@ -628,20 +628,16 @@ footer { padding: var(--pad); }
    about.html
    ============================================================ */
 
+/* The photo floats right so the intro wraps beside it, then runs full width below. */
 .about-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
+  display: flow-root;
   padding-bottom: var(--pad);
   border-bottom: 1px solid var(--cream-faint);
 }
 
-.about-hero-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+.about-hero-left .about-title { margin-bottom: 2rem; }
+
+.about-hero-left .btn { margin-top: 2rem; }
 
 .about-title {
   font-size: clamp(3.5rem, 10vw, 8rem);
@@ -670,6 +666,9 @@ footer { padding: var(--pad); }
 }
 
 .about-hero-photo {
+  float: right;
+  width: calc(50% - 2rem);
+  margin: 0 0 2rem 4rem;
   border-radius: 8px;
   overflow: hidden;
   aspect-ratio: 4/7;
@@ -1899,9 +1898,15 @@ body.hide-technical [data-technical]::after {
       flex-direction: row;
    }
 
-  .about-hero { grid-template-columns: 1fr; }
+  /* Stacked: drop the float and keep the photo after the intro like before. */
+  .about-hero-left { display: flex; flex-direction: column; gap: 2rem; }
 
-  .about-hero-photo { max-width: 380px; }
+  .about-hero-left .about-title,
+  .about-hero-left .btn { margin: 0; align-self: flex-start; }
+
+  .about-hero-photo { float: none; width: 100%; margin: 0; max-width: 380px; order: 1; }
+
+  .about-hero-left .btn { order: 2; }
   .about-hero-photo img {
   width: 100%;
   height: 100%;

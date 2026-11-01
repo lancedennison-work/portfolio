@@ -60,22 +60,11 @@
         </a>
       </section><!-- /current-project-section -->
       <div class="section-divider"></div>
-      <!-- ── Past Projects ── -->
+      <!-- ── Team Projects ── -->
       <div class="work-header">
-        <h1 class="work-title">selected projects</h1>
-        <div class="filters" role="group" aria-label="Filter by category">
-          <button class="filter-btn active" data-filter="all">all</button>
-          <button class="filter-btn" data-filter="unity">unity</button>
-          <button class="filter-btn" data-filter="writing">writing</button>
-          <button class="filter-btn" data-filter="game dev">game dev</button>
-          <button class="filter-btn" data-filter="ttrpg">ttrpg</button>
-          <button class="filter-btn" data-filter="solo">solo</button>
-        </div>
+        <h1 class="work-title">team projects</h1>
       </div><!-- /work-header -->
-      <div class="work-meta">
-        <p class="work-count" id="workCount">4 projects</p>
-      </div>
-      <div class="projects-grid" id="projectsGrid">
+      <div class="projects-grid" id="teamGrid">
         <a class="project-card wide" href="./projects/ThroughtheFog.html"
           data-tags="unity writing game dev university">
           <div class="project-img-wrap" style="background-image: url('../assets/images/TtFbanner.gif');"></div>
@@ -89,19 +78,24 @@
             </div>
           </div>
         </a><!-- /ttf -->
-        <a class="project-card" href="./projects/RGBYrunner.html"
-          data-tags="game dev solo javascript">
-          <div class="project-img-wrap" style="background-image: url('../assets/png/RGBYlogo.png');"></div>
-          <div class="project-info">
-            <p class="project-name">RGBY Runner</p>
-            <p class="project-type">JavaScript · Phaser 3 · Endless Runner</p>
-            <div class="project-tags">
-              <span class="tag">game dev</span>
-              <span class="tag">solo</span>
-              <span class="tag">javascript</span>
-            </div>
-          </div>
-        </a><!-- /rgbyrunner -->
+      </div><!-- /teamGrid -->
+      <div class="section-divider"></div>
+      <!-- ── Small Projects ── -->
+      <div class="work-header">
+        <h1 class="work-title">small projects</h1>
+        <div class="filters" role="group" aria-label="Filter by category">
+          <button class="filter-btn active" data-filter="all">all</button>
+          <button class="filter-btn" data-filter="unity">unity</button>
+          <button class="filter-btn" data-filter="writing">writing</button>
+          <button class="filter-btn" data-filter="game dev">game dev</button>
+          <button class="filter-btn" data-filter="ttrpg">ttrpg</button>
+          <button class="filter-btn" data-filter="solo">solo</button>
+        </div>
+      </div><!-- /work-header -->
+      <div class="work-meta">
+        <p class="work-count" id="workCount">3 projects</p>
+      </div>
+      <div class="projects-grid" id="projectsGrid">
         <a class="project-card" href="./projects/TftBdeck.html"
           data-tags="unity ttrpg solo game dev">
           <div class="project-img-wrap" style="background-image: url('../assets/png/skinny.png');"></div>
@@ -128,13 +122,27 @@
             </div>
           </div>
         </a><!-- /classes -->
+        <a class="project-card" href="./projects/RGBYrunner.html"
+          data-tags="game dev solo javascript">
+          <div class="project-img-wrap" style="background-image: url('../assets/png/RGBYlogo.png');"></div>
+          <div class="project-info">
+            <p class="project-name">RGBY Runner</p>
+            <p class="project-type">JavaScript · Phaser 3 · Endless Runner</p>
+            <div class="project-tags">
+              <span class="tag">game dev</span>
+              <span class="tag">solo</span>
+              <span class="tag">javascript</span>
+            </div>
+          </div>
+        </a><!-- /rgbyrunner -->
         <p class="empty-state" id="emptyState">no projects in this category yet.</p>
       </div><!-- /projects-grid -->
     </div>
     <div id="footer-placeholder"></div>
     <script>
       const filterBtns = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('.project-card');
+      const cards = document.querySelectorAll('#projectsGrid .project-card');
+      const allCards = document.querySelectorAll('.project-card');
       const countEl = document.getElementById('workCount');
       const emptyState = document.getElementById('emptyState');
       function applyFilter(filter) {
@@ -169,11 +177,7 @@
           }
         });
       }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-      cards.forEach((card, i) => {
-        card.style.transitionDelay = `${i * 80}ms`;
-        observer.observe(card);
-      });
-      cards.forEach((card, i) => {
+      allCards.forEach((card, i) => {
         card.style.transitionDelay = `${i * 80}ms`;
         observer.observe(card);
       });
