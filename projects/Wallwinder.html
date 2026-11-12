@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallwinder — Lance Dennison</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+    <div class="page">
+      <h1 class="project-title">Wallwinder</h1>
+      <div class="game-player reveal" data-url="https://lancedennison-work.github.io/Wallwinder/docs/" style="--game-bg: #111;">
+        <button class="game-poster" type="button" aria-label="Play Wallwinder here" style="background-image: url('../assets/images/games/wallwinder.jpg');">
+          <span class="game-play-btn">▶ play here</span>
+        </button>
+        <iframe title="Wallwinder" allow="autoplay; fullscreen; gamepad" allowfullscreen hidden></iframe>
+      </div>
+      <div class="project-body">
+        <div class="meta-block reveal">
+          <div><p class="meta-label">status</p><p class="meta-value">Complete</p></div>
+          <div><p class="meta-label">project type</p><p class="meta-value">Solo Dev · One-Button Game</p></div>
+          <div><p class="meta-label">software</p><p class="meta-value">crisp-game-lib</p></div>
+          <div><p class="meta-label">language</p><p class="meta-value">JavaScript</p></div>
+          <div><p class="meta-label">controls</p><p class="meta-value">Hold mouse or touch</p></div>
+          <div class="project-links" style="margin-top: 0;">
+            <a class="proj-link proj-link-primary" href="https://lancedennison-work.github.io/Wallwinder/docs/" target="_blank">Open in new tab ↗</a>
+            <a class="proj-link proj-link-secondary" href="https://github.com/lancedennison-work/Wallwinder" target="_blank">Source ↗</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="description">
+            <p>Wallwinder is a one-button arcade game made with crisp-game-lib. Hold to freeze time: while time is stopped, an aiming bar winds around the ball, and letting go launches the ball in that direction. While time is running, blocks break out of the walls and slide toward the center, and touching anything ends the run.</p>
+            <p>The catch is that your score only goes up while time is moving, so every pause to line up a safe shot costs you points. The bar also spins faster the longer you hold and reverses direction each time, so a long wait makes it harder to aim.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Other projects -->
+      <div class="other-projects reveal">
+        <h2 class="other-heading">other projects</h2>
+        <div class="other-grid">
+          <a class="other-card" href="./ThroughtheFog.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/TtFbanner.gif'); background-size: 450%;"></div>
+            <p class="other-card-name">Through the Fog</p><p class="other-card-type">Unity · Narrative Lead · Steam</p>
+          </a>
+          <a class="other-card" href="./RGBYrunner.html">
+            <div class="other-card-img" style="background-image: url('../assets/png/RGBYlogo.png');"></div>
+            <p class="other-card-name">RGBY Runner</p><p class="other-card-type">JavaScript · Phaser 3 · Solo Dev</p>
+          </a>
+          <a class="other-card" href="./Scrollover.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/games/scrollover.jpg'); background-size: cover;"></div>
+            <p class="other-card-name">Scrollover</p><p class="other-card-type">JavaScript · Phaser 3 · Prototype</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    <script src="../components/game-player.js"></script>
+    <script src="../components/components.js" data-prefix="../"></script>
+  </body>
+</html>

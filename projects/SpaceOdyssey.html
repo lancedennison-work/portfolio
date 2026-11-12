@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greatest Film of All Time: The Game — Lance Dennison</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+    <div class="page">
+      <h1 class="project-title">Greatest Film of All Time: The Game</h1>
+      <div class="game-player reveal" data-url="https://lancedennison-work.github.io/TGFoAT-Space-Odyssey/">
+        <button class="game-poster" type="button" aria-label="Play Greatest Film of All Time: The Game here" style="background-image: url('../assets/images/games/space-odyssey.jpg');">
+          <span class="game-play-btn">▶ play here</span>
+        </button>
+        <iframe title="Greatest Film of All Time: The Game" allow="autoplay; fullscreen; gamepad" allowfullscreen hidden></iframe>
+      </div>
+      <div class="project-body">
+        <div class="meta-block reveal">
+          <div><p class="meta-label">status</p><p class="meta-value">Complete</p></div>
+          <div><p class="meta-label">project type</p><p class="meta-value">Class Project · Solo Dev</p></div>
+          <div><p class="meta-label">software</p><p class="meta-value">Phaser 3</p></div>
+          <div><p class="meta-label">language</p><p class="meta-value">JavaScript</p></div>
+          <div><p class="meta-label">controls</p><p class="meta-value">Arrow keys<br>+ twice to skip a level</p></div>
+          <div class="project-links" style="margin-top: 0;">
+            <a class="proj-link proj-link-primary" href="https://lancedennison-work.github.io/TGFoAT-Space-Odyssey/" target="_blank">Open in new tab ↗</a>
+            <a class="proj-link proj-link-secondary" href="https://github.com/lancedennison-work/TGFoAT-Space-Odyssey" target="_blank">Source ↗</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="description">
+            <p>An arcade adaptation of <em>2001: A Space Odyssey</em> in three stages, each its own scene with its own mechanic and each built around a moment from the film. First, survive the arrival of the Obelisk. Then shut down HAL 9000's memory banks one by one while HAL talks its way through its own shutdown. Finally, steer your escape pod into the beyond while dodging obelisks.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Other projects -->
+      <div class="other-projects reveal">
+        <h2 class="other-heading">other projects</h2>
+        <div class="other-grid">
+          <a class="other-card" href="./ThroughtheFog.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/TtFbanner.gif'); background-size: 450%;"></div>
+            <p class="other-card-name">Through the Fog</p><p class="other-card-type">Unity · Narrative Lead · Steam</p>
+          </a>
+          <a class="other-card" href="./RebelPatrol.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/games/rebel-patrol.jpg'); background-size: cover;"></div>
+            <p class="other-card-name">Rebel Patrol</p><p class="other-card-type">JavaScript · Phaser 3 · Solo Dev</p>
+          </a>
+          <a class="other-card" href="./Wallwinder.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/games/wallwinder.jpg'); background-size: cover;"></div>
+            <p class="other-card-name">Wallwinder</p><p class="other-card-type">JavaScript · crisp-game-lib · Solo Dev</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    <script src="../components/game-player.js"></script>
+    <script src="../components/components.js" data-prefix="../"></script>
+  </body>
+</html>

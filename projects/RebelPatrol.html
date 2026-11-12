@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebel Patrol — Lance Dennison</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+    <div class="page">
+      <h1 class="project-title">Rebel Patrol</h1>
+      <div class="game-player reveal" data-url="https://lancedennison-work.github.io/Rocket-Patrol-Mods/">
+        <button class="game-poster" type="button" aria-label="Play Rebel Patrol here" style="background-image: url('../assets/images/games/rebel-patrol.jpg');">
+          <span class="game-play-btn">▶ play here</span>
+        </button>
+        <iframe title="Rebel Patrol" allow="autoplay; fullscreen; gamepad" allowfullscreen hidden></iframe>
+      </div>
+      <div class="project-body">
+        <div class="meta-block reveal">
+          <div><p class="meta-label">status</p><p class="meta-value">Complete</p></div>
+          <div><p class="meta-label">project type</p><p class="meta-value">Class Project · Solo Dev</p></div>
+          <div><p class="meta-label">software</p><p class="meta-value">Phaser 3</p></div>
+          <div><p class="meta-label">language</p><p class="meta-value">JavaScript</p></div>
+          <div><p class="meta-label">controls</p><p class="meta-value">P1: A / D to move, W to fire<br>P2: ← / → to move, ↑ to fire</p></div>
+          <div class="project-links" style="margin-top: 0;">
+            <a class="proj-link proj-link-primary" href="https://lancedennison-work.github.io/Rocket-Patrol-Mods/" target="_blank">Open in new tab ↗</a>
+            <a class="proj-link proj-link-secondary" href="https://github.com/lancedennison-work/Rocket-Patrol-Mods" target="_blank">Source ↗</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="description">
+            <p>Rebel Patrol is my mod of <em>Rocket Patrol</em>, the starter Phaser game from UCSC's CMPM 120, turned into a Star Wars themed two-player shooter. Both players share one keyboard and race to shoot down rebel ships before the clock runs out. Every hit adds time back to the clock, and the Millennium Falcon is a faster target worth more points.</p>
+            <p>Past the assignment's mod list, I made the rockets steerable after they're fired: the angle drives the velocity through sine and cosine, and rockets speed up the longer they fly. Fly a full loop before you hit a ship and your next score is doubled, stacking with every extra loop until you score or miss. I also redid the art with new ship sprites, an animated rocket, a parallax starfield, a new explosion, and small UI pops for added time and points.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Other projects -->
+      <div class="other-projects reveal">
+        <h2 class="other-heading">other projects</h2>
+        <div class="other-grid">
+          <a class="other-card" href="./ThroughtheFog.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/TtFbanner.gif'); background-size: 450%;"></div>
+            <p class="other-card-name">Through the Fog</p><p class="other-card-type">Unity · Narrative Lead · Steam</p>
+          </a>
+          <a class="other-card" href="./RGBYrunner.html">
+            <div class="other-card-img" style="background-image: url('../assets/png/RGBYlogo.png');"></div>
+            <p class="other-card-name">RGBY Runner</p><p class="other-card-type">JavaScript · Phaser 3 · Solo Dev</p>
+          </a>
+          <a class="other-card" href="./SpaceOdyssey.html">
+            <div class="other-card-img" style="background-image: url('../assets/images/games/space-odyssey.jpg'); background-size: cover;"></div>
+            <p class="other-card-name">Greatest Film of All Time: The Game</p><p class="other-card-type">JavaScript · Phaser 3 · Solo Dev</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    <script src="../components/game-player.js"></script>
+    <script src="../components/components.js" data-prefix="../"></script>
+  </body>
+</html>
